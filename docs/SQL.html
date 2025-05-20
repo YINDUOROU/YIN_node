@@ -1,0 +1,916 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>尹さん的SQL全栈笔记大总结</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1f88d968-54a6-8030-b6ce-c881c900d54a" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/webb1.jpg" style="object-position:center 50%"/><h1 class="page-title">尹さん的SQL全栈笔记大总结</h1><p class="page-description"></p></header><div class="page-body"><hr id="1f88d968-54a6-800a-8219-ea85502bf3d2"/><h3 id="1f88d968-54a6-808f-8e12-faa71825bd66" class="">第一章：数据定义语言（DDL）</h3><h3 id="1f88d968-54a6-80aa-b0cd-eafea6bc8841" class="">1.1 创建数据库</h3><table id="1f88d968-54a6-8048-97b2-cd7bc79e3e1c" class="simple-table"><tbody><tr id="1f88d968-54a6-80ed-965c-fc6bedba2458"><td id="?aUH" class="" style="width:93.00000381469727px">语法元素</td><td id="ICIN" class="">MySQL</td><td id="G=cY" class="">Oracle</td><td id="`a|m" class="">PostgreSQL</td><td id="x@`t" class="">SQL Server</td></tr><tr id="1f88d968-54a6-801b-bb6c-d0811d22d745"><td id="?aUH" class="" style="width:93.00000381469727px">创建数据库</td><td id="ICIN" class=""><code>CREATE DATABASE dbname;</code></td><td id="G=cY" class="">不推荐开发者创建数据库，通常由DBA预建schema</td><td id="`a|m" class=""><code>CREATE DATABASE dbname;</code></td><td id="x@`t" class=""><code>CREATE DATABASE dbname;</code></td></tr><tr id="1f88d968-54a6-8016-b153-cfa3685bcc03"><td id="?aUH" class="" style="width:93.00000381469727px">选择数据库</td><td id="ICIN" class=""><code>USE dbname;</code></td><td id="G=cY" class=""><code>ALTER SESSION SET CURRENT_SCHEMA = schema_name;</code></td><td id="`a|m" class=""><code>\c dbname</code></td><td id="x@`t" class=""><code>USE dbname;</code></td></tr></tbody></table><p id="1f98d968-54a6-8036-a2f0-dc58ffa54424" class=""><code>SCHEMA:架构</code></p><h3 id="1f88d968-54a6-80c0-ae22-ee007b050827" class="">1.2 创建数据表</h3><p id="1f88d968-54a6-80eb-802a-f656bfa85f2a" class="">通用语法：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f88d968-54a6-8078-a86d-fbff75cf556a" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">CREATE TABLE student (
+  id INT PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,
+  age INT DEFAULT 18,
+  create_time DATE
+);
+</code></pre><table id="1f88d968-54a6-8084-ba4e-cd27c194e4c1" class="simple-table"><tbody><tr id="1f88d968-54a6-801a-a639-e53ed8d17a78"><td id="^Eg&lt;" class="">差异点</td><td id="zt|F" class="">MySQL</td><td id=":Ym?" class="">Oracle</td><td id="sCn]" class="">PostgreSQL</td><td id="a[\H" class="">SQL Server</td></tr><tr id="1f88d968-54a6-80dc-bfbe-d7da1df819ed"><td id="^Eg&lt;" class="">字符类型</td><td id="zt|F" class=""><code>VARCHAR</code></td><td id=":Ym?" class=""><code>VARCHAR2</code></td><td id="sCn]" class=""><code>VARCHAR</code></td><td id="a[\H" class=""><code>VARCHAR</code></td></tr><tr id="1f88d968-54a6-8093-8416-e7e4025e6d5d"><td id="^Eg&lt;" class="">自增主键</td><td id="zt|F" class=""><code>AUTO_INCREMENT</code></td><td id=":Ym?" class=""><code>GENERATED BY DEFAULT AS IDENTITY  或使用</code><code><strong>序列</strong></code><strong>   </strong></td><td id="sCn]" class=""><code>SERIAL（serial）</code></td><td id="a[\H" class=""><code>IDENTITY(1,1)以1为起始且递增1</code></td></tr><tr id="1f98d968-54a6-8052-a15f-edccd2661bea"><td id="^Eg&lt;" class=""></td><td id="zt|F" class=""></td><td id=":Ym?" class=""><mark class="highlight-purple">Oracle下方单独讲</mark></td><td id="sCn]" class=""></td><td id="a[\H" class=""></td></tr><tr id="1f98d968-54a6-8021-983c-d7ab179baf97"><td id="^Eg&lt;" class=""></td><td id="zt|F" class=""><code>INCREMENT：递增；增量</code></td><td id=":Ym?" class=""><code>GENERATED :生成的，产生 [ˈdʒenəreɪtɪd] </code></td><td id="sCn]" class=""><code>SERIAL：连续，序列 </code>   <code> [ˈsɪəriəl]</code> </td><td id="a[\H" class=""><code>IDENTITY：身份本体；特征，个性 [aɪˈdentəti]</code></td></tr></tbody></table><hr id="1f88d968-54a6-806a-902d-f07bebfa182d"/><h3 id="1f88d968-54a6-80c6-9f05-c84c6a8edc11" class="">Oracle 中的自增主键实现方式说明：</h3><p id="1f88d968-54a6-80cf-afc1-db6602f66576" class=""><strong>方式一：使用 IDENTITY（Oracle 12c 及以上）</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f88d968-54a6-802d-a3ac-c209cd15c17f" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">CREATE TABLE student (
+  id NUMBER GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+  name VARCHAR2(50)
+);</code></pre><ul id="1f88d968-54a6-803e-9c5c-cf15babe2d17" class="bulleted-list"><li style="list-style-type:disc"><code>GENERATED ALWAYS AS IDENTITY</code>：系统始终自动生成，不能手动插入主键值。</li></ul><ul id="1f88d968-54a6-80a9-ab3b-f33b39ee38e4" class="bulleted-list"><li style="list-style-type:disc"><code>GENERATED BY DEFAULT AS IDENTITY</code>：默认自动生成，也允许手动插入。</li></ul><p id="1f88d968-54a6-80d9-83ab-c2625f76f501" class=""><strong>方式二：使用序列 + 触发器（Oracle 11g 及以下）</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f88d968-54a6-8086-82b3-c443906019f3" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">-- 创建序列
+CREATE SEQUENCE student_seq
+  MINVALUE 1
+  START WITH 1
+  INCREMENT BY 1
+  NOCACHE/(CACHE 10);
+  -- 创建名为 seq_person 的序列对象，它以 1 起始且以 1 递增。该对象缓存 10 个值以提高性能。CACHE 选项规定了为了提高访问速度要存储多少个序列值。
+
+-- 创建表
+CREATE TABLE student (
+  id NUMBER PRIMARY KEY,
+  name VARCHAR2(50)
+);
+
+-- 创建触发器，在插入时自动赋值(顺便复习PLSQL知识)
+CREATE OR REPLACE TRIGGER trg_student_id
+BEFORE INSERT ON student
+FOR EACH ROW
+BEGIN
+  SELECT student_seq.NEXTVAL INTO :NEW.id FROM dual;
+END; --必须使用 nextval 函数</code></pre><table id="1f88d968-54a6-805d-8157-e3e4a1bec2c1" class="simple-table"><tbody><tr id="1f88d968-54a6-8082-a2e4-eae7427056a4"><td id="bH[B" class="">对比维度</td><td id="UmYs" class="">IDENTITY</td><td id=";x:S" class="">序列 + 触发器</td></tr><tr id="1f88d968-54a6-80e8-90fa-d708d234895b"><td id="bH[B" class="">简洁性</td><td id="UmYs" class="">✅ 简洁</td><td id=";x:S" class="">❌ 复杂</td></tr><tr id="1f88d968-54a6-8076-b276-f8e6c9005d8e"><td id="bH[B" class="">灵活性</td><td id="UmYs" class="">一般</td><td id=";x:S" class="">✅ 自定义程度高</td></tr><tr id="1f88d968-54a6-8048-b2ee-eaf96d531e18"><td id="bH[B" class="">支持版本</td><td id="UmYs" class="">Oracle 12c+</td><td id=";x:S" class="">所有版本</td></tr><tr id="1f88d968-54a6-80a8-8735-ff55acde1759"><td id="bH[B" class="">推荐场景</td><td id="UmYs" class="">现代开发</td><td id=";x:S" class="">老项目兼容、复杂逻辑</td></tr></tbody></table><h3 id="1f98d968-54a6-803a-8810-cd73807a034d" class="">🔐 常用6种约束（Constraints）概览</h3><table id="1f98d968-54a6-8020-9e0f-fc35ef7e9acd" class="simple-table"><tbody><tr id="1f98d968-54a6-8017-abae-c72f1b442850"><td id="xoXE" class="">约束类型</td><td id="sZjP" class="">关键字</td><td id="oA`o" class="">说明与作用</td><td id="N&lt;Rq" class="">示例</td></tr><tr id="1f98d968-54a6-807f-9763-f5bfa2fc15e6"><td id="xoXE" class="">主键约束</td><td id="sZjP" class=""><code>PRIMARY KEY</code></td><td id="oA`o" class="">唯一标识记录，不可为空，一个表仅限一个主键字段</td><td id="N&lt;Rq" class=""><code>id INT PRIMARY KEY</code></td></tr><tr id="1f98d968-54a6-80d1-9cc6-e5f0d53262f0"><td id="xoXE" class="">唯一约束</td><td id="sZjP" class=""><code>UNIQUE</code></td><td id="oA`o" class="">字段值唯一，但允许为空值</td><td id="N&lt;Rq" class=""><code>email VARCHAR(100) UNIQUE</code></td></tr><tr id="1f98d968-54a6-805b-8737-faf242244dfa"><td id="xoXE" class="">非空约束</td><td id="sZjP" class=""><code>NOT NULL</code></td><td id="oA`o" class="">不允许为 NULL，确保字段有值</td><td id="N&lt;Rq" class=""><code>name VARCHAR(50) NOT NULL</code></td></tr><tr id="1f98d968-54a6-8048-9dae-f85a3e590a65"><td id="xoXE" class="">默认值约束</td><td id="sZjP" class=""><code>DEFAULT</code></td><td id="oA`o" class="">设置字段默认值</td><td id="N&lt;Rq" class=""><code>age INT DEFAULT 18</code></td></tr><tr id="1f98d968-54a6-803f-9020-f331c21e1097"><td id="xoXE" class="">外键约束</td><td id="sZjP" class=""><code>FOREIGN KEY</code></td><td id="oA`o" class="">建立表间依赖关系，引用另一张表的主键</td><td id="N&lt;Rq" class=""><code>FOREIGN KEY (dept_id) REFERENCES department(id)</code></td></tr><tr id="1f98d968-54a6-8066-9d82-d43d918a02c0"><td id="xoXE" class="">检查约束</td><td id="sZjP" class=""><code>CHECK</code></td><td id="oA`o" class="">限制字段值的合法范围（如范围、格式等）</td><td id="N&lt;Rq" class=""><code>CHECK (age &gt;= 0 AND age &lt;= 150)</code></td></tr></tbody></table><p id="1f98d968-54a6-805d-bca2-c727faf8f7a6" class="">
+</p><h3 id="1f98d968-54a6-807d-8008-ed9768c82fad" class="">📐<strong> ALTER TABLE </strong>总结（含多数据库对比）</h3><p id="1f98d968-54a6-8042-82da-cd0c7a7539b8" class=""><code>ALTER TABLE</code> 是用于修改表结构的语句，常用于添加列、删除列、修改字段类型或名称等。不同数据库之间语法有差异：</p><table id="1f98d968-54a6-8070-b9f8-c1423e46ce6a" class="simple-table"><tbody><tr id="1f98d968-54a6-809f-ae1b-e4f1fa308a6e"><td id="^=NU" class="block-color-blue_background" style="width:94.00000762939453px">操作类型</td><td id="e];m" class="block-color-blue_background">MySQL 示例</td><td id="j{&gt;R" class="block-color-blue_background">Oracle 示例</td><td id="EWw|" class="block-color-blue_background">PostgreSQL 示例</td><td id="IkQs" class="block-color-blue_background">SQL Server 示例</td></tr><tr id="1f98d968-54a6-8093-91a8-f100fffb8c33"><td id="^=NU" class="block-color-blue_background" style="width:94.00000762939453px">添加列</td><td id="e];m" class=""><code>ALTER TABLE student ADD email VARCHAR(100);</code></td><td id="j{&gt;R" class="">同左</td><td id="EWw|" class="">同左</td><td id="IkQs" class="">同左</td></tr><tr id="1f98d968-54a6-8084-beed-ec5af8b8319c"><td id="^=NU" class="block-color-blue_background" style="width:94.00000762939453px">删除列</td><td id="e];m" class=""><code>ALTER TABLE student DROP COLUMN email;</code></td><td id="j{&gt;R" class="">同左</td><td id="EWw|" class="">同左</td><td id="IkQs" class="">同左</td></tr><tr id="1f98d968-54a6-8055-9f9c-f23149acab2e"><td id="^=NU" class="block-color-blue_background" style="width:94.00000762939453px">修改列类型</td><td id="e];m" class=""><code>ALTER TABLE student MODIFY age SMALLINT;</code></td><td id="j{&gt;R" class=""><code>MODIFY</code> 或 <code>ALTER COLUMN</code>（版本相关）</td><td id="EWw|" class=""><code>ALTER TABLE student ALTER COLUMN age </code><mark class="highlight-purple"><code>TYPE</code></mark><code> INT;</code></td><td id="IkQs" class=""><code>ALTER TABLE student ALTER COLUMN age INT;</code></td></tr><tr id="1f98d968-54a6-807a-8354-ce3c8017099d"><td id="^=NU" class="block-color-blue_background" style="width:94.00000762939453px">修改列名</td><td id="e];m" class=""><code>ALTER TABLE student CHANGE name full_name VARCHAR(50);</code></td><td id="j{&gt;R" class=""><code>ALTER TABLE student RENAME COLUMN name TO full_name;</code></td><td id="EWw|" class="">同 Oracle</td><td id="IkQs" class=""><code>EXEC sp_rename &#x27;student.name&#x27;, &#x27;full_name&#x27;, &#x27;COLUMN&#x27;;</code></td></tr><tr id="1f98d968-54a6-8043-a23d-d891b891e606"><td id="^=NU" class="block-color-blue_background" style="width:94.00000762939453px">重命名表</td><td id="e];m" class=""><code>RENAME TABLE student TO student_new;</code></td><td id="j{&gt;R" class=""><code>ALTER TABLE student RENAME TO student_new;</code></td><td id="EWw|" class="">同 Oracle</td><td id="IkQs" class=""><code>EXEC sp_rename &#x27;student&#x27;, &#x27;student_new&#x27;;</code></td></tr></tbody></table><p id="1f98d968-54a6-80b3-8164-f5ff1f7cc478" class="">📌 <strong>说明：</strong></p><ul id="1f98d968-54a6-807f-9553-e36a2c2df47a" class="bulleted-list"><li style="list-style-type:disc">✅ MySQL 使用 <code>MODIFY</code> 修改类型，<code>CHANGE</code> 同时修改字段名与类型。</li></ul><ul id="1f98d968-54a6-805f-a878-d1eccd337b8d" class="bulleted-list"><li style="list-style-type:disc">✅ Oracle 和 PostgreSQL 更接近标准 SQL，使用 <code>ALTER COLUMN</code> 和 <code>RENAME COLUMN</code>。</li></ul><ul id="1f98d968-54a6-800b-ae85-ed1d66b9ee6c" class="bulleted-list"><li style="list-style-type:disc">✅ SQL Server 使用存储过程 <code>sp_rename</code> 修改字段名或表名。</li></ul><p id="1f98d968-54a6-80b4-b8d0-fabe7f8c1f29" class="">
+</p><p id="1f98d968-54a6-8000-84b8-cbc9d823f3f8" class="">
+</p><h3 id="1f88d968-54a6-805b-a3da-d072439ca82e" class="">第二章：数据操作语言（DML）</h3><h3 id="1f88d968-54a6-806c-8fe8-f45f2a5764c6" class="">2.1 插入数据</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f88d968-54a6-80d1-a73a-e580fdbbd9d8" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">INSERT INTO student (id, name, age) VALUES (1, &#x27;张三&#x27;, 20);
+</code></pre><h3 id="1f88d968-54a6-80e0-b1f6-f51de776a7c9" class="">2.2 更新数据</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f88d968-54a6-80b0-b9db-d05efe5e3f76" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">UPDATE student SET age = 21 WHERE id = 1;</code></pre><h3 id="1f88d968-54a6-80a9-8605-c767ab604b24" class="">2.3 删除数据</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f88d968-54a6-80bb-8c9a-e9795e9b5079" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">DELETE FROM student WHERE id = 1;  -- 删除指定数据行
+TRUNCATE TABLE student;   -- 快速清空整张表（不可回滚）
+补充：
+DELETE FROM student
+TRUNCATE TABLE student
+两个都是清空表数据，保留表结构
+
+DROP table student 直接删除什么都不留
+
+🚨 注意：TRUNCATE 是DDL操作，不建议在事务中使用；而 DELETE 是DML，适用于有细粒度控制的删除操作。</code></pre><table id="1f88d968-54a6-8000-a807-c9ad60e6ef8f" class="simple-table"><tbody><tr id="1f88d968-54a6-804c-8b2c-c2f0c4457aae"><td id="?Oua" class="">操作</td><td id="~qEX" class="">MySQL</td><td id="Y\Rf" class="">Oracle</td><td id="o:Uy" class="">PostgreSQL</td><td id="&lt;|YV" class="">SQL Server</td></tr><tr id="1f88d968-54a6-802d-b4e1-e8e24d323085"><td id="?Oua" class="">插入返回ID</td><td id="~qEX" class=""><code>LAST_INSERT_ID()</code></td><td id="Y\Rf" class=""><code>RETURNING INTO</code></td><td id="o:Uy" class=""><code>RETURNING id;</code></td><td id="&lt;|YV" class=""><code>SCOPE_IDENTITY()</code></td></tr><tr id="1f88d968-54a6-802a-b365-da45f56b5396"><td id="?Oua" class="">清空表</td><td id="~qEX" class=""><code>TRUNCATE TABLE</code></td><td id="Y\Rf" class="">同</td><td id="o:Uy" class="">同</td><td id="&lt;|YV" class="">同</td></tr></tbody></table><hr id="1f88d968-54a6-80ee-9532-ec5425bc6ed0"/><h3 id="1f88d968-54a6-8040-ba8a-e2c11f183353" class="">第三章：查询语言（SELECT）</h3><h3 id="1f88d968-54a6-8076-a1a7-f1b6151e48f6" class="">3.1 条件、排序、分组</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f88d968-54a6-80b3-9596-ece046b95347" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">SELECT name FROM student WHERE age &gt; 18 ORDER BY age DESC;
+SELECT gender, COUNT(*) FROM student GROUP BY gender;
+
+--DESC 倒序
+--ASC 正序</code></pre><h3 id="1f88d968-54a6-800a-8ae7-d541bc60dec1" class="">3.2 分页写法</h3><p id="1f88d968-54a6-80a2-b41b-e9483aabcff9" class="">分页（Pagination）是数据查询中常见需求，尤其适用于列表展示和后端分页接口的实现。不同数据库提供的分页语法存在差异，以下是详细对比与示例：</p><table id="1f88d968-54a6-80d5-ac1b-c660ba4ee50e" class="simple-table"><tbody><tr id="1f88d968-54a6-80af-aaec-ccf59119a2fb"><td id="ySOj" class="" style="width:95.00000762939453px">数据库</td><td id="uPg}" class="" style="width:572.0000152587891px">分页语法</td></tr><tr id="1f88d968-54a6-8066-8828-f581f925558e"><td id="ySOj" class="" style="width:95.00000762939453px"><strong>MySQL</strong></td><td id="uPg}" class="" style="width:572.0000152587891px"><code>SELECT * FROM student ORDER BY id LIMIT 10 OFFSET 20;</code>表示跳过前20条，取10条记录。</td></tr><tr id="1f88d968-54a6-80c6-8e38-d9c728c99d6b"><td id="ySOj" class="" style="width:95.00000762939453px"><strong>PostgreSQL</strong></td><td id="uPg}" class="" style="width:572.0000152587891px">同 MySQL，支持 <code>LIMIT</code> 与 <code>OFFSET</code>。</td></tr><tr id="1f88d968-54a6-801b-b3bd-d2493e4c5b14"><td id="ySOj" class="" style="width:95.00000762939453px"><strong>Oracle 12c+</strong></td><td id="uPg}" class="" style="width:572.0000152587891px"><code>SELECT * FROM student ORDER BY id OFFSET 20 ROWS FETCH NEXT 10 ROWS ONLY;</code>标准SQL写法。</td></tr><tr id="1f88d968-54a6-80cd-bdab-f75d9b391298"><td id="ySOj" class="" style="width:95.00000762939453px"><strong>Oracle 11g-</strong></td><td id="uPg}" class="" style="width:572.0000152587891px">使用 <code>ROWNUM</code> 实现：<code>SELECT * FROM (SELECT t.*, ROWNUM rn FROM student t WHERE ROWNUM &lt;= 30) WHERE rn &gt; 20;</code></td></tr><tr id="1f88d968-54a6-8054-9ef4-dd7531ed0129"><td id="ySOj" class="" style="width:95.00000762939453px"><strong>SQL Server 2012+</strong></td><td id="uPg}" class="" style="width:572.0000152587891px"><code>SELECT * FROM student ORDER BY id OFFSET 20 ROWS FETCH NEXT 10 ROWS ONLY;</code></td></tr><tr id="1f88d968-54a6-800c-8c5a-dd7cba9334a2"><td id="ySOj" class="" style="width:95.00000762939453px"><strong>SQL Server 2008-</strong></td><td id="uPg}" class="" style="width:572.0000152587891px">使用 <code>ROW_NUMBER()</code> 函数子查询：<code>SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY id) AS rn FROM student) AS t WHERE rn BETWEEN 21 AND 30;</code></td></tr></tbody></table><p id="1f88d968-54a6-8043-9e6f-ea776950f67b" class="">📌 <strong>补充说明：</strong></p><ul id="1f88d968-54a6-8033-a3f9-ecffe74f9d5f" class="bulleted-list"><li style="list-style-type:disc">分页语句必须搭配 <code>ORDER BY</code> 使用，以确保结果有序。</li></ul><ul id="1f88d968-54a6-800c-a303-c56d2d9a3fee" class="bulleted-list"><li style="list-style-type:disc"><code>OFFSET</code> 表示“跳过前 n 条”；<code>FETCH NEXT</code> 表示“接着取 n 条”。</li></ul><ul id="1f88d968-54a6-8011-bf9c-c6c793b8354c" class="bulleted-list"><li style="list-style-type:disc">对于大数据分页，应结合索引、游标、或基于主键的“键值分页”（keyset pagination）优化性能。</li></ul><p id="1f88d968-54a6-80de-a90a-e04cebd20fe8" class="">
+</p><p id="1f88d968-54a6-80d0-8e9c-ebf9d7deb103" class=""><strong>举个栗子!!!</strong></p><h3 id="1f88d968-54a6-80d0-b90a-cdbe63dee4fa" class="">🎯 示例：MySQL 分页接口返回第3页数据（每页10条）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f88d968-54a6-802a-aa06-d95c7f8f6c9b" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">SELECT id, name, age
+FROM student
+ORDER BY id
+LIMIT 10 OFFSET 20;
+-- 等价于：取第3页数据（(3-1)*10 = 20条后开始）</code></pre><h3 id="1f88d968-54a6-806e-a167-f6f030884244" class="">🎯 示例：Oracle 12c+ 分页（标准写法）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f88d968-54a6-805a-9149-c88142c955e8" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">SELECT id, name, age
+FROM student
+ORDER BY id
+OFFSET 20 ROWS FETCH NEXT 10 ROWS ONLY;</code></pre><h3 id="1f88d968-54a6-809f-b022-da48ff7f2519" class="">🎯 示例：SQL Server 2008 以前（ROW_NUMBER）实现分页</h3><p id="1f88d968-54a6-8071-8f3f-d1f55806f443" class="">📌 提示：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f88d968-54a6-8037-959b-e1976bd20b63" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">SELECT * FROM (
+  SELECT id, name, age,
+         ROW_NUMBER() OVER (ORDER BY id) AS rn
+  FROM student
+) AS sub
+WHERE rn BETWEEN 21 AND 30;</code></pre><ul id="1f88d968-54a6-8016-b871-f0df80028d39" class="bulleted-list"><li style="list-style-type:disc">在高并发系统中，建议使用“基于主键的分页”（Keyset Pagination），避免 OFFSET 带来的性能瓶颈。</li></ul><ul id="1f88d968-54a6-809d-bc24-df9e211c6f7c" class="bulleted-list"><li style="list-style-type:disc">所有分页语句应当明确使用 <code>ORDER BY</code> 保证数据顺序一致性。</li></ul><p id="1f98d968-54a6-8034-9ec6-f781eedcbb19" class="">
+</p><h2 id="1f98d968-54a6-80cb-8333-c8c0944c3bd8" class="">🔎 SQL 条件与修饰操作语法速查</h2><table id="1f98d968-54a6-8026-b3a4-d9bc929d8118" class="simple-table"><tbody><tr id="1f98d968-54a6-80b9-9ca5-c920904ea8dd"><td id="LyTC" class="">名称</td><td id="EBx_" class="">作用</td><td id="znWp" class="">示例</td><td id="Okby" class="">说明</td><td id="Qpim" class="">数据库支持</td></tr><tr id="1f98d968-54a6-808b-bd0a-cbf83d2d42c5"><td id="LyTC" class=""><strong>TOP</strong></td><td id="EBx_" class="">返回前 N 条记录（SQL Server 专用）</td><td id="znWp" class=""><code>SELECT TOP 5 * FROM student;</code></td><td id="Okby" class="">类似 LIMIT，但仅限 SQL Server</td><td id="Qpim" class="">✅ SQL Server</td></tr><tr id="1f98d968-54a6-80d8-9f59-eddc22cfac12"><td id="LyTC" class=""><strong>LIMIT</strong></td><td id="EBx_" class="">返回指定条数 + 偏移（MySQL/PG）</td><td id="znWp" class=""><code>LIMIT 10 OFFSET 5</code>   </td><td id="Okby" class="">MySQL / PostgreSQL 专用语法</td><td id="Qpim" class="">✅ MySQL, PG</td></tr><tr id="1f98d968-54a6-80b8-8cdb-cc8d479de4ac"><td id="LyTC" class=""><strong>LIKE</strong></td><td id="EBx_" class="">模糊查询</td><td id="znWp" class=""><code>WHERE name LIKE &#x27;张%&#x27;</code></td><td id="Okby" class=""><code>%</code> 表示任意多个字符，<code>_</code> 表示单个字符</td><td id="Qpim" class="">✅ 全支持</td></tr><tr id="1f98d968-54a6-8010-b69b-e1fd622a2d52"><td id="LyTC" class=""><strong>通配符（Wildcard）</strong></td><td id="EBx_" class="">LIKE 的配套符号 <code>%</code> <code>_</code></td><td id="znWp" class=""><code>LIKE &#x27;A_%&#x27;</code> → A开头3位</td><td id="Okby" class="">用于模糊匹配，区分大小写视DB设置</td><td id="Qpim" class="">✅ 全支持</td></tr><tr id="1f98d968-54a6-805e-af6d-ecc87bc986d0"><td id="LyTC" class=""><strong>IN</strong></td><td id="EBx_" class="">多选匹配</td><td id="znWp" class=""><code>WHERE city IN (&#x27;北京&#x27;, &#x27;东京&#x27;)</code></td><td id="Okby" class="">等同于多个 OR</td><td id="Qpim" class="">✅ 全支持</td></tr><tr id="1f98d968-54a6-804e-9f82-f7a2ae6a1805"><td id="LyTC" class=""><strong>BETWEEN</strong></td><td id="EBx_" class="">范围查询</td><td id="znWp" class=""><code>WHERE age BETWEEN 18 AND 30</code></td><td id="Okby" class="">包含上下限（闭区间）</td><td id="Qpim" class="">✅ 全支持</td></tr><tr id="1f98d968-54a6-80b6-a0f5-de337c30a8e1"><td id="LyTC" class=""><strong>AS（别名）</strong></td><td id="EBx_" class="">字段或表临时命名</td><td id="znWp" class=""><code>SELECT name AS 姓名 FROM student</code></td><td id="Okby" class="">可提高结果可读性</td><td id="Qpim" class="">✅ 全支持</td></tr></tbody></table><hr id="1f98d968-54a6-80a7-bafc-ea06027d538a"/><p id="1f98d968-54a6-80fe-ae25-e18b0b922b0e" class="">📌 <strong>兼容性提示</strong>：</p><ul id="1f98d968-54a6-80a2-b33f-c90d42798926" class="bulleted-list"><li style="list-style-type:disc"><code>TOP</code> 仅用于 SQL Server ， MySQL/PostgreSQL 使用 <code>LIMIT</code>。</li></ul><ul id="1f98d968-54a6-80f6-b4d5-d9c3988bf777" class="bulleted-list"><li style="list-style-type:disc">Oracle 需用 <code>ROWNUM</code> 或 <code>FETCH FIRST N ROWS ONLY</code> 实现分页或前N条。</li></ul><ul id="1f98d968-54a6-80fe-800c-c546361563e5" class="bulleted-list"><li style="list-style-type:disc">LIKE 匹配在不同数据库中对大小写敏感性不同，需留意 <code>COLLATE</code> 设置或使用 <code>ILIKE</code>（PostgreSQL）。</li></ul><p id="1f98d968-54a6-8066-b1e9-f63daf783fc4" class="">
+</p><hr id="1f88d968-54a6-80df-9975-f990b6f545dd"/><h3 id="1f88d968-54a6-8018-9f64-c290f648dd1c" class="">第四章：连接与子查询</h3><h3 id="1f98d968-54a6-80b0-80c3-caafcb741e86" class="">4.1 多表连接</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f98d968-54a6-8019-9f97-c3010a4ad03d" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">SELECT s.name, c.name
+FROM student s
+JOIN course c ON s.id = c.student_id;</code></pre><table id="1f98d968-54a6-806c-bd35-ee5b3e52eabb" class="simple-table"><tbody><tr id="1f98d968-54a6-809b-92d2-e9578b60e909"><td id="]rbT" class="">类型</td><td id="wE&lt;T" class="">是否支持</td><td id="zI^a" class="">注意事项</td></tr><tr id="1f98d968-54a6-8051-91be-ca1f38bd4c6a"><td id="]rbT" class="">INNER JOIN</td><td id="wE&lt;T" class="">✅ 全支持</td><td id="zI^a" class="">无差异</td></tr><tr id="1f98d968-54a6-80ad-9899-f7e3b9bea926"><td id="]rbT" class="">LEFT / RIGHT JOIN</td><td id="wE&lt;T" class="">✅ 全支持</td><td id="zI^a" class="">Oracle 老版本可使用 <code>(+)</code> 符号</td></tr><tr id="1f98d968-54a6-801f-9673-f634b03825c0"><td id="]rbT" class="">FULL JOIN</td><td id="wE&lt;T" class="">❌ MySQL不支持</td><td id="zI^a" class="">用 <code>UNION</code> 替代</td></tr></tbody></table><h3 id="1f98d968-54a6-80c2-90a8-ef94989dc355" class="">4.2 子查询与CTE</h3><p id="1f98d968-54a6-8034-bc0f-db26da0a03ee" class=""><strong>子查询（Subquery）</strong> 是嵌套在另一个查询语句中的 SELECT 查询，用于中间计算、条件过滤、表格生成等。</p><p id="1f98d968-54a6-80c4-8f7a-e74058c0ee0d" class=""><strong>CTE（Common Table Expression，共通表表达式）</strong> 是 SQL 中用于提升查询可读性、结构清晰度的语法结构，通常使用 <code>WITH</code> 语句开头。</p><p id="1f98d968-54a6-8003-8073-d62975cad717" class="">CTE 类似于一个临时结果集，可以像表一样多次引用，特别适合递归查询、分步骤构建复杂逻辑。</p><h3 id="1f98d968-54a6-80eb-808f-f76bf2a3aec2" class="">🔹 基本语法：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f98d968-54a6-80ba-b1b4-f4aa47b7fafe" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">WITH 临时表名 AS (
+  SELECT ...
+)
+SELECT * FROM 临时表名;</code></pre><h3 id="1f98d968-54a6-8031-bc31-cbc17e98fb26" class="">🔹 示例：查询成绩大于 90 分的学生</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f98d968-54a6-8009-8f93-ea08de24d046" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">WITH top_students AS (
+  SELECT id, name, score FROM student WHERE score &gt; 90
+)
+SELECT name FROM top_students;</code></pre><h3 id="1f98d968-54a6-80c3-86b8-f948215261b2" class="">🔹 多个 CTE（层叠定义）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f98d968-54a6-8041-8a8a-d558161970d0" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">WITH t1 AS (
+  SELECT ...
+),
+     t2 AS (
+  SELECT ... FROM t1
+)
+SELECT * FROM t2;</code></pre><h3 id="1f98d968-54a6-808a-8c7c-e156424aebca" class="">🔹 递归 CTE（如：查询员工上下级结构）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f98d968-54a6-8087-b7c1-db59623c26d0" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">WITH RECURSIVE org_tree AS (
+  SELECT id, name, manager_id FROM employee WHERE manager_id IS NULL
+  UNION ALL
+  SELECT e.id, e.name, e.manager_id
+  FROM employee e
+  INNER JOIN org_tree ot ON e.manager_id = ot.id
+)
+SELECT * FROM org_tree;</code></pre><p id="1f98d968-54a6-8023-8724-fad5355b8982" class="">📌 <strong>CTE 特点与优势</strong>：</p><ul id="1f98d968-54a6-802f-b08c-d55aba5b16b3" class="bulleted-list"><li style="list-style-type:disc">提高 SQL 可读性，减少重复子查询</li></ul><ul id="1f98d968-54a6-80e7-ab0e-ff9b4b4145ad" class="bulleted-list"><li style="list-style-type:disc">支持递归查询（递归 CTE）</li></ul><ul id="1f98d968-54a6-80df-bbc3-e4f5b8d0bc19" class="bulleted-list"><li style="list-style-type:disc">可联结、聚合、排序、分页等操作</li></ul><ul id="1f98d968-54a6-80bb-9b1d-dd22f6e8d661" class="bulleted-list"><li style="list-style-type:disc">可被多个查询语句重用</li></ul><p id="1f98d968-54a6-800f-a5a8-c724eb8551a0" class="">
+</p><blockquote id="1f98d968-54a6-80bc-b6ba-eaf0877cf576" class="">✅ 支持情况：MySQL 8+、PostgreSQL、Oracle、SQL Server 全部支持 CTE。旧版 MySQL 需用子查询替代</blockquote><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f98d968-54a6-803c-b015-e728ad13ba08" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">WITH top_students AS (
+  SELECT * FROM student WHERE score &gt; 90
+)
+SELECT * FROM top_students;</code></pre><table id="1f98d968-54a6-803b-ac93-ec4847edb64c" class="simple-table"><tbody><tr id="1f98d968-54a6-80f1-aef2-cfd00426d8d8"><td id="qqZQ" class="">CTE支持</td><td id="?u:@" class="">MySQL 8+</td><td id="^v\u" class="">Oracle</td><td id="T]JP" class="">PostgreSQL</td><td id="C^df" class="">SQL Server</td></tr><tr id="1f98d968-54a6-8067-8c20-c21627e2b179"><td id="qqZQ" class="">是否支持</td><td id="?u:@" class="">✅</td><td id="^v\u" class="">✅</td><td id="T]JP" class="">✅</td><td id="C^df" class="">✅</td></tr></tbody></table><p id="1f98d968-54a6-8048-9863-c75b2da19edc" class="">
+</p><h3 id="1f98d968-54a6-80e1-90f2-c83320b964bd" class="">第五章：事务控制语言（TCL）</h3><p id="1f98d968-54a6-803c-a675-d77c3ec3f8ad" class="">事务（Transaction）是数据库中保证操作一致性、原子性和可靠性的关键机制。事务控制语言（TCL）用于管理事务的开始、提交、回滚等操作。</p><h3 id="1f98d968-54a6-808f-85df-e4a332753585" class="">✅ 基本术语解释：</h3><ul id="1f98d968-54a6-8025-b3fa-f2aeb7e46983" class="bulleted-list"><li style="list-style-type:disc"><strong>事务（Transaction）</strong>：一组操作的最小执行单元，要么全部执行，要么全部不执行。</li></ul><ul id="1f98d968-54a6-807a-acb0-de41df004385" class="bulleted-list"><li style="list-style-type:disc"><strong>ACID 原则</strong>：<ul id="1f98d968-54a6-80ca-bff4-ee913a8382b8" class="bulleted-list"><li style="list-style-type:circle"><strong>A</strong> 原子性（Atomicity）：操作不可分割</li></ul><ul id="1f98d968-54a6-80ea-bd2e-ce01efe96dcd" class="bulleted-list"><li style="list-style-type:circle"><strong>C</strong> 一致性（Consistency）：前后一致的状态</li></ul><ul id="1f98d968-54a6-8000-9c13-f86ca2320b6b" class="bulleted-list"><li style="list-style-type:circle"><strong>I</strong> 隔离性（Isolation）：事务间互不干扰</li></ul><ul id="1f98d968-54a6-801d-b888-c83d0fb8deff" class="bulleted-list"><li style="list-style-type:circle"><strong>D</strong> 持久性（Durability）：提交后数据永久保存</li></ul></li></ul><h3 id="1f98d968-54a6-80a4-8b4b-db775565f842" class="">📌 TCL 核心语句</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f98d968-54a6-80dc-9284-de5d84dc11f3" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">BEGIN;               -- 或 START TRANSACTION
+UPDATE student SET age = 22;
+SAVEPOINT sp1;       -- 设置保存点
+ROLLBACK TO sp1;     -- 回滚至保存点
+COMMIT;              -- 提交整个事务</code></pre><h3 id="1f98d968-54a6-8020-bf93-c93bc0e02ca3" class="">📊 不同数据库 TCL 对比</h3><table id="1f98d968-54a6-8018-ab25-f3e3b42a2a1a" class="simple-table"><tbody><tr id="1f98d968-54a6-8091-baa3-e4ac5e748bc4"><td id=":wy{" class="">TCL 命令</td><td id="LR^@" class="">MySQL</td><td id="SQR|" class="">Oracle</td><td id="gwVZ" class="">PostgreSQL</td><td id="NTHc" class="">SQL Server</td></tr><tr id="1f98d968-54a6-8061-9f76-cd82c560114a"><td id=":wy{" class=""><code>BEGIN</code></td><td id="LR^@" class="">✅（或 START TRANSACTION）</td><td id="SQR|" class="">✅</td><td id="gwVZ" class="">✅</td><td id="NTHc" class="">✅（或 BEGIN TRAN）</td></tr><tr id="1f98d968-54a6-807a-b893-d8a94a9e9698"><td id=":wy{" class=""><code>COMMIT</code></td><td id="LR^@" class="">✅ 提交事务</td><td id="SQR|" class="">✅</td><td id="gwVZ" class="">✅</td><td id="NTHc" class="">✅</td></tr><tr id="1f98d968-54a6-80ca-8e71-e2f963753da2"><td id=":wy{" class=""><code>ROLLBACK</code></td><td id="LR^@" class="">✅ 回滚事务</td><td id="SQR|" class="">✅</td><td id="gwVZ" class="">✅</td><td id="NTHc" class="">✅</td></tr><tr id="1f98d968-54a6-8006-801f-f486765fda80"><td id=":wy{" class=""><code>SAVEPOINT</code></td><td id="LR^@" class="">✅ 设置保存点</td><td id="SQR|" class="">✅</td><td id="gwVZ" class="">✅</td><td id="NTHc" class="">✅</td></tr><tr id="1f98d968-54a6-8079-a0dd-f2f71f3340fc"><td id=":wy{" class=""><code>ROLLBACK TO</code></td><td id="LR^@" class="">✅ 回滚到保存点</td><td id="SQR|" class="">✅</td><td id="gwVZ" class="">✅</td><td id="NTHc" class="">✅</td></tr><tr id="1f98d968-54a6-80f7-96db-db21c1a8e574"><td id=":wy{" class=""><code>SET AUTOCOMMIT</code></td><td id="LR^@" class="">✅（默认开启）</td><td id="SQR|" class="">❌ 使用隐式控制</td><td id="gwVZ" class="">✅ 可设为 off</td><td id="NTHc" class="">✅（默认开启）</td></tr></tbody></table><h3 id="1f98d968-54a6-8056-abb6-daa2cef9f048" class="">🔍 示例：账户转账事务（标准写法）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f98d968-54a6-80b5-be55-f387d1f4b077" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">BEGIN;
+  UPDATE account SET balance = balance - 100 WHERE id = 1;
+  UPDATE account SET balance = balance + 100 WHERE id = 2;
+COMMIT;</code></pre><h3 id="1f98d968-54a6-80a0-bdb0-f3768e09b204" class="">⚠️ 注意事项：</h3><ul id="1f98d968-54a6-8091-81f0-da696108e6aa" class="bulleted-list"><li style="list-style-type:disc">默认情况下，MySQL 处于 <code>autocommit = ON</code> 状态，需手动关闭才能启用多语句事务。</li></ul><ul id="1f98d968-54a6-80cd-a389-cc707fd4b9fc" class="bulleted-list"><li style="list-style-type:disc">Oracle 中每个 DML 自动处于事务中，需显式 <code>COMMIT</code>。</li></ul><ul id="1f98d968-54a6-80e5-83a7-ffbefd088afd" class="bulleted-list"><li style="list-style-type:disc">SQL Server 的事务语句需使用 <code>BEGIN TRAN</code> 或 <code>BEGIN TRANSACTION</code> 开启。</li></ul><ul id="1f98d968-54a6-8033-9e5e-fd9c79ecddac" class="bulleted-list"><li style="list-style-type:disc">PostgreSQL 每次执行 <code>BEGIN</code> 后必须 <code>COMMIT</code> 或 <code>ROLLBACK</code>，否则事务挂起。</li></ul><blockquote id="1f98d968-54a6-807e-a351-d1ce96d97836" class="">✅ 合理使用事务能有效保证数据一致性，特别是在转账、库存扣减、日志更新等场景中。</blockquote><hr id="1f98d968-54a6-8043-bb3d-eb7947779c65"/><p id="1f98d968-54a6-80fe-aae7-d2b44608f049" class="">
+</p><h3 id="1f88d968-54a6-80de-8cb1-ca316cae70e5" class="">第六章：索引与视图</h3><h3 id="1f88d968-54a6-8049-a916-fd5ef7652dc8" class="">6.1 索引</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f88d968-54a6-800b-bc76-f3e517d4053a" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">CREATE INDEX idx_name ON student(name); </code></pre><p id="1f88d968-54a6-804c-8526-d5204ae6c657" class=""><strong>删除索引语法差异：</strong></p><table id="1f88d968-54a6-80f2-b95b-df979a8318cd" class="simple-table"><tbody><tr id="1f88d968-54a6-80c6-801e-d697438c6bb1"><td id="HVZx" class="">数据库</td><td id="RiII" class="" style="width:474.00001525878906px">删除语法示例</td></tr><tr id="1f88d968-54a6-8006-9850-eae525a8065a"><td id="HVZx" class=""><strong>MySQL</strong></td><td id="RiII" class="" style="width:474.00001525878906px"><code>ALTER TABLE student DROP INDEX idx_name;</code></td></tr><tr id="1f88d968-54a6-8083-9b3d-e304926bf85d"><td id="HVZx" class=""><strong>PostgreSQL</strong></td><td id="RiII" class="" style="width:474.00001525878906px"><code>DROP INDEX idx_name;</code></td></tr><tr id="1f88d968-54a6-8027-93b7-ff915c2d82f0"><td id="HVZx" class=""><strong>Oracle / IBM DB2</strong></td><td id="RiII" class="" style="width:474.00001525878906px"><code>DROP INDEX idx_name;</code></td></tr><tr id="1f88d968-54a6-8083-94ce-f0514fa1f5ea"><td id="HVZx" class=""><strong>SQL Server</strong></td><td id="RiII" class="" style="width:474.00001525878906px"><code>DROP INDEX student.idx_name;</code> </td></tr><tr id="1f88d968-54a6-806e-b28d-eb5cbab479f2"><td id="HVZx" class=""><strong>Microsoft Access</strong></td><td id="RiII" class="" style="width:474.00001525878906px"><code>DROP INDEX idx_name ON student;</code>    项目中基本不常用的数据库</td></tr></tbody></table><h3 id="1f88d968-54a6-805d-b482-d29478a53bd0" class="">6.2 视图</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f88d968-54a6-80e7-9127-f28b01aceb4b" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">CREATE VIEW view_student AS SELECT id, name FROM student;  --创建视图
+DROP VIEW view_student;  --删除视图</code></pre><hr id="1f88d968-54a6-80a6-bd35-ca42c0af2309"/><p id="1f98d968-54a6-806d-9501-d176878dff4e" class="">
+</p><h3 id="1f98d968-54a6-80f4-8e55-d030a3c1d220" class="">第七章：内建函数与表达式</h3><p id="1f98d968-54a6-8080-918e-fc44aa3a26b3" class="">SQL 提供了丰富的内建函数用于数据处理、格式转换与统计分析，常见函数可分类如下</p><h3 id="1f98d968-54a6-802a-b725-ee097b917608" class="">📌 1. 字符串函数（String Functions）</h3><table id="1f98d968-54a6-80a0-8662-d2f7df43a92f" class="simple-table"><tbody><tr id="1f98d968-54a6-80cf-9b23-c8553bf5178f"><td id="gWVO" class="">函数</td><td id="^B}[" class="">用途</td><td id="~zDc" class="">示例</td><td id="Rw{p" class="" style="width:194.3246612548828px">说明</td></tr><tr id="1f98d968-54a6-804a-b2f1-fa18f22a24e3"><td id="gWVO" class=""><code>CONCAT(a, b)</code></td><td id="^B}[" class="">字符拼接</td><td id="~zDc" class="">`&#x27;姓&#x27;</td><td id="Rw{p" class="" style="width:194.3246612548828px"></td></tr><tr id="1f98d968-54a6-8059-991c-f6aad1c8578c"><td id="gWVO" class=""><code>LENGTH(str)</code></td><td id="^B}[" class="">返回字符串长度</td><td id="~zDc" class=""><code>LENGTH(&#x27;hello&#x27;) → 5</code></td><td id="Rw{p" class="" style="width:194.3246612548828px">SQL Server 用 <code>LEN()</code></td></tr><tr id="1f98d968-54a6-807b-a678-ed89637ed2f2"><td id="gWVO" class=""><code>UPPER(str)</code></td><td id="^B}[" class="">转换为大写</td><td id="~zDc" class=""><code>UPPER(&#x27;abc&#x27;) → &#x27;ABC&#x27;</code></td><td id="Rw{p" class="" style="width:194.3246612548828px"></td></tr><tr id="1f98d968-54a6-802a-bf8f-c65418846aae"><td id="gWVO" class=""><code>LOWER(str)</code></td><td id="^B}[" class="">转换为小写</td><td id="~zDc" class=""><code>LOWER(&#x27;ABC&#x27;) → &#x27;abc&#x27;</code></td><td id="Rw{p" class="" style="width:194.3246612548828px"></td></tr><tr id="1f98d968-54a6-8017-865d-e4136ab2ba2a"><td id="gWVO" class=""><code>SUBSTRING(str, start, length)</code></td><td id="^B}[" class="">子串提取</td><td id="~zDc" class=""><code>SUBSTRING(&#x27;hello&#x27;, 2, 3) → &#x27;ell&#x27;</code></td><td id="Rw{p" class="" style="width:194.3246612548828px">PostgreSQL 用法相同</td></tr><tr id="1f98d968-54a6-809e-a8e0-c78d6607d27d"><td id="gWVO" class=""><code>TRIM(str)</code></td><td id="^B}[" class="">去除两端空格</td><td id="~zDc" class=""><code>TRIM(&#x27; abc &#x27;) → &#x27;abc&#x27;</code></td><td id="Rw{p" class="" style="width:194.3246612548828px">MySQL 也有 <code>LTRIM</code> / <code>RTRIM</code></td></tr></tbody></table><h3 id="1f98d968-54a6-802b-8fc4-e77add4539a9" class="">📌 2. 数学函数（Math Functions）</h3><table id="1f98d968-54a6-8029-82c4-efe942d3f39e" class="simple-table"><tbody><tr id="1f98d968-54a6-8012-899c-df45332f01b2"><td id="_^^n" class="">函数</td><td id="XQZP" class="">用途</td><td id="gf}~" class="">示例</td></tr><tr id="1f98d968-54a6-8009-98e6-e2d4a9332d4a"><td id="_^^n" class=""><code>ABS(x)</code></td><td id="XQZP" class="">绝对值</td><td id="gf}~" class=""><code>ABS(-5) → 5</code></td></tr><tr id="1f98d968-54a6-80c2-bd2e-d71974ac4474"><td id="_^^n" class=""><code>CEIL(x)</code></td><td id="XQZP" class="">向上取整</td><td id="gf}~" class=""><code>CEIL(4.2) → 5</code></td></tr><tr id="1f98d968-54a6-801e-a9c1-d3d7b4b208c1"><td id="_^^n" class=""><code>FLOOR(x)</code></td><td id="XQZP" class="">向下取整</td><td id="gf}~" class=""><code>FLOOR(4.8) → 4</code></td></tr><tr id="1f98d968-54a6-800f-8a28-cecebb5711ae"><td id="_^^n" class=""><code>ROUND(x, n)</code></td><td id="XQZP" class="">四舍五入</td><td id="gf}~" class=""><code>ROUND(3.14159, 2) → 3.14</code></td></tr><tr id="1f98d968-54a6-80a4-8159-faa055e13d87"><td id="_^^n" class=""><code>MOD(x, y)</code></td><td id="XQZP" class="">取模</td><td id="gf}~" class=""><code>MOD(10, 3) → 1</code></td></tr><tr id="1f98d968-54a6-80b4-baff-ef2af48d9d99"><td id="_^^n" class=""><code>POWER(x,y)</code></td><td id="XQZP" class="">幂运算</td><td id="gf}~" class=""><code>POWER(2, 3) → 8</code></td></tr></tbody></table><h3 id="1f98d968-54a6-803d-8e64-c65e5dd34ec4" class="">📌 3. 日期与时间函数（Date/Time Functions）</h3><table id="1f98d968-54a6-80a8-97d1-dbede2e47e31" class="simple-table"><tbody><tr id="1f98d968-54a6-809f-b5af-efbf71444704"><td id="v:L`" class="">函数</td><td id="?oOs" class="">用途</td><td id="]EbA" class="">示例</td><td id="Km}P" class="">注意事项</td></tr><tr id="1f98d968-54a6-8044-a79e-ed73dc94aa3a"><td id="v:L`" class=""><code>NOW()</code></td><td id="?oOs" class="">当前时间（MySQL）</td><td id="]EbA" class=""><code>NOW()</code></td><td id="Km}P" class="">SQL Server: <code>GETDATE()</code></td></tr><tr id="1f98d968-54a6-808a-8b12-e3ace5eecb72"><td id="v:L`" class=""><code>SYSDATE</code></td><td id="?oOs" class="">当前系统时间</td><td id="]EbA" class="">Oracle 中常用</td><td id="Km}P" class="">PostgreSQL 也支持</td></tr><tr id="1f98d968-54a6-80ff-9bb7-c6f53394164f"><td id="v:L`" class=""><code>CURRENT_DATE</code></td><td id="?oOs" class="">当前日期</td><td id="]EbA" class=""><code>CURRENT_DATE</code></td><td id="Km}P" class=""></td></tr><tr id="1f98d968-54a6-800e-9baf-e09f1f1f92e7"><td id="v:L`" class=""><code>DATE_ADD(date, INTERVAL n DAY)</code></td><td id="?oOs" class="">加时间</td><td id="]EbA" class=""><code>DATE_ADD(NOW(), INTERVAL 5 DAY)</code></td><td id="Km}P" class="">MySQL 专用</td></tr><tr id="1f98d968-54a6-80b3-9d6d-d4e2e136a63f"><td id="v:L`" class=""><code>DATEDIFF(d1, d2)</code></td><td id="?oOs" class="">日期差</td><td id="]EbA" class=""><code>DATEDIFF(&#x27;2025-01-01&#x27;, &#x27;2024-12-31&#x27;) → 1</code></td><td id="Km}P" class="">SQL Server 格式不同</td></tr><tr id="1f98d968-54a6-8040-a7e0-df028af7320f"><td id="v:L`" class=""><code>EXTRACT(YEAR FROM date)</code></td><td id="?oOs" class="">提取年份</td><td id="]EbA" class=""><code>EXTRACT(YEAR FROM CURRENT_DATE)</code></td><td id="Km}P" class="">PostgreSQL/Oracle 通用</td></tr></tbody></table><h3 id="1f98d968-54a6-8015-a703-efc434e7063f" class="">📌 4. 聚合函数（Aggregate Functions）</h3><table id="1f98d968-54a6-806f-b6b3-ca614bf8707f" class="simple-table"><tbody><tr id="1f98d968-54a6-8052-8d9b-d3cf36894d45"><td id="B&lt;aY" class="">函数</td><td id="{T_P" class="">用途</td><td id="fNGV" class="">示例</td></tr><tr id="1f98d968-54a6-8081-85c3-e26ef44ad73c"><td id="B&lt;aY" class=""><code>COUNT(*)</code></td><td id="{T_P" class="">统计总行数</td><td id="fNGV" class=""><code>SELECT COUNT(*) FROM t;</code></td></tr><tr id="1f98d968-54a6-808c-8425-f064a928d9cb"><td id="B&lt;aY" class=""><code>SUM(x)</code></td><td id="{T_P" class="">求和</td><td id="fNGV" class=""><code>SELECT SUM(score) FROM t;</code></td></tr><tr id="1f98d968-54a6-8010-ab47-cfe7bbf39247"><td id="B&lt;aY" class=""><code>AVG(x)</code></td><td id="{T_P" class="">求平均值</td><td id="fNGV" class=""><code>SELECT AVG(score) FROM t;</code></td></tr><tr id="1f98d968-54a6-8069-8dee-d895ca68ab40"><td id="B&lt;aY" class=""><code>MIN(x)</code></td><td id="{T_P" class="">最小值</td><td id="fNGV" class=""><code>SELECT MIN(age) FROM t;</code></td></tr><tr id="1f98d968-54a6-804c-ba3d-cd47444f8fe5"><td id="B&lt;aY" class=""><code>MAX(x)</code></td><td id="{T_P" class="">最大值</td><td id="fNGV" class=""><code>SELECT MAX(age) FROM t;</code></td></tr></tbody></table><h3 id="1f98d968-54a6-809c-b648-cc02604157e2" class="">📌 5. 其他实用函数</h3><table id="1f98d968-54a6-808b-b187-ec0b57123b05" class="simple-table"><tbody><tr id="1f98d968-54a6-80b8-8f29-de0b33f9c28b"><td id="Utlw" class="">函数</td><td id="ZF&gt;P" class="">用途</td><td id="]Iln" class="">示例</td></tr><tr id="1f98d968-54a6-80e0-b2ba-cda1b743e6ad"><td id="Utlw" class=""><code>IFNULL(a, b)</code></td><td id="ZF&gt;P" class="">NULL 转换（MySQL）</td><td id="]Iln" class=""><code>IFNULL(NULL, 0) → 0</code></td></tr><tr id="1f98d968-54a6-8096-9351-dc7bd05abb81"><td id="Utlw" class=""><code>COALESCE(a, b)</code></td><td id="ZF&gt;P" class="">返回首个非 NULL</td><td id="]Iln" class=""><code>COALESCE(NULL, NULL, 5) → 5</code></td></tr><tr id="1f98d968-54a6-809f-921d-de3c8f0769ae"><td id="Utlw" class=""><code>CAST(x AS type)</code></td><td id="ZF&gt;P" class="">类型转换</td><td id="]Iln" class=""><code>CAST(123 AS CHAR)</code></td></tr><tr id="1f98d968-54a6-8029-8fd1-ff5f7e9df756"><td id="Utlw" class=""><code>ISNULL(x)</code></td><td id="ZF&gt;P" class="">判断是否为 NULL</td><td id="]Iln" class=""><code>ISNULL(NULL) → TRUE</code>（SQL Server）</td></tr></tbody></table><blockquote id="1f98d968-54a6-801b-8339-c2d94d284e93" class="">💡 不同数据库中部分函数命名略有差异（如 <mark class="highlight-red">LEN()</mark> vs <mark class="highlight-red">LENGTH()</mark>），需留意语义一致性。</blockquote><h3 id="1f98d968-54a6-805f-8e92-fcfac6683b87" class="">📊 常用函数跨数据库命名对照表</h3><table id="1f98d968-54a6-806f-93e8-e2d273e6ff95" class="simple-table"><tbody><tr id="1f98d968-54a6-80a6-99f1-c789ee2af1fb"><td id="edHN" class="">功能</td><td id="nb`\" class="">MySQL</td><td id=";gmu" class="">Oracle</td><td id="]d?`" class="">PostgreSQL</td><td id="u=\t" class="">SQL Server</td></tr><tr id="1f98d968-54a6-80e7-9567-fe917248d2e2"><td id="edHN" class="">当前时间</td><td id="nb`\" class=""><code>NOW()</code></td><td id=";gmu" class=""><code>SYSDATE</code></td><td id="]d?`" class=""><code>CURRENT_TIMESTAMP</code></td><td id="u=\t" class=""><code>GETDATE()</code></td></tr><tr id="1f98d968-54a6-80ab-ad0c-cfa609794309"><td id="edHN" class="">字符长度</td><td id="nb`\" class=""><code>LENGTH()</code></td><td id=";gmu" class=""><code>LENGTH()</code></td><td id="]d?`" class=""><code>LENGTH()</code></td><td id="u=\t" class=""><code>LEN()</code></td></tr></tbody></table><h3 id="1f98d968-54a6-80bd-81c4-f3819b50d35e" class="">📌 字符串函数（String Functions）</h3><h3 id="1f98d968-54a6-809b-81b3-fda11c0c4b1a" class="">🔍 不同数据库字符串拼接方法对比</h3><table id="1f98d968-54a6-80f9-b515-f9413acbf3f7" class="simple-table"><tbody><tr id="1f98d968-54a6-80e7-8028-e6d05dfbe16d"><td id="&lt;l&lt;:" class="">数据库</td><td id="xwjB" class="">拼接语法</td><td id="wDdy" class="">示例</td><td id="Wl[c" class="">说明</td></tr><tr id="1f98d968-54a6-80bd-8016-c208c5b70645"><td id="&lt;l&lt;:" class="">MySQL</td><td id="xwjB" class=""><code>CONCAT(a, b)</code></td><td id="wDdy" class=""><code>CONCAT(&#x27;姓&#x27;, &#x27;名&#x27;) → &#x27;姓名&#x27;</code></td><td id="Wl[c" class="">仅支持函数方式，不能使用 `</td></tr><tr id="1f98d968-54a6-80bc-8210-ce4fd6902041"><td id="&lt;l&lt;:" class="">Oracle</td><td id="xwjB" class=""><code>||</code></td><td id="wDdy" class="">A<code>||</code>B</td><td id="Wl[c" class=""></td></tr><tr id="1f98d968-54a6-8043-8699-fc59c321b3f1"><td id="&lt;l&lt;:" class="">PostgreSQL</td><td id="xwjB" class=""><code>||</code></td><td id="wDdy" class="">A<code>||</code>B</td><td id="Wl[c" class=""></td></tr><tr id="1f98d968-54a6-800f-a894-fdbfbc18c616"><td id="&lt;l&lt;:" class="">SQL Server</td><td id="xwjB" class=""><code>a + b</code></td><td id="wDdy" class=""><code>&#x27;姓&#x27; + &#x27;名&#x27; → &#x27;姓名&#x27;</code></td><td id="Wl[c" class="">使用加号拼接</td></tr></tbody></table><p id="1f98d968-54a6-80c1-81bc-e3eb1ba2062a" class="">📌 补充说明：</p><ul id="1f98d968-54a6-80b6-9f53-f5fe0720e6f0" class="bulleted-list"><li style="list-style-type:disc"><strong>MySQL</strong> 不支持 <code>||</code> 作字符串拼接，默认将其解释为逻辑或。</li></ul><ul id="1f98d968-54a6-80a0-9888-d960d3884a38" class="bulleted-list"><li style="list-style-type:disc"><strong>SQL Server</strong> 中加号 <code>+</code> 会隐式转换 NULL，若任一为 NULL 则返回 NULL，需使用 <code>ISNULL()</code> 或 <code>COALESCE()</code> 包裹。</li></ul><ul id="1f98d968-54a6-80f4-b355-fe1d63f93432" class="bulleted-list"><li style="list-style-type:disc"><strong>PostgreSQL / Oracle</strong> 完全遵循 SQL 标准，推荐使用 <code>||</code>。</li></ul><ul id="1f98d968-54a6-807a-bbb5-d9dea34cdfdb" class="bulleted-list"><li style="list-style-type:disc">若需连接多个字段，建议使用 <code>CONCAT()</code>（兼容性更高，PostgreSQL 也支持）。</li></ul><hr id="1f98d968-54a6-8044-a0db-c70a6b8a18ef"/><p id="1f98d968-54a6-80c0-b4c3-eb5bf9d0f3a5" class="">
+</p><h3 id="1f98d968-54a6-8088-b30f-e64e534eeb23" class="">第七章补充：自定义函数与存储过程（User Defined Functions &amp; Procedures）</h3><p id="1f98d968-54a6-8024-b860-e87ad79b98e0" class=""><mark class="highlight-blue"><strong>自定义函数（UDF）</strong></mark>允许用户封装重复逻辑，常用于封装计算、清洗、判断等操作。不同数据库语法略有差异：</p><h3 id="1f98d968-54a6-80fe-a7bf-cf0ae84380dd" class="">📌 MySQL 示例：创建一个计算 BMI 的函数</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f98d968-54a6-80b2-a033-e3a748e008df" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">DELIMITER //
+CREATE FUNCTION calc_bmi(weight_kg FLOAT, height_m FLOAT)
+RETURNS FLOAT
+BEGIN
+  RETURN weight_kg / (height_m * height_m);
+END//
+DELIMITER ;
+
+-- 使用方式：
+SELECT calc_bmi(70, 1.75);  -- 输出 22.86</code></pre><h3 id="1f98d968-54a6-80fa-a9c5-ea0e2adf2a94" class="">📌 PostgreSQL 示例（PL/pgSQL）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f98d968-54a6-8012-baae-f83bde08daaa" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">CREATE OR REPLACE FUNCTION calc_bmi(weight_kg FLOAT, height_m FLOAT)
+RETURNS FLOAT AS $$
+BEGIN
+  RETURN weight_kg / (height_m * height_m);
+END;
+$$ LANGUAGE plpgsql;
+
+-- 调用方式：
+SELECT calc_bmi(70, 1.75);</code></pre><h3 id="1f98d968-54a6-801c-b07c-ffad69649bb8" class="">📌 SQL Server 示例（T-SQL）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f98d968-54a6-80d3-adac-e25dfe4d84ac" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">CREATE FUNCTION dbo.calc_bmi(@weight FLOAT, @height FLOAT)
+RETURNS FLOAT
+AS
+BEGIN
+  RETURN @weight / (@height * @height);
+END
+
+-- 使用方式：
+SELECT dbo.calc_bmi(70, 1.75);</code></pre><h3 id="1f98d968-54a6-8044-8185-c8a079acf4fc" class="">📌 Oracle 示例（PL/SQL）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f98d968-54a6-80a5-b7e6-e3449cf4fd47" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">CREATE OR REPLACE FUNCTION calc_bmi(weight_kg IN NUMBER, height_m IN NUMBER)
+RETURN NUMBER
+IS
+  bmi NUMBER;
+BEGIN
+  bmi := weight_kg / (height_m * height_m);
+  RETURN bmi;
+END;
+
+-- 调用方式：
+SELECT calc_bmi(70, 1.75) FROM dual;</code></pre><p id="1f98d968-54a6-806d-9e7a-dcf174b2c262" class="">📌 <strong>说明：</strong></p><ul id="1f98d968-54a6-80d5-9979-f5af12b6d9eb" class="bulleted-list"><li style="list-style-type:disc">UDF 不允许对表数据执行 INSERT/UPDATE 等修改操作。</li></ul><ul id="1f98d968-54a6-80db-9ea6-e077af7fa7e1" class="bulleted-list"><li style="list-style-type:disc">可搭配视图/查询提高复用性。</li></ul><ul id="1f98d968-54a6-803e-88e7-da389389006f" class="bulleted-list"><li style="list-style-type:disc">Oracle 和 PostgreSQL 支持更多参数定义方式（IN、OUT、INOUT）。</li></ul><hr id="1f98d968-54a6-801e-91ac-cac9e6d5d926"/><h3 id="1f98d968-54a6-805d-89f3-c0a2fce99e7a" class="">第七章补充2：自定义存储过程（Stored Procedures + 进阶）</h3><p id="1f98d968-54a6-80dc-b5f7-e6dce8f95d88" class="">存储过程（Stored Procedure）是一组预编译的 SQL 语句集合，通常用于封装业务逻辑，具备输入参数、输出参数、控制结构、事务控制等能力。</p><h3 id="1f98d968-54a6-807a-b97f-d4f5bf04bce5" class="">📌 MySQL 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f98d968-54a6-8089-9e32-f5e1ec19202a" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">DELIMITER //
+CREATE PROCEDURE update_salary(IN emp_id INT, IN amount DECIMAL(10,2))
+BEGIN
+  UPDATE employee SET salary = salary + amount WHERE id = emp_id;
+END //
+DELIMITER ;
+
+-- 调用方式：
+CALL update_salary(1001, 500);</code></pre><h3 id="1f98d968-54a6-80d6-bdaf-c72779bc7a87" class="">📌 PostgreSQL 示例（PL/PGSQL）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f98d968-54a6-8023-bfe1-fc119e349c0c" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">CREATE OR REPLACE PROCEDURE update_salary(emp_id INT, amount NUMERIC)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  UPDATE employee SET salary = salary + amount WHERE id = emp_id;
+END;
+$$;
+
+-- 调用方式：
+CALL update_salary(1001, 500);</code></pre><h3 id="1f98d968-54a6-80ce-a9df-cee3e366f4bb" class="">📌 SQL Server 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f98d968-54a6-8073-9955-c80845f6ac37" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">CREATE PROCEDURE update_salary
+  @emp_id INT,
+  @amount DECIMAL(10,2)
+AS
+BEGIN
+  UPDATE employee SET salary = salary + @amount WHERE id = @emp_id;
+END
+
+-- 调用方式：
+EXEC update_salary 1001, 500;</code></pre><h3 id="1f98d968-54a6-80c5-b9a3-fef9de4d2e69" class="">📌 Oracle 示例（PL/SQL）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f98d968-54a6-8040-8bd0-e8de01fbde0d" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">CREATE OR REPLACE PROCEDURE update_salary(emp_id IN NUMBER, amount IN NUMBER) IS
+BEGIN
+  UPDATE employee SET salary = salary + amount WHERE id = emp_id;
+END;
+
+-- 调用方式：
+BEGIN
+  update_salary(1001, 500);
+END;</code></pre><hr id="1f98d968-54a6-80e9-87b0-f0393b21e446"/><h3 id="1f98d968-54a6-80a8-a34a-ddf0eea2114c" class="">📌 存储过程进阶：异常处理 / 输入输出参数 / 嵌套调用</h3><h3 id="1f98d968-54a6-802b-b145-f92289bafc09" class="">✅ 带异常处理的存储过程</h3><p id="1f98d968-54a6-8099-a11f-ec8d4b43453c" class="">📍 PostgreSQL 示例：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f98d968-54a6-8012-ac88-c7a18aac6d5a" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">CREATE OR REPLACE PROCEDURE safe_update(emp_id INT, amount NUMERIC)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  UPDATE employee SET salary = salary + amount WHERE id = emp_id;
+EXCEPTION
+  WHEN OTHERS THEN
+    RAISE NOTICE &#x27;更新失败：% %&#x27;, SQLSTATE, SQLERRM;
+END;
+$$;</code></pre><p id="1f98d968-54a6-8027-b415-c2ecaf2126e6" class="">📍 SQL Server 示例（T-SQL）</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f98d968-54a6-8054-815c-cad8be2c7311" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">CREATE PROCEDURE safe_update
+  @emp_id INT,
+  @amount DECIMAL(10,2)
+AS
+BEGIN
+  BEGIN TRY
+    UPDATE employee SET salary = salary + @amount WHERE id = @emp_id;
+  END TRY
+  BEGIN CATCH
+    PRINT &#x27;错误：&#x27; + ERROR_MESSAGE();
+  END CATCH
+END</code></pre><hr id="1f98d968-54a6-806e-9503-f496a21603f3"/><h3 id="1f98d968-54a6-8083-90f4-d44f8fcd1850" class="">✅ 带 IN / OUT / INOUT 参数的存储过程</h3><p id="1f98d968-54a6-8016-9991-d07b8d4e3795" class="">📍 Oracle 示例：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f98d968-54a6-80ad-8ba6-ffd22c42dd3c" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">CREATE OR REPLACE PROCEDURE greet_user(
+  p_name IN VARCHAR2,
+  p_greeting OUT VARCHAR2)
+IS
+BEGIN
+  p_greeting := &#x27;Hello, &#x27; || p_name || &#x27;!&#x27;;
+END;
+
+-- 调用：
+DECLARE
+  msg VARCHAR2(100);
+BEGIN
+  greet_user(&#x27;Tianchu&#x27;, msg);
+  DBMS_OUTPUT.PUT_LINE(msg);
+END;</code></pre><p id="1f98d968-54a6-8062-a29b-e010005325c7" class="">📍 MySQL 示例：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f98d968-54a6-804a-b5f5-d04f7d72cf6c" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">DELIMITER //
+CREATE PROCEDURE greet_user(IN name VARCHAR(50), OUT greeting VARCHAR(100))
+BEGIN
+  SET greeting = CONCAT(&#x27;Hello, &#x27;, name, &#x27;!&#x27;);
+END //
+DELIMITER ;
+
+-- 调用：
+CALL greet_user(&#x27;Tianchu&#x27;, @result);
+SELECT @result;</code></pre><hr id="1f98d968-54a6-8041-8e20-e427e7d81ee6"/><h3 id="1f98d968-54a6-8042-b2de-c39cc6ed91e4" class="">✅ 存储过程调用存储过程（嵌套）示例</h3><p id="1f98d968-54a6-8083-bca4-c731934bc518" class="">📍 MySQL 嵌套调用示例：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f98d968-54a6-8043-ae33-e79013ccf7db" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">DELIMITER //
+CREATE PROCEDURE add_bonus(emp_id INT)
+BEGIN
+  CALL update_salary(emp_id, 1000);
+END //
+DELIMITER ;
+
+-- 调用：
+CALL add_bonus(1001);</code></pre><p id="1f98d968-54a6-80ed-99bc-de102d56440a" class="">📍 SQL Server 嵌套调用：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f98d968-54a6-80a2-861d-caa218a92ea1" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">CREATE PROCEDURE add_bonus
+  @emp_id INT
+AS
+BEGIN
+  EXEC update_salary @emp_id, 1000;
+END
+
+-- 调用：
+EXEC add_bonus 1001;</code></pre><hr id="1f98d968-54a6-806b-a4c5-e3e8a5fa9e07"/><h3 id="1f98d968-54a6-804e-8cc8-ca4324bb84c3" class="">🔍 函数（Function） vs. 存储过程（Procedure） 对比总结</h3><table id="1f98d968-54a6-8001-b31b-eb6dee6214c6" class="simple-table"><tbody><tr id="1f98d968-54a6-80c4-904a-cf20c11b3491"><td id="qG[:" class="">对比项</td><td id="qGO;" class="">函数（Function）</td><td id="nVxS" class="">存储过程（Procedure）</td></tr><tr id="1f98d968-54a6-80e7-ab27-c3805ff77647"><td id="qG[:" class="">是否有返回值</td><td id="qGO;" class="">✅ 必须返回一个值</td><td id="nVxS" class="">❌ 不强制返回值（可用 OUT 参数）</td></tr><tr id="1f98d968-54a6-8020-a9fc-cb374d55c59e"><td id="qG[:" class="">调用方式</td><td id="qGO;" class="">可用于 SELECT 语句中调用</td><td id="nVxS" class="">需单独使用 <code>CALL</code> 或 <code>EXEC</code> 执行</td></tr><tr id="1f98d968-54a6-806b-bbd4-fd2e42fe8f8a"><td id="qG[:" class="">是否允许事务控制</td><td id="qGO;" class="">❌ 通常不允许</td><td id="nVxS" class="">✅ 可包含 COMMIT/ROLLBACK 等</td></tr><tr id="1f98d968-54a6-8097-8c02-f1ca4ea0c76b"><td id="qG[:" class="">用途场景</td><td id="qGO;" class="">计算、格式化、数据转换</td><td id="nVxS" class="">复杂业务逻辑处理、批量更新、逻辑判断流程控制</td></tr><tr id="1f98d968-54a6-803e-8fb4-c81f938bdc53"><td id="qG[:" class="">是否可嵌入查询</td><td id="qGO;" class="">✅ 可嵌入</td><td id="nVxS" class="">❌ 不能直接用于 SELECT 等语句中</td></tr><tr id="1f98d968-54a6-80d5-abe1-cd97c834db2d"><td id="qG[:" class="">可否嵌套调用</td><td id="qGO;" class="">✅ 可</td><td id="nVxS" class="">✅ 可</td></tr></tbody></table><blockquote id="1f98d968-54a6-80c7-ad8c-d96b52595cfb" class="">📌 总结：<ul id="1f98d968-54a6-803e-9ee8-f409bb9a659b" class="bulleted-list"><li style="list-style-type:disc">使用函数处理轻量逻辑、格式转换、计算。</li></ul><ul id="1f98d968-54a6-8054-8a44-d741c16665d6" class="bulleted-list"><li style="list-style-type:disc">使用存储过程处理复杂控制流程、大批量数据操作或事务逻辑。</li></ul></blockquote><h3 id="1f98d968-54a6-8097-857b-f211d240b40e" class="">第八章：用户与权限（DCL）</h3><h3 id="1f88d968-54a6-805f-b1d9-e1491798feb6" class="">8.1 创建用户与授权</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f88d968-54a6-8057-9cd8-e977e4b63d1b" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">-- MySQL
+CREATE USER &#x27;u&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;p&#x27;;
+GRANT SELECT ON db.* TO &#x27;u&#x27;@&#x27;localhost&#x27;;
+
+-- PostgreSQL
+CREATE USER u WITH PASSWORD &#x27;p&#x27;;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO u;
+</code></pre><hr id="1f88d968-54a6-80f7-9d59-e3f712cac155"/></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
