@@ -1,0 +1,871 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>尹さんのJAVA总结（数据类型,常变量,运算符,循环）</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1fb8d968-54a6-8042-931f-c8d9560eb656" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_space_shuttle_challenger.jpg" style="object-position:center 0%"/><h1 class="page-title">尹さんのJAVA总结（数据类型,常变量,运算符,循环）</h1><p class="page-description"></p></header><div class="page-body"><h1 id="1fb8d968-54a6-8070-8dd6-c5f558acd778" class="">一、Java 数据类型（Data Types）分类</h1><p id="1fb8d968-54a6-808a-94ca-cfdc7bc6fe39" class="">Java 的数据类型分为两大类：</p><table id="1fb8d968-54a6-80b9-9688-cbd0d03da5c1" class="simple-table"><tbody><tr id="1fb8d968-54a6-80f9-8f5c-ff96c845b9a1"><td id="bCAM" class="">类型</td><td id="HG`T" class="">分类</td><td id="tVTJ" class="">说明</td></tr><tr id="1fb8d968-54a6-809d-8150-e681f23e8f35"><td id="bCAM" class="">基本数据类型（PrimitiveTypes）</td><td id="HG`T" class="">值类型</td><td id="tVTJ" class="">直接存储值，占用固定内存</td></tr><tr id="1fb8d968-54a6-80e5-a6f8-f35217563c79"><td id="bCAM" class="">引用数据类型（Reference Types）</td><td id="HG`T" class="">引用类型</td><td id="tVTJ" class="">存储对象的地址或引用</td></tr></tbody></table><hr id="1fb8d968-54a6-805a-ab0a-fc5dc9956f07"/><h2 id="1fb8d968-54a6-80f6-a694-cca612eff831" class="">一、基本数据类型（Primitive Types）</h2><p id="1fb8d968-54a6-8024-8bc9-d48febf9ab04" class="">
+</p><h3 id="1fb8d968-54a6-80b7-ae5f-e776a1c76525" class="">一、Java 一共提供了 <strong>8种基本数据类型</strong>，如下表所示：</h3><table id="1fb8d968-54a6-80cb-8bcf-c6113b60bb62" class="simple-table"><tbody><tr id="1fb8d968-54a6-80a9-bab7-cc2b43c3ea60"><td id="HEHc" class="">类型</td><td id="aM|N" class="">名称</td><td id="SYfd" class="">占用字节</td><td id="Dblo" class="">取值范围或说明</td></tr><tr id="1fb8d968-54a6-80d4-b2a2-def8f805cda6"><td id="HEHc" class=""><code>byte</code></td><td id="aM|N" class="">字节型</td><td id="SYfd" class="">1 字节</td><td id="Dblo" class="">-128 到 127</td></tr><tr id="1fb8d968-54a6-80f1-a19a-e22414927381"><td id="HEHc" class=""><code>short</code></td><td id="aM|N" class="">短整型</td><td id="SYfd" class="">2 字节</td><td id="Dblo" class="">-32,768 到 32,767</td></tr><tr id="1fb8d968-54a6-8025-9f47-fb399bbc09a4"><td id="HEHc" class=""><code>int</code></td><td id="aM|N" class="">整型</td><td id="SYfd" class="">4 字节</td><td id="Dblo" class="">-2³¹ 到 2³¹-1（最常用）</td></tr><tr id="1fb8d968-54a6-80e7-bb1a-d78441445fdb"><td id="HEHc" class=""><code>long</code></td><td id="aM|N" class="">长整型</td><td id="SYfd" class="">8 字节</td><td id="Dblo" class="">更大的整数，末尾加 <code>L</code></td></tr><tr id="1fb8d968-54a6-802a-a9a1-c582c90bd7bd"><td id="HEHc" class=""><code>float</code></td><td id="aM|N" class="">单精度浮点型</td><td id="SYfd" class="">4 字节</td><td id="Dblo" class="">末尾加 <code>f</code>，如：<code>3.14f</code></td></tr><tr id="1fb8d968-54a6-8029-b0c3-c40a5b03e3e3"><td id="HEHc" class=""><code>double</code></td><td id="aM|N" class="">双精度浮点型</td><td id="SYfd" class="">8 字节</td><td id="Dblo" class="">默认浮点类型</td></tr><tr id="1fb8d968-54a6-80a5-896d-e5776bfcafb7"><td id="HEHc" class=""><code>char</code></td><td id="aM|N" class="">字符型</td><td id="SYfd" class="">2 字节</td><td id="Dblo" class="">存储单个字符或 Unicode</td></tr><tr id="1fb8d968-54a6-80d7-af63-c3b5b023aba3"><td id="HEHc" class=""><code>boolean</code></td><td id="aM|N" class="">布尔型</td><td id="SYfd" class="">1 字节（逻辑）</td><td id="Dblo" class="">只取 <code>true</code> 或 <code>false</code></td></tr></tbody></table><h3 id="1fb8d968-54a6-8017-aa90-dcae31568c72" class="">示例代码</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80b1-9e85-ee5b7ac8185d" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class DataTypeExample {
+    public static void main(String[] args) {
+        byte b = 100;
+        short s = 30000;
+        int i = 123456;
+        long l = 9876543210L;
+
+        float f = 3.14f;
+        double d = 2.71828;
+
+        char c = &#x27;A&#x27;;
+        boolean flag = true;
+
+        System.out.println(&quot;byte: &quot; + b);
+        System.out.println(&quot;short: &quot; + s);
+        System.out.println(&quot;int: &quot; + i);
+        System.out.println(&quot;long: &quot; + l);
+        System.out.println(&quot;float: &quot; + f);
+        System.out.println(&quot;double: &quot; + d);
+        System.out.println(&quot;char: &quot; + c);
+        System.out.println(&quot;boolean: &quot; + flag);
+    }
+}</code></pre><hr id="1fb8d968-54a6-8075-99da-fc8bfa4ae10d"/><h3 id="1fb8d968-54a6-803b-85d8-cca250bc188b" class="">二、类型转换（Type Conversion）</h3><h3 id="1fb8d968-54a6-8050-9fcf-ea2149816964" class="">🔹 自动类型转换（小 → 大）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80a2-886d-e76798ea9505" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">int i = 100;
+long l = i;         // int 自动转 long
+float f = l;        // long 自动转 float</code></pre><h3 id="1fb8d968-54a6-80dc-aafa-c2beb1cd0ce2" class="">🔹 强制类型转换（大 → 小）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80c2-9c9e-f5d49dfb3c4e" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">double d = 3.14;
+int i = (int) d;    // 会丢失小数部分，结果是 3</code></pre><hr id="1fb8d968-54a6-80a6-a8b2-e08ad55d3d8d"/><h3 id="1fb8d968-54a6-80bb-ae9f-c8b7043f23f4" class="">三、字符与 ASCII / Unicode</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80cf-99f2-faa6e2a364d8" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">char ch = &#x27;A&#x27;;      // 字符类型
+int ascii = ch;     // 自动转成对应的 ASCII 值（65）
+System.out.println(ascii);  // 输出 65</code></pre><p id="1fb8d968-54a6-805d-9c10-eb1781e23363" class="">你还可以用 Unicode：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-804f-a05d-c1b73e16fec1" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">char ch2 = &#x27;\u4F60&#x27;; // Unicode 编码表示 &quot;你&quot;
+System.out.println(ch2);   // 输出：你</code></pre><p id="1fb8d968-54a6-80b7-9b05-f6f917463c01" class="">
+</p><ul id="1fb8d968-54a6-80e0-bbd5-cf9f6299d3b0" class="bulleted-list"><li style="list-style-type:disc">📘 中文ASCII码表参考：<a href="https://tool.oschina.net/commons?type=4">https://tool.oschina.net/commons?type=4</a></li></ul><ul id="1fb8d968-54a6-8092-9558-e4d2a0e78105" class="bulleted-list"><li style="list-style-type:disc">📘 Unicode 中文手册版：<a href="https://zh.wikipedia.org/wiki/Unicode">https://zh.wikipedia.org/wiki/Unicode</a></li></ul><p id="1fb8d968-54a6-8060-8158-cd93b964bcc0" class="">
+</p><p id="1fb8d968-54a6-8041-b638-e78f809aec19" class="">📎<a href="https://unicode-table.com/en/">Unicode Character Table</a></p><p id="1fb8d968-54a6-80a7-befd-e509f09847f0" class="">👉 超详细的 Unicode 字符查找工具，支持搜索汉字、表情符号、特殊符号等，可复制代码并查看编码值。</p><p id="1fb8d968-54a6-803b-8d20-c0c4ebd16223" class="">
+</p><p id="1fb8d968-54a6-801e-8c7e-ec73f1d4b967" class="">
+</p><h3 id="1fb8d968-54a6-80b7-b0eb-fb2381004a89" class="">四、浮点型的特殊注意</h3><ul id="1fb8d968-54a6-8034-9dcb-d707c0b8186d" class="bulleted-list"><li style="list-style-type:disc"><code>float</code> 必须加 <code>f</code>，如 <code>3.14f</code></li></ul><ul id="1fb8d968-54a6-80e6-b548-c149bd6f0824" class="bulleted-list"><li style="list-style-type:disc"><code>double</code> 是默认浮点类型，不用加后缀</li></ul><ul id="1fb8d968-54a6-809f-800a-e775ed8aaf6b" class="bulleted-list"><li style="list-style-type:disc">精度问题要注意：<code>0.1 + 0.2 != 0.3</code></li></ul><hr id="1fb8d968-54a6-80f2-aea2-f2e758877f87"/><h3 id="1fb8d968-54a6-8067-8455-cf005851acc0" class="">五、boolean 只能取两值</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8009-b80d-fc792a77e0d3" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">boolean flag = true;
+if (flag) {
+    System.out.println(&quot;这是 true&quot;);
+}</code></pre><p id="1fb8d968-54a6-8027-b90f-df259d16ddd8" class="">
+</p><h2 id="1fb8d968-54a6-806e-bec0-f2156c10affb" class="">一、引用数据类型（Reference Types）</h2><h3 id="1fb8d968-54a6-8011-b32c-da50f830b06c" class="">一、概览</h3><table id="1fb8d968-54a6-801c-b0d4-f8ac94a9e00d" class="simple-table"><tbody><tr id="1fb8d968-54a6-801d-8d47-f7defd4d20b2"><td id="BCp&lt;" class="">类型</td><td id="Z~xZ" class="">说明</td></tr><tr id="1fb8d968-54a6-8056-8938-e88d9a3b7000"><td id="BCp&lt;" class=""><code>String</code></td><td id="Z~xZ" class="">字符串类型</td></tr><tr id="1fb8d968-54a6-8074-92d6-e829383f392f"><td id="BCp&lt;" class=""><code>数组</code></td><td id="Z~xZ" class="">一组相同类型元素的集合</td></tr><tr id="1fb8d968-54a6-808f-981d-ef2ec15a9eed"><td id="BCp&lt;" class=""><code>类（Class）</code></td><td id="Z~xZ" class="">面向对象的核心，自定义数据结构</td></tr><tr id="1fb8d968-54a6-80c7-b112-d1efecf6994e"><td id="BCp&lt;" class=""><code>接口（Interface）</code></td><td id="Z~xZ" class="">一种行为规范</td></tr><tr id="1fb8d968-54a6-8057-a1fd-ef613dad6ebd"><td id="BCp&lt;" class=""><code>枚举（Enum）</code></td><td id="Z~xZ" class="">有限个常量值</td></tr><tr id="1fb8d968-54a6-80f1-ac88-e8b832634ec2"><td id="BCp&lt;" class=""><code>对象（Object）</code></td><td id="Z~xZ" class="">类的实例</td></tr></tbody></table><blockquote id="1fb8d968-54a6-80ff-b898-e7b218c21756" class="">📌 所有引用类型的变量，保存的都是“对象的地址”，并不直接存储值。</blockquote><hr id="1fb8d968-54a6-80a8-80c5-c0396c962fb6"/><h3 id="1fb8d968-54a6-80d7-8b57-d2892ccf1d62" class="">二、<code>String</code>（字符串）</h3><h3 id="1fb8d968-54a6-80ba-aa27-d652d0d220b9" class="">🔹 定义方式</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8022-b95d-e02b345da31b" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">String s1 = &quot;Hello&quot;;  // 推荐方式，常量池复用
+String s2 = new String(&quot;World&quot;); // new 创建新对象</code></pre><h3 id="1fb8d968-54a6-80db-ac9e-ea51d403bd14" class="">🔹 常用方法</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8034-bdae-c119a6acbcd5" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">s.length();           // 字符串长度
+s.charAt(0);          // 取字符
+s.equals(s2);         // 比较值是否相同
+s.toUpperCase();      // 转大写
+s.substring(1, 3);    // 截取子串
+s.replace(&quot;a&quot;, &quot;b&quot;);  // 替换字符
+s.contains(&quot;lo&quot;);     // 是否包含</code></pre><h3 id="1fb8d968-54a6-80ff-bc81-de28dcab52c7" class="">🔹 字符串是<strong>不可变对象（immutable）</strong>：修改内容实际上是创建新字符串。</h3><hr id="1fb8d968-54a6-804a-9722-fdd6ba5111fd"/><h3 id="1fb8d968-54a6-80b0-bdd4-c7b9b5ccc861" class="">三、数组（Array）</h3><h3 id="1fb8d968-54a6-80d5-8bc2-e375e6c6749b" class="">🔹 定义方式</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8010-9fa1-c78d836c358c" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">int[] nums = new int[3];             // 长度为3，默认值0
+String[] names = {&quot;Tom&quot;, &quot;Jerry&quot;};   // 初始化数组</code></pre><h3 id="1fb8d968-54a6-80a6-88f7-c48ffd921859" class="">🔹 使用方式</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8066-a70c-f702be092968" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">nums[0] = 10;
+System.out.println(nums.length);     // 数组长度</code></pre><h3 id="1fb8d968-54a6-8058-b49a-c6d510f57eff" class="">🔹 遍历数组</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-805e-b8a6-f0cdf6762134" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">for (int i = 0; i &lt; nums.length; i++) {
+    System.out.println(nums[i]);
+}
+
+for (int n : nums) {  // 增强for循环
+    System.out.println(n);
+}</code></pre><hr id="1fb8d968-54a6-80bf-b0c9-c1560de9d81d"/><h3 id="1fb8d968-54a6-8027-ab00-daf024a677c8" class="">四、类与对象（Class &amp; Object）</h3><h3 id="1fb8d968-54a6-8040-aca6-fe9df24ac528" class="">🔹 自定义类</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8038-b2a8-e9479cbdec03" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">class Person {
+    String name;
+    int age;
+
+    void sayHello() {
+        System.out.println(&quot;Hello, my name is &quot; + name);
+    }
+}</code></pre><h3 id="1fb8d968-54a6-806f-bea8-c9b670dc8037" class="">🔹 创建对象</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8012-8762-c3fd07e48f05" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Person p = new Person();  // 创建实例
+p.name = &quot;Alice&quot;;
+p.sayHello();             // 调用方法</code></pre><hr id="1fb8d968-54a6-8080-9b8c-da2891675cea"/><h3 id="1fb8d968-54a6-8039-823a-c470c52a9e1f" class="">五、引用类型的默认值</h3><table id="1fb8d968-54a6-8045-9b55-e027c79cb6e1" class="simple-table"><tbody><tr id="1fb8d968-54a6-80cd-b74d-f347cffa23ac"><td id="kmby" class="">类型</td><td id="sr{[" class="">默认值</td></tr><tr id="1fb8d968-54a6-800b-b112-c21bc9fe876f"><td id="kmby" class="">引用类型（如 <code>String</code>, <code>Object</code>, <code>Array</code>）</td><td id="sr{[" class=""><code>null</code></td></tr><tr id="1fb8d968-54a6-8015-8f43-d558ed287d40"><td id="kmby" class="">基本类型（如 <code>int</code>, <code>boolean</code>）</td><td id="sr{[" class="">0 / false</td></tr></tbody></table><hr id="1fb8d968-54a6-8025-b786-d6c3141bfe7c"/><h3 id="1fb8d968-54a6-802f-b770-dd049a0e41bf" class="">六、引用类型与堆内存</h3><ul id="1fb8d968-54a6-801e-852e-ce6d66608d18" class="bulleted-list"><li style="list-style-type:disc">引用类型的数据存储在堆（Heap）内存中</li></ul><ul id="1fb8d968-54a6-80e9-a0a5-ea0ce22d20c5" class="bulleted-list"><li style="list-style-type:disc">变量本身在栈（Stack）中存放引用（地址）</li></ul><ul id="1fb8d968-54a6-801c-a66a-de3ed960e87d" class="bulleted-list"><li style="list-style-type:disc">比较两个对象的地址要用 <code>==</code>，比较内容要用 <code>.equals()</code></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8065-bb38-e1e76baf9fdf" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">String a = new String(&quot;hello&quot;);
+String b = new String(&quot;hello&quot;);
+System.out.println(a == b);         // false（地址不同）
+System.out.println(a.equals(b));    // true（内容相同）</code></pre><p id="1fb8d968-54a6-80a1-b78a-ff5ff2c31051" class="">
+</p><p id="1fb8d968-54a6-80d7-a157-c939f41a3bd5" class="">
+</p><h1 id="1fb8d968-54a6-808b-8ecf-d7246bfb6428" class="">二、变量与常量</h1><h2 id="1fb8d968-54a6-8026-8d6b-c63aa9b5dbf7" class="">一、变量（Variable）</h2><h3 id="1fb8d968-54a6-8006-9283-d1b9361c7046" class="">🔹 定义格式</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80d6-b4e2-ffcc4bd6b630" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">&lt;数据类型&gt; &lt;变量名&gt; = &lt;初始值&gt;;</code></pre><h3 id="1fb8d968-54a6-8051-a7c1-e4948b808ac9" class="">🔹 示例：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8011-8fa5-ca7b041bdc9b" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">int age = 25;
+double height = 1.75;
+String name = &quot;Alice&quot;;</code></pre><h3 id="1fb8d968-54a6-8049-ac82-cad7149905c9" class="">🔹 注意：</h3><ul id="1fb8d968-54a6-80e7-ba88-ff6282fe23db" class="bulleted-list"><li style="list-style-type:disc">变量名一般使用 <strong>小驼峰命名法</strong>（如：userName、maxValue）</li></ul><ul id="1fb8d968-54a6-8006-a9c6-fbbc42ce3d36" class="bulleted-list"><li style="list-style-type:disc">定义变量必须指定类型（Java 是强类型语言）</li></ul><hr id="1fb8d968-54a6-8064-bb7a-f55a53687c92"/><h3 id="1fb8d968-54a6-8026-bc15-fc829500a6e6" class="">✅ Java 中变量的分类</h3><table id="1fb8d968-54a6-80e5-a621-cd7b933365c4" class="simple-table"><tbody><tr id="1fb8d968-54a6-80a2-b365-c4688ea20689"><td id="Gx`{" class="">分类方式</td><td id="lAlG" class="">类型</td><td id="VA~t" class="">说明</td></tr><tr id="1fb8d968-54a6-8053-87ae-d925b5c02299"><td id="Gx`{" class="">按定义位置</td><td id="lAlG" class=""><strong>局部变量</strong></td><td id="VA~t" class="">在方法内部定义，只能在方法内使用</td></tr><tr id="1fb8d968-54a6-8020-8add-d484dd678dbd"><td id="Gx`{" class=""></td><td id="lAlG" class=""><strong>成员变量（实例变量）</strong></td><td id="VA~t" class="">在类中定义，不加 static，属于对象</td></tr><tr id="1fb8d968-54a6-80da-a0a0-fdefc6e51d08"><td id="Gx`{" class=""></td><td id="lAlG" class=""><strong>静态变量（类变量）</strong></td><td id="VA~t" class="">使用 <code>static</code> 关键字，属于类</td></tr><tr id="1fb8d968-54a6-8028-b880-d546a95ac005"><td id="Gx`{" class="">按数据类型</td><td id="lAlG" class=""><strong>基本类型变量</strong></td><td id="VA~t" class="">如 <code>int</code>, <code>boolean</code> 等</td></tr><tr id="1fb8d968-54a6-80a1-af13-d933a0300748"><td id="Gx`{" class=""></td><td id="lAlG" class=""><strong>引用类型变量</strong></td><td id="VA~t" class="">如 <code>String</code>, <code>数组</code>, <code>类</code> 等</td></tr></tbody></table><h3 id="1fb8d968-54a6-80c8-9b18-f9f5af93a3b8" class="">✅ 示例区分：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-800a-b4ab-f996f0a36f0a" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class User {
+    // 成员变量（实例变量）
+    String name;
+
+    // 静态变量（类变量）
+    static int count = 0;
+
+    public void show() {
+        // 局部变量
+        int age = 18;
+        System.out.println(name + &quot; - &quot; + age);
+    }
+}</code></pre><hr id="1fb8d968-54a6-809e-b812-c9f5658bce29"/><h2 id="1fb8d968-54a6-803e-ae74-e42f0c3cfda0" class="">二、常量（Constant）</h2><h3 id="1fb8d968-54a6-8094-a06c-f3651c01fc78" class="">🔹 用 <code>final</code> 修饰的变量就是常量，值不可修改</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8001-ba41-ca18be6386ea" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">final double PI = 3.14159;</code></pre><h3 id="1fb8d968-54a6-806e-99c5-c5d865ac659b" class="">🔹 命名规范：</h3><ul id="1fb8d968-54a6-8072-8af3-f7b051df386b" class="bulleted-list"><li style="list-style-type:disc">一般使用 <strong>全大写字母 + 下划线</strong> 的形式命名，如：<code>MAX_LENGTH</code>、<code>DEFAULT_TIMEOUT</code></li></ul><h3 id="1fb8d968-54a6-80a9-b444-d33c5813d43c" class="">🔹 示例：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80e5-ba72-daebad7635c8" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class Config {
+    public static final String APP_NAME = &quot;Beework&quot;;
+    public static final int MAX_USERS = 100;
+}</code></pre><hr id="1fb8d968-54a6-8056-8d26-c8d2c4ffcb0f"/><h2 id="1fb8d968-54a6-8079-9a16-ec02bd73c37a" class="">三、变量与常量的对比表格</h2><table id="1fb8d968-54a6-80ff-b4a0-ce7f3cc1c81b" class="simple-table"><tbody><tr id="1fb8d968-54a6-80de-9d3c-e8e4face3c13"><td id="SK=`" class="">比较项</td><td id="LvWh" class="">变量（Variable）</td><td id="PqTk" class="">常量（Constant）</td></tr><tr id="1fb8d968-54a6-80fc-8938-da5e7b2a9bf3"><td id="SK=`" class="">是否可变</td><td id="LvWh" class="">可以修改</td><td id="PqTk" class="">不可修改（<code>final</code>）</td></tr><tr id="1fb8d968-54a6-80af-9f36-f7f8f8772216"><td id="SK=`" class="">定义关键字</td><td id="LvWh" class="">无特殊关键字</td><td id="PqTk" class="">使用 <code>final</code></td></tr><tr id="1fb8d968-54a6-8074-bc91-cbb606553e82"><td id="SK=`" class="">命名风格</td><td id="LvWh" class="">小驼峰，如：<code>userName</code></td><td id="PqTk" class="">全大写，如：<code>USER_LIMIT</code></td></tr><tr id="1fb8d968-54a6-809e-8fbb-face094faa5c"><td id="SK=`" class="">用途</td><td id="LvWh" class="">表示可变值</td><td id="PqTk" class="">表示固定值、配置、限制等</td></tr></tbody></table><h1 id="1fb8d968-54a6-8099-ad9c-d8ec6c9457e0" class="">三、运算符</h1><h2 id="1fb8d968-54a6-803a-914b-e2667ce2853b" class=""> 一、Java 运算符总览</h2><p id="1fb8d968-54a6-80a7-8692-fdace9f3abe1" class="">Java 中的运算符可以分为以下几类：</p><table id="1fb8d968-54a6-805c-9b86-da98b2e89548" class="simple-table"><tbody><tr id="1fb8d968-54a6-80f2-9755-edecf989674c"><td id="gSfm" class="">类别</td><td id="dy|R" class="">代表符号</td><td id="yv`A" class="">用途举例</td></tr><tr id="1fb8d968-54a6-8006-b852-d7adeb3c5d40"><td id="gSfm" class="">算术运算符</td><td id="dy|R" class=""><code>+ - * / % ++ --</code></td><td id="yv`A" class="">数值计算</td></tr><tr id="1fb8d968-54a6-80e3-8c90-db7dc8058db1"><td id="gSfm" class="">赋值运算符</td><td id="dy|R" class=""><code>= += -= *= /= %=</code></td><td id="yv`A" class="">给变量赋值</td></tr><tr id="1fb8d968-54a6-80e2-ac57-ce0b2c8681f0"><td id="gSfm" class="">比较运算符</td><td id="dy|R" class=""><code>== != &gt; &lt; &gt;= &lt;=</code></td><td id="yv`A" class="">判断两个值的关系</td></tr><tr id="1fb8d968-54a6-8071-a2c3-ce07ee5dad86"><td id="gSfm" class="">逻辑运算符</td><td id="dy|R" class="">`&amp;&amp;</td><td id="yv`A" class=""></td></tr><tr id="1fb8d968-54a6-80fe-8460-f17f6af26f16"><td id="gSfm" class="">位运算符</td><td id="dy|R" class="">`&amp;</td><td id="yv`A" class="">^ ~ &lt;&lt; &gt;&gt; &gt;&gt;&gt;`</td></tr><tr id="1fb8d968-54a6-80a0-b96d-ed9dbfbdc411"><td id="gSfm" class="">条件运算符</td><td id="dy|R" class=""><code>? :</code></td><td id="yv`A" class="">三元条件表达式</td></tr><tr id="1fb8d968-54a6-80b7-a44d-da7bfb673eb9"><td id="gSfm" class="">instanceof</td><td id="dy|R" class=""><code>instanceof</code></td><td id="yv`A" class="">判断对象类型</td></tr></tbody></table><hr id="1fb8d968-54a6-8094-abf0-fcb4aa312502"/><h2 id="1fb8d968-54a6-809b-93c3-d47fc19d8777" class="">二、算术运算符（Arithmetic）</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8014-b9af-ce8b45b0092b" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">int a = 10;
+int b = 3;
+System.out.println(a + b); // 13
+System.out.println(a - b); // 7
+System.out.println(a * b); // 30
+System.out.println(a / b); // 3（整数除法）
+System.out.println(a % b); // 1（取余数）</code></pre><h3 id="1fb8d968-54a6-809d-9b98-c894d57c68df" class="">自增/自减运算符</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8049-8045-fd037eb61a56" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">int x = 5;
+System.out.println(x++); // 5（先用后加）
+System.out.println(++x); // 7（先加后用</code></pre><hr id="1fb8d968-54a6-8013-a3bf-e4b54a7fbc71"/><h2 id="1fb8d968-54a6-80a6-ba83-f37fc13f3582" class="">三、赋值运算符（Assignment）</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80a0-ad46-d82e1a043569" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">int a = 5;
+a += 2; // 相当于 a = a + 2;
+a *= 3; // 相当于 a = a * 3;
+
+</code></pre><hr id="1fb8d968-54a6-8003-9ad1-d2afcda00e23"/><h2 id="1fb8d968-54a6-8049-aa72-c992dd47b349" class="">四、比较运算符（Relational）</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8031-819e-fb1add038b11" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">int a = 10;
+int b = 5;
+
+System.out.println(a &gt; b);   // true
+System.out.println(a == b);  // false
+System.out.println(a != b);  // true</code></pre><hr id="1fb8d968-54a6-808b-b411-f94573ae0684"/><h2 id="1fb8d968-54a6-809e-8355-fd152147ebe0" class="">五、逻辑运算符（Logical）</h2><p id="1fb8d968-54a6-80b0-898b-d852dbd8c3a3" class="">适用于 <code>boolean</code> 类型：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8035-ad45-d14b2caece91" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">boolean a = true;
+boolean b = false;
+
+System.out.println(a &amp;&amp; b);  // false（与：两者都为true才为true）
+System.out.println(a || b);  // true（或：只要一个为true就为true）
+System.out.println(!a);      // false（非）</code></pre><hr id="1fb8d968-54a6-80ac-85d8-fbe1aa3d1b52"/><h2 id="1fb8d968-54a6-8044-8e82-eec47d7adc6b" class="">六、位运算符（Bitwise）</h2><p id="1fb8d968-54a6-8087-9b43-d2aaea4f6959" class="">（适合了解，有些算法题会考）</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-805e-a644-fdf9eeb87d3f" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">int a = 3;  // 011
+int b = 5;  // 101
+
+System.out.println(a &amp; b); // 1（按位与）
+System.out.println(a | b); // 7（按位或）
+System.out.println(a ^ b); // 6（异或）
+System.out.println(~a);    // -4（取反）</code></pre><hr id="1fb8d968-54a6-805d-9456-d4f3230df11f"/><h2 id="1fb8d968-54a6-805b-bcc8-d8175677470d" class="">七、三元运算符（Ternary Operator）</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80ae-86a7-f8bcc167caef" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">int a = 10, b = 20;
+int max = (a &gt; b) ? a : b;
+System.out.println(max); // 20</code></pre><hr id="1fb8d968-54a6-80b6-8e9d-cbd025c08553"/><h2 id="1fb8d968-54a6-8070-ab4e-dd96ef9fb175" class="">八、instanceof 运算符</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-808c-bd4d-db28c807fb09" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">String s = &quot;Hello&quot;;
+System.out.println(s instanceof String); // true
+
+</code></pre><hr id="1fb8d968-54a6-80b5-b360-c4dbecc18d79"/><h2 id="1fb8d968-54a6-8019-8143-e7b265f246c3" class="">九、运算符优先级（简略版）</h2><p id="1fb8d968-54a6-8065-a2d5-d144b832d30f" class="">优先级从高到低（只列部分常用）：</p><ol type="1" id="1fb8d968-54a6-805e-8582-da9048a6de9c" class="numbered-list" start="1"><li><code>()</code> 圆括号</li></ol><ol type="1" id="1fb8d968-54a6-80d0-9c9d-d4d09bc296f9" class="numbered-list" start="2"><li><code>++ --</code></li></ol><ol type="1" id="1fb8d968-54a6-80fa-98fc-f449cb3cdd8d" class="numbered-list" start="3"><li><code>/ %</code></li></ol><ol type="1" id="1fb8d968-54a6-8002-8dff-ce45f1ef86da" class="numbered-list" start="4"><li><code>+ -</code></li></ol><ol type="1" id="1fb8d968-54a6-80c9-8d06-ce4d11fccaf2" class="numbered-list" start="5"><li><code>&gt; &lt; &gt;= &lt;=</code></li></ol><ol type="1" id="1fb8d968-54a6-805a-b9fe-f08e10d3bc27" class="numbered-list" start="6"><li><code>== !=</code></li></ol><ol type="1" id="1fb8d968-54a6-8029-8a4a-d928316de514" class="numbered-list" start="7"><li><code>&amp;&amp;</code></li></ol><ol type="1" id="1fb8d968-54a6-80b9-9998-d4d4241b17b8" class="numbered-list" start="8"><li><code>||</code></li></ol><ol type="1" id="1fb8d968-54a6-803f-b50d-e723e5cc767d" class="numbered-list" start="9"><li><code>= += -= *=</code></li></ol><p id="1fb8d968-54a6-806d-b829-dc8d54ce4a0b" class="">
+</p><h1 id="1fb8d968-54a6-80d9-8bd5-cbb78164274e" class="">四、流程控制语句</h1><h2 id="1fb8d968-54a6-80cd-8969-ea4a88ac4ff2" class="">一、条件判断语句（选择结构）</h2><h3 id="1fb8d968-54a6-80b3-a4ff-e8b03d6c5487" class="">🔹 1. <code>if</code> 语句</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-807a-85d8-dfa400f1a942" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">int age = 20;
+
+if (age &gt;= 18) {
+    System.out.println(&quot;成年人&quot;);
+} else {
+    System.out.println(&quot;未成年人&quot;);
+}
+
+</code></pre><h3 id="1fb8d968-54a6-8070-9cf7-c1049e206454" class="">🔹 2. 多重 <code>if...else if...else</code></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8054-a288-e004dead31bc" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">int score = 85;
+
+if (score &gt;= 90) {
+    System.out.println(&quot;优秀&quot;);
+} else if (score &gt;= 70) {
+    System.out.println(&quot;良好&quot;);
+} else {
+    System.out.println(&quot;需努力&quot;);
+}
+
+</code></pre><h3 id="1fb8d968-54a6-8061-9229-f17e1ae70543" class="">🔹 3. 嵌套 if</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8060-9dde-d2ddfb859335" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">if (age &gt; 0) {
+    if (age &lt; 18) {
+        System.out.println(&quot;未成年人&quot;);
+    }
+}</code></pre><hr id="1fb8d968-54a6-8082-a497-dc2830e83c9a"/><h2 id="1fb8d968-54a6-804b-966c-c442f69d0c16" class="">✅ 二、<code>switch</code> 多分支语句</h2><p id="1fb8d968-54a6-801c-ab5b-e65234d07ab9" class="">适用于<strong>整型、字符串、枚举</strong>等值判断。</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-808e-9802-c0d1b0d28328" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">int day = 2;
+
+switch (day) {
+    case 1:
+        System.out.println(&quot;星期一&quot;);
+        break;
+    case 2:
+        System.out.println(&quot;星期二&quot;);
+        break;
+    default:
+        System.out.println(&quot;其他&quot;);
+}</code></pre><h3 id="1fb8d968-54a6-80f9-8999-ffd8d76955d3" class="">🔸 Java 7+ 可以 <code>switch</code> 字符串</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80ba-85dc-d9cea25716eb" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">String role = &quot;admin&quot;;
+
+switch (role) {
+    case &quot;admin&quot;:
+        System.out.println(&quot;管理员&quot;);
+        break;
+    case &quot;user&quot;:
+        System.out.println(&quot;普通用户&quot;);
+        break;
+}</code></pre><hr id="1fb8d968-54a6-80a2-ad75-ca27bb20d619"/><h2 id="1fb8d968-54a6-8073-a986-ea35908f86b4" class="">✅ 三、循环语句（for / while / do while）</h2><h3 id="1fb8d968-54a6-80b4-9288-f2e6a22d7c73" class="">🔹 1. <code>for</code> 循环</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-809a-bca8-e3f61414010e" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+复制编辑
+for (int i = 0; i &lt; 5; i++) {
+    System.out.println(&quot;i = &quot; + i);
+}</code></pre><h3 id="1fb8d968-54a6-8025-aa00-da3d529b6885" class="">🔹 2. 增强 <code>for-each</code> 循环（用于遍历数组/集合）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8085-96c0-d5974cffe459" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+复制编辑
+int[] nums = {1, 2, 3};
+for (int n : nums) {
+    System.out.println(n);
+}</code></pre><h3 id="1fb8d968-54a6-8039-80b9-d691e36167bc" class="">🔹 3. <code>while</code> 循环（先判断再执行）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80d3-b6c1-e82d819931b8" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">int i = 0;
+while (i &lt; 3) {
+    System.out.println(&quot;while: &quot; + i);
+    i++;
+}</code></pre><h3 id="1fb8d968-54a6-80ca-b837-f64e541f5045" class="">🔹 4. <code>do...while</code> 循环（至少执行一次）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-800e-a7e3-c84528450db1" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">int i = 0;
+do {
+    System.out.println(&quot;do while: &quot; + i);
+    i++;
+} while (i &lt; 3);</code></pre><hr id="1fb8d968-54a6-80f9-b257-fb40493165ad"/><h2 id="1fb8d968-54a6-8029-a851-e934914a3bae" class="">✅ 四、跳转语句</h2><table id="1fb8d968-54a6-8044-b4ff-c77e9572ea6f" class="simple-table"><tbody><tr id="1fb8d968-54a6-8042-8026-cc98065aa4cc"><td id="ephl" class="">关键字</td><td id="^I]w" class="">用法说明</td></tr><tr id="1fb8d968-54a6-8026-b20b-d6c0e66a02b8"><td id="ephl" class=""><code>break</code></td><td id="^I]w" class="">跳出当前循环或 <code>switch</code></td></tr><tr id="1fb8d968-54a6-80e3-94cb-f9b2ffda9158"><td id="ephl" class=""><code>continue</code></td><td id="^I]w" class="">跳过当前循环的剩余部分，继续下一轮</td></tr><tr id="1fb8d968-54a6-8016-824b-c702fd9f6fd5"><td id="ephl" class=""><code>return</code></td><td id="^I]w" class="">返回方法调用结果并结束当前方法</td></tr></tbody></table><h3 id="1fb8d968-54a6-8046-a3af-e81169d11b9e" class="">示例：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8044-9523-ed56ec1af74a" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">for (int i = 1; i &lt;= 5; i++) {
+    if (i == 3) {
+        continue; // 跳过3
+    }
+    if (i == 5) {
+        break; // 提前退出
+    }
+    System.out.println(i);
+}</code></pre><hr id="1fb8d968-54a6-80c9-b0d6-fb82873d45b3"/><h2 id="1fb8d968-54a6-8025-ad40-eaa80c3e9b3a" class="">✅ 五、流程控制结构图（简略）</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-809b-b799-c9e9f62589c0" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">if-else        → 选择结构
+switch-case    → 多分支结构
+for / while    → 条件循环
+do...while     → 保底循环（至少一次）
+break/continue → 控制跳转</code></pre></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

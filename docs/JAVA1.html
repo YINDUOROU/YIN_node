@@ -1,0 +1,1027 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>尹さんのJAVA总结（面向对象基础）</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1fb8d968-54a6-80c2-bba4-f5cf57c36a89" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_space_shuttle_challenger.jpg" style="object-position:center 0%"/><h1 class="page-title">尹さんのJAVA总结（面向对象基础）</h1><p class="page-description"></p></header><div class="page-body"><h1 id="1fb8d968-54a6-809d-9e0a-fa7c028cae43" class="">✅面向对象</h1><h2 id="1fb8d968-54a6-8037-805b-c82b543c78dd" class="">一、什么是面向对象？</h2><blockquote id="1fb8d968-54a6-8045-87a4-eed90bf66e61" class="">面向对象是一种程序设计思想，把现实世界的事物抽象为“对象”，每个对象有属性（字段）和行为（方法）。</blockquote><p id="1fb8d968-54a6-80f3-aba6-d333d301c677" class="">Java 中“面向对象”体现在三个核心特性：</p><table id="1fb8d968-54a6-80ef-afae-dd4688977fc1" class="simple-table"><tbody><tr id="1fb8d968-54a6-80c8-9857-e536dd2d63fb"><td id="\DAr" class="">特性</td><td id=";:_f" class="">中文</td><td id="kyIX" class="">说明</td></tr><tr id="1fb8d968-54a6-800b-8a16-f6b679134f95"><td id="\DAr" class="">Encapsulation</td><td id=";:_f" class="">封装</td><td id="kyIX" class="">把数据和方法打包成对象，保护内部细节</td></tr><tr id="1fb8d968-54a6-8028-b055-dee11d548c07"><td id="\DAr" class="">Inheritance</td><td id=";:_f" class="">继承</td><td id="kyIX" class="">子类继承父类代码，代码复用</td></tr><tr id="1fb8d968-54a6-807e-8e2f-dcfe377c898a"><td id="\DAr" class="">Polymorphism</td><td id=";:_f" class="">多态</td><td id="kyIX" class="">同一方法根据对象类型表现不同行为</td></tr></tbody></table><hr id="1fb8d968-54a6-808b-92fb-dd60d7f5289a"/><p id="1fb8d968-54a6-8095-bfb9-e17795b9313d" class="">
+</p><p id="1fb8d968-54a6-803b-92da-e540b56cca41" class="">
+</p><h2 id="1fb8d968-54a6-80cd-bf28-edaa0b41b337" class="">二、类与对象（Class &amp; Object）</h2><h3 id="1fb8d968-54a6-80a4-a359-e27c9be88fdf" class="">🔹 定义类</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-801e-a55f-ff0cdfbfbe89" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class Person {
+    // 属性（字段）
+    String name;
+    int age;
+
+    // 方法（行为）
+    void sayHello() {
+        System.out.println(&quot;你好，我是 &quot; + name);
+    }
+}</code></pre><h3 id="1fb8d968-54a6-8008-85e8-d22ddb730d0c" class="">🔹 创建对象</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80a5-8dcf-f949c64a5917" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Person p = new Person();
+p.name = &quot;小明&quot;;
+p.age = 18;
+p.sayHello();  // 输出：你好，我是 小明</code></pre><hr id="1fb8d968-54a6-8043-8f76-d36005b0cfff"/><p id="1fb8d968-54a6-80a8-b600-df6bb2318dc5" class="">
+</p><h2 id="1fb8d968-54a6-804f-a3c3-e87e892227df" class="">三、构造方法（Constructor）</h2><p id="1fb8d968-54a6-8033-aec5-d74c73b64d2b" class="">构造方法用于创建对象时初始化属性。方法名与类名相同，无返回类型。</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80ca-8a9d-c8cef27d6419" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class Person {
+    String name;
+
+    // 构造方法
+    public Person(String n) {
+        name = n;
+    }
+}</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8070-8a29-dabe56b11650" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Person p = new Person(&quot;小红&quot;);  // 调用构造方法</code></pre><h3 id="1fb8d968-54a6-80fd-b2b5-d46e146dbd01" class="">✅ 成员变量、成员方法（普通方法）、构造函数的区别总览</h3><table id="1fb8d968-54a6-8020-8ef3-e442abd29c41" class="simple-table"><tbody><tr id="1fb8d968-54a6-80c2-8a05-fe1759409760"><td id="LPw;" class="">项目</td><td id="cmhJ" class="">成员变量（字段）</td><td id="&gt;CD?" class="">成员方法（普通方法）</td><td id="nRSZ" class="">构造函数（Constructor）</td></tr><tr id="1fb8d968-54a6-808a-95b6-e17f8a06c7b9"><td id="LPw;" class="">作用</td><td id="cmhJ" class="">保存对象的属性值</td><td id="&gt;CD?" class="">表现对象的行为逻辑</td><td id="nRSZ" class="">创建对象并初始化成员变量</td></tr><tr id="1fb8d968-54a6-8068-808b-e9e73b41e383"><td id="LPw;" class="">定义位置</td><td id="cmhJ" class="">类中，方法外</td><td id="&gt;CD?" class="">类中，方法（函数）定义</td><td id="nRSZ" class="">类中，方法名与类名相同</td></tr><tr id="1fb8d968-54a6-80fb-beb3-df03dcef262f"><td id="LPw;" class="">是否有返回值</td><td id="cmhJ" class="">有数据类型</td><td id="&gt;CD?" class="">有（可以是 <code>void</code>）</td><td id="nRSZ" class="">❌ 没有返回类型（连 <code>void</code> 都不能写）</td></tr><tr id="1fb8d968-54a6-80f8-b431-f677f4a2a385"><td id="LPw;" class="">是否需要调用</td><td id="cmhJ" class="">自动创建、可直接访问</td><td id="&gt;CD?" class="">必须通过对象调用</td><td id="nRSZ" class="">使用 <code>new</code> 时自动调用</td></tr><tr id="1fb8d968-54a6-8095-9f74-e658376256c4"><td id="LPw;" class="">是否可以重载</td><td id="cmhJ" class="">❌ 不可重载</td><td id="&gt;CD?" class="">✅ 可重载（不同参数）</td><td id="nRSZ" class="">✅ 可重载（不同参数）</td></tr><tr id="1fb8d968-54a6-809f-bd07-e8c1c48ec4f5"><td id="LPw;" class="">是否可继承</td><td id="cmhJ" class="">✅（非 private 可继承）</td><td id="&gt;CD?" class="">✅（非 private 可继承）</td><td id="nRSZ" class="">❌ 构造函数不继承</td></tr><tr id="1fb8d968-54a6-80c5-a26a-eb4773ea8fa7"><td id="LPw;" class="">是否可以加 static</td><td id="cmhJ" class="">✅（类变量）</td><td id="&gt;CD?" class="">✅（类方法）</td><td id="nRSZ" class="">❌ 不能加 static</td></tr><tr id="1fb8d968-54a6-806f-ac62-f3a25457cecf"><td id="LPw;" class="">是否可加 final</td><td id="cmhJ" class="">✅（不可再赋值）</td><td id="&gt;CD?" class="">✅（不可被重写）</td><td id="nRSZ" class="">❌ 构造函数不能加 final</td></tr></tbody></table><hr id="1fb8d968-54a6-806c-9eb2-d6853a443536"/><h3 id="1fb8d968-54a6-805a-af8f-d5304fc7dd67" class="">✅ 分别解释与示例</h3><hr id="1fb8d968-54a6-809a-81dc-d448435c2d66"/><p id="1fb8d968-54a6-8042-aca7-e3cebc7b5b2d" class="">🔹 1. 成员变量（Field / 属性）</p><p id="1fb8d968-54a6-8037-ba2a-c335faa97158" class="">定义：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8057-9c4d-c35f5ae38c09" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class Student {
+    String name;       // 实例变量
+    static int count;  // 静态变量
+}
+
+</code></pre><p id="1fb8d968-54a6-8080-83c0-d6846691fcbe" class="">特点：</p><ul id="1fb8d968-54a6-80bd-9ce8-f60ad5f5c042" class="bulleted-list"><li style="list-style-type:disc">存储对象的状态（如姓名、年龄）</li></ul><ul id="1fb8d968-54a6-8085-92a5-cb49e89b6d33" class="bulleted-list"><li style="list-style-type:disc">每个对象有自己的一份（static 除外）</li></ul><ul id="1fb8d968-54a6-80a6-84ab-d7716a53979c" class="bulleted-list"><li style="list-style-type:disc">默认值：数字是 0、引用是 null、布尔是 false</li></ul><hr id="1fb8d968-54a6-8034-9d14-e014f7652fa6"/><p id="1fb8d968-54a6-80b4-8ed0-dfa03e3bb12a" class="">🔹 2. 成员方法（普通方法）</p><p id="1fb8d968-54a6-806e-ba2e-c1deacbe0938" class="">定义：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8082-b402-e1740432fc07" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class Student {
+    void study() {
+        System.out.println(&quot;在学习&quot;);
+    }
+
+    int getAge() {
+        return 18;
+    }
+}</code></pre><p id="1fb8d968-54a6-8009-84bf-ea1390aeafae" class="">特点：</p><ul id="1fb8d968-54a6-8062-8bb6-fab9152344dc" class="bulleted-list"><li style="list-style-type:disc">表现对象的<strong>行为</strong></li></ul><ul id="1fb8d968-54a6-807e-8076-f852aa04061d" class="bulleted-list"><li style="list-style-type:disc">可访问/操作成员变量</li></ul><ul id="1fb8d968-54a6-805f-94a5-c6183afebae2" class="bulleted-list"><li style="list-style-type:disc">可被调用（如 <code>s.study()</code>）</li></ul><hr id="1fb8d968-54a6-80e0-8a38-cbb935ae2336"/><p id="1fb8d968-54a6-800f-909f-e8abae447fe5" class="">🔹 3. 构造函数（Constructor）</p><p id="1fb8d968-54a6-8011-acab-dc98537a780d" class="">定义：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8012-9602-ee0784bcc85d" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class Student {
+    String name;
+
+    // 构造函数
+    public Student(String n) {
+        name = n;
+    }
+}</code></pre><p id="1fb8d968-54a6-803f-b7d6-cf0daad4ce98" class="">特点：</p><ul id="1fb8d968-54a6-80bc-9230-fe438e6ab1e5" class="bulleted-list"><li style="list-style-type:disc">与类名相同</li></ul><ul id="1fb8d968-54a6-8047-a8d2-f8d21d8df31d" class="bulleted-list"><li style="list-style-type:disc">无返回类型（连 <code>void</code> 也不能写）</li></ul><ul id="1fb8d968-54a6-8052-95da-ca68203c9581" class="bulleted-list"><li style="list-style-type:disc">用于对象创建时<strong>初始化成员变量</strong></li></ul><ul id="1fb8d968-54a6-80cd-bc00-e5d5298f369a" class="bulleted-list"><li style="list-style-type:disc">可重载（多个构造器）</li></ul><ul id="1fb8d968-54a6-8082-acdd-db420e2ed622" class="bulleted-list"><li style="list-style-type:disc"><code>new</code> 时自动调用</li></ul><hr id="1fb8d968-54a6-8006-8ebb-de044f17d369"/><p id="1fb8d968-54a6-80dd-868b-e56ae5df2a06" class="">✅ 示例对比</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-803a-9cc7-de29db75978d" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class Person {
+    // ✅ 成员变量
+    String name;
+    int age;
+
+    // ✅ 构造函数
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // ✅ 成员方法
+    void introduce() {
+        System.out.println(&quot;我是 &quot; + name + &quot;，年龄 &quot; + age);
+    }
+}</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-805e-a261-f890227fd4e6" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">// 使用方式：
+Person p = new Person(&quot;小明&quot;, 20);  // 构造函数被调用
+p.introduce();                      // 成员方法被调用</code></pre><hr id="1fb8d968-54a6-8029-9f92-d0c2bcb81a5b"/><p id="1fb8d968-54a6-80b9-8251-ca2f69e20cea" class="">✅ 面试常问总结</p><p id="1fb8d968-54a6-8049-ad1b-c57588b08403" class="">❓ Q1：构造函数和普通方法有什么不同？</p><table id="1fb8d968-54a6-8018-8e4c-c2ee0df8c8c5" class="simple-table"><tbody><tr id="1fb8d968-54a6-800e-b27f-fc831018c8c1"><td id="kSGs" class="">比较项</td><td id="TTqD" class="">构造函数</td><td id="P~E|" class="">普通方法</td></tr><tr id="1fb8d968-54a6-8003-9efd-c302f263ea93"><td id="kSGs" class="">是否有返回值</td><td id="TTqD" class="">❌ 没有（不能写 void）</td><td id="P~E|" class="">✅ 有</td></tr><tr id="1fb8d968-54a6-80a8-a095-f6b976deb550"><td id="kSGs" class="">是否自动调用</td><td id="TTqD" class="">✅ 创建对象时自动执行</td><td id="P~E|" class="">❌ 需手动调用</td></tr><tr id="1fb8d968-54a6-80a1-a6dc-fb213f7b7132"><td id="kSGs" class="">名字是否与类相同</td><td id="TTqD" class="">✅ 必须相同</td><td id="P~E|" class="">❌ 自定义</td></tr></tbody></table><hr id="1fb8d968-54a6-80dd-8121-ca27d48bcd45"/><p id="1fb8d968-54a6-80a4-bfe0-c7739efbcacb" class="">❓ Q2：成员变量和构造函数有什么不同？</p><ul id="1fb8d968-54a6-80d1-8b01-ca456c660ada" class="bulleted-list"><li style="list-style-type:disc">成员变量是“<strong>对象属性</strong>”，构造函数是“<strong>创建对象时设置属性</strong>”。</li></ul><ul id="1fb8d968-54a6-8022-8738-ce80584733c9" class="bulleted-list"><li style="list-style-type:disc">变量存状态，构造函数赋初值。</li></ul><p id="1fb8d968-54a6-80a6-9d3b-d03488f00616" class="">
+</p><p id="1fb8d968-54a6-80e3-ba42-f707cd32e9c0" class="">
+</p><h2 id="1fb8d968-54a6-80f3-b922-f0fcac5f3099" class="">四、封装（Encapsulation）</h2><h3 id="1fb8d968-54a6-80b8-a45a-d2793931e208" class="">🔹 用 <code>private</code> 修饰属性，隐藏内部数据</h3><h3 id="1fb8d968-54a6-80df-abb0-c3feb7a11149" class="">🔹 用 <code>public</code> 提供 getter/setter 方法暴露控制访问</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8050-93a3-c57bc0abeb85" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class Student {
+    private int score;
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int s) {
+        if (s &gt;= 0 &amp;&amp; s &lt;= 100) {
+            score = s;
+        }
+    }
+}</code></pre><p id="1fb8d968-54a6-808f-ac33-f52024dcde2c" class="">
+</p><p id="1fb8d968-54a6-80c8-8280-c2b9e807e1d1" class="">用于控制“类、方法、变量”等的<strong>访问权限范围：</strong></p><table id="1fb8d968-54a6-80c8-ac92-da984ef58189" class="simple-table"><tbody><tr id="1fb8d968-54a6-809c-a387-f6ec215e5348"><td id="runV" class="">限定符</td><td id="VVhI" class="">中文解释</td><td id="qWvg" class="">本类</td><td id="j&lt;ZN" class="">同包</td><td id="gYwz" class="">子类</td><td id="i\rN" class="">其他包</td><td id="nGiR" class="">常用位置</td></tr><tr id="1fb8d968-54a6-8060-9111-ce891c5cd084"><td id="runV" class=""><code>public</code></td><td id="VVhI" class="">公共的</td><td id="qWvg" class="">✅</td><td id="j&lt;ZN" class="">✅</td><td id="gYwz" class="">✅</td><td id="i\rN" class="">✅</td><td id="nGiR" class="">类、方法、变量</td></tr><tr id="1fb8d968-54a6-80fb-a584-f2782a09c043"><td id="runV" class=""><code>protected</code></td><td id="VVhI" class="">受保护的</td><td id="qWvg" class="">✅</td><td id="j&lt;ZN" class="">✅</td><td id="gYwz" class="">✅</td><td id="i\rN" class="">❌</td><td id="nGiR" class="">方法、变量</td></tr><tr id="1fb8d968-54a6-80bd-b801-d8a481aea23a"><td id="runV" class=""><em>默认</em></td><td id="VVhI" class="">包访问权限</td><td id="qWvg" class="">✅</td><td id="j&lt;ZN" class="">✅</td><td id="gYwz" class="">❌</td><td id="i\rN" class="">❌</td><td id="nGiR" class="">类、方法、变量（不写时）</td></tr><tr id="1fb8d968-54a6-8025-85fc-ec5dc3503f4d"><td id="runV" class=""><code>private</code></td><td id="VVhI" class="">私有的</td><td id="qWvg" class="">✅</td><td id="j&lt;ZN" class="">❌</td><td id="gYwz" class="">❌</td><td id="i\rN" class="">❌</td><td id="nGiR" class="">方法、变量（不能修饰类）</td></tr></tbody></table><p id="1fb8d968-54a6-8070-ae57-c253b7de2b9a" class="">
+</p><p id="1fb8d968-54a6-80f6-8f61-f8b0ce72fb12" class="">其他常用修饰符（Modifiers）</p><h3 id="1fb8d968-54a6-80b2-bf2d-ce563bb30dff" class="">🔹 1. <code>static</code>（静态的）</h3><ul id="1fb8d968-54a6-8016-93b8-d4b7ddf364d9" class="bulleted-list"><li style="list-style-type:disc">作用：表示<strong>属于类本身</strong>而不是某个对象</li></ul><ul id="1fb8d968-54a6-80e3-8b31-f5c4b82873a4" class="bulleted-list"><li style="list-style-type:disc">可修饰：变量、方法、代码块、内部类</li></ul><ul id="1fb8d968-54a6-8004-8347-d9506b6442e7" class="bulleted-list"><li style="list-style-type:disc">特点：<strong>无需创建对象即可访问</strong></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8055-8d29-d2039abe1ebd" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class MyClass {
+    static int count = 0;
+    static void say() {
+        System.out.println(&quot;静态方法&quot;);
+    }
+}</code></pre><p id="1fb8d968-54a6-80f5-8ce8-c6a21290f2e9" class="">调用方式：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80f7-aa87-c36a349ccc0c" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">MyClass.say();     // 直接通过类名调用
+System.out.println(MyClass.count);</code></pre><hr id="1fb8d968-54a6-8038-8444-d59f3d76db15"/><h3 id="1fb8d968-54a6-8012-87f1-f8bd955ba3d9" class="">🔹 2. <code>final</code>（最终的 / 常量）</h3><ul id="1fb8d968-54a6-8005-be74-d375b99d2970" class="bulleted-list"><li style="list-style-type:disc">作用：<strong>不可变、不可重写、不可继承</strong></li></ul><ul id="1fb8d968-54a6-8074-8521-c995e1d0efb0" class="bulleted-list"><li style="list-style-type:disc">可修饰：变量、方法、类</li></ul><table id="1fb8d968-54a6-8085-a792-cff1936364a0" class="simple-table"><tbody><tr id="1fb8d968-54a6-8089-847e-dea30e4ade35"><td id="f@Lu" class="">修饰对象</td><td id="|f_n" class="">含义</td></tr><tr id="1fb8d968-54a6-80a1-8408-c00d25bd0b4e"><td id="f@Lu" class="">变量</td><td id="|f_n" class="">变成常量，只能赋值一次</td></tr><tr id="1fb8d968-54a6-8081-b563-dabfeb0770d4"><td id="f@Lu" class="">方法</td><td id="|f_n" class="">子类不能重写此方法</td></tr><tr id="1fb8d968-54a6-8076-b9a4-df9834408709"><td id="f@Lu" class="">类</td><td id="|f_n" class="">不能被继承</td></tr></tbody></table><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80f2-9862-eac254a24d12" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">
+final int MAX = 100;          // 常量
+final class A {}              // 不能有子类
+final void run() {}           // 子类不能 override</code></pre><hr id="1fb8d968-54a6-8097-b48b-e103a33cd44b"/><h3 id="1fb8d968-54a6-8021-ab59-df7425d347fe" class="">🔹 3. <code>abstract</code>（抽象）</h3><ul id="1fb8d968-54a6-80f3-bd3e-db683467342a" class="bulleted-list"><li style="list-style-type:disc">作用：用于声明<strong>抽象类</strong>和<strong>抽象方法</strong></li></ul><ul id="1fb8d968-54a6-80d7-9cf6-c41315f5868b" class="bulleted-list"><li style="list-style-type:disc">特点：不能被实例化，必须由子类实现</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8048-9da1-c762e2bad04c" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">abstract class Animal {
+    abstract void speak();    // 无方法体
+}
+
+class Dog extends Animal {
+    void speak() {
+        System.out.println(&quot;汪汪！&quot;);
+    }
+}
+
+</code></pre><hr id="1fb8d968-54a6-8024-9fa8-fa94af3b46d9"/><h3 id="1fb8d968-54a6-8043-ab0f-daadf4d8dd98" class="">🔹 4. <code>synchronized</code>（同步的）</h3><ul id="1fb8d968-54a6-8013-8d4a-facb900c7e0d" class="bulleted-list"><li style="list-style-type:disc">作用：<strong>用于线程安全</strong>，防止并发冲突</li></ul><ul id="1fb8d968-54a6-807d-a19e-c346b06d7481" class="bulleted-list"><li style="list-style-type:disc">可修饰方法或代码块</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80c0-96cb-f7a0e8ee2b47" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public synchronized void save() {
+    // 线程同步方法
+}</code></pre><hr id="1fb8d968-54a6-8008-8467-e7b557ae1212"/><h3 id="1fb8d968-54a6-80ad-a5f9-dbcc50c5ff0b" class="">🔹 5. <code>transient</code>（瞬时的）</h3><ul id="1fb8d968-54a6-8008-839e-fb75f963a5a7" class="bulleted-list"><li style="list-style-type:disc">作用：在序列化对象时，<strong>该字段不会被序列化</strong></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8022-893e-cee8c7da5663" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">transient String password;</code></pre><hr id="1fb8d968-54a6-80a3-9898-f21c23bfc902"/><h3 id="1fb8d968-54a6-804b-866e-ea305f3fe767" class="">🔹 6. <code>volatile</code>（易变的）</h3><ul id="1fb8d968-54a6-8073-ade5-d122fd94852f" class="bulleted-list"><li style="list-style-type:disc">作用：<strong>保证线程间变量的可见性</strong></li></ul><ul id="1fb8d968-54a6-8093-be14-fd500d789a63" class="bulleted-list"><li style="list-style-type:disc">用于多线程开发中共享变量的同步场景</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80f8-bfcc-edf7f16146b2" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">volatile boolean running = true;</code></pre><p id="1fb8d968-54a6-8048-a443-d062f479cc2d" class="">
+</p><h2 id="1fb8d968-54a6-80a5-a930-fb61e27bd799" class="">五、继承（Inheritance）</h2><h3 id="1fb8d968-54a6-8060-9029-e211610b0a59" class="">🔹 使用 <code>extends</code> 继承父类</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-806c-958c-ee09c621cdbd" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">class Animal {
+    void eat() {
+        System.out.println(&quot;吃东西&quot;);
+    }
+}
+
+class Dog extends Animal {
+    void bark() {
+        System.out.println(&quot;汪汪&quot;);
+    }
+}</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80fa-b7f9-e4a194d143fc" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Dog d = new Dog();
+d.eat();   // 父类方法
+d.bark();  // 子类方法
+//子类继承父类，那么子类同样也能继承父类的方法</code></pre><hr id="1fb8d968-54a6-8090-ab47-e801e976316a"/><p id="1fb8d968-54a6-80f0-b9e7-f94682547c22" class="">
+</p><h2 id="1fb8d968-54a6-8044-9490-c6fabd15fd65" class="">六、多态（Polymorphism）</h2><p id="1fb8d968-54a6-8096-9139-f33176529362" class=""><mark class="highlight-purple">多态的表现形式：方法的重写和重载</mark></p><h3 id="1fb8d968-54a6-806e-8df7-c3d14f822ea4" class="">🔹 向上转型：父类引用指向子类对象</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8075-bc72-ee0661692a10" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Animal a = new Dog();  // Animal 是父类，Dog 是子类
+a.eat();               // 调用的是 Dog 继承的 eat 方法</code></pre><h3 id="1fb8d968-54a6-80ab-a004-d0f32b057241" class="">🔹 重写（Override）：子类重写父类方法</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80ad-9c0f-dc604400bdc0" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">class Dog extends Animal {
+    @Override
+    void eat() {
+        System.out.println(&quot;狗在吃饭&quot;);
+    }
+}
+//子类继承父类后，重新定义父类已有的方法，方法名、参数、返回值必须完全一致。</code></pre><h3 id="1fb8d968-54a6-80a9-98ba-f38661423bf0" class="">🔹 重载（Overloading）：在<strong>同一个类中</strong>，<strong>方法名相同</strong>，但<strong>参数不同</strong>（个数、类型或顺序不同），形成重载。</h3><h3 id="1fb8d968-54a6-80c6-a592-dd06be758891" class="">✅ 特点：</h3><table id="1fb8d968-54a6-807b-af0d-cf59641bd765" class="simple-table"><tbody><tr id="1fb8d968-54a6-801c-8dc7-da91699199ea"><td id="{jrU" class="">项目</td><td id="STXv" class="">内容</td></tr><tr id="1fb8d968-54a6-80c0-b66e-f2b68fbe3cf7"><td id="{jrU" class="">是否在同类内</td><td id="STXv" class="">✅ 是</td></tr><tr id="1fb8d968-54a6-804b-8ef6-d2ca3e4e4c3c"><td id="{jrU" class="">参数列表是否不同</td><td id="STXv" class="">✅ 必须不同</td></tr><tr id="1fb8d968-54a6-805a-bf05-e15ce5eaf828"><td id="{jrU" class="">返回值是否必须相同</td><td id="STXv" class="">❌ 不要求相同（不能仅靠返回值区分）</td></tr><tr id="1fb8d968-54a6-8021-ba3a-cecdf0c01d50"><td id="{jrU" class="">是否与继承有关</td><td id="STXv" class="">❌ 无关</td></tr><tr id="1fb8d968-54a6-8012-8b3c-c901938bb67f"><td id="{jrU" class="">何时决定调用哪个方法</td><td id="STXv" class="">🕐 编译时决定（静态多态）</td></tr></tbody></table><h3 id="1fb8d968-54a6-80e5-bc4a-ee2370582a8b" class="">✅ 示例：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80f3-834b-d732a6577ca8" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">class Printer {
+    void print(String s) {}
+    void print(int n) {}
+    void print(String s, int n) {}
+}</code></pre><h2 id="1fb8d968-54a6-80fc-98b3-fabeefa15566" class="">三者对比总结表格（超重要）</h2><table id="1fb8d968-54a6-8063-b1ad-f5fbe340d809" class="simple-table"><tbody><tr id="1fb8d968-54a6-809b-9aa5-c7372d25fc53"><td id="U]?F" class="">项目</td><td id="m[F\" class="">方法重载（Overload）</td><td id="SWUa" class="">方法重写（Override）</td><td id="GrHK" class="">向上转型（Upcasting）</td></tr><tr id="1fb8d968-54a6-802a-b5a8-fd3b6138820c"><td id="U]?F" class="">是否要求继承</td><td id="m[F\" class="">否</td><td id="SWUa" class="">是</td><td id="GrHK" class="">是</td></tr><tr id="1fb8d968-54a6-80e5-86fa-de1702ed6d1a"><td id="U]?F" class="">方法名是否相同</td><td id="m[F\" class="">是</td><td id="SWUa" class="">是</td><td id="GrHK" class="">无要求</td></tr><tr id="1fb8d968-54a6-8064-8427-fe270d3b2290"><td id="U]?F" class="">参数是否相同</td><td id="m[F\" class="">❌ 必须不同</td><td id="SWUa" class="">✅ 必须相同</td><td id="GrHK" class="">无关</td></tr><tr id="1fb8d968-54a6-805e-a364-f00d297d6777"><td id="U]?F" class="">返回值是否可不同</td><td id="m[F\" class="">✅ 可不同</td><td id="SWUa" class="">❌ 必须相同或兼容</td><td id="GrHK" class="">无关</td></tr><tr id="1fb8d968-54a6-8085-81a6-c45943699d7a"><td id="U]?F" class="">发生位置</td><td id="m[F\" class="">同一个类</td><td id="SWUa" class="">父子类之间</td><td id="GrHK" class="">父类引用 = 子类对象</td></tr><tr id="1fb8d968-54a6-8068-b9d5-ea1b2a9401bc"><td id="U]?F" class="">调用时间决定者</td><td id="m[F\" class="">编译时（静态多态）</td><td id="SWUa" class="">运行时（动态多态）</td><td id="GrHK" class="">编译时看父类，运行时走子类</td></tr><tr id="1fb8d968-54a6-80c5-a544-e97ced000560"><td id="U]?F" class="">是否构成多态</td><td id="m[F\" class="">✅ 是（静态多态）</td><td id="SWUa" class="">✅ 是（动态多态）</td><td id="GrHK" class="">✅ 是多态的实现手段</td></tr></tbody></table><p id="1fb8d968-54a6-804f-9f74-d22cf8484aa7" class="">
+</p><h2 id="1fb8d968-54a6-8059-92ef-dd49826c58d2" class="">七、this 与 super</h2><table id="1fb8d968-54a6-8069-a6f8-ea79d8bf740f" class="simple-table"><tbody><tr id="1fb8d968-54a6-8091-97f9-e2d3507ab85c"><td id="~ZXC" class="">关键字</td><td id="oBR&lt;" class="">说明</td></tr><tr id="1fb8d968-54a6-8054-bdc8-c38b6290c5ae"><td id="~ZXC" class=""><code>this</code></td><td id="oBR&lt;" class="">当前对象的引用（访问属性/方法/构造器）</td></tr><tr id="1fb8d968-54a6-8026-8d08-d24365fd4e6a"><td id="~ZXC" class=""><code>super</code></td><td id="oBR&lt;" class="">调用父类的属性/方法/构造器</td></tr></tbody></table><h3 id="1fb8d968-54a6-809e-8378-efc309e10ab1" class="">示例：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8001-ab45-d44ee9f5ac51" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">class Dog extends Animal {
+    void show() {
+        System.out.println(super.toString()); // 调父类方法
+        System.out.println(this.getClass());  // 当前类名
+    }
+}</code></pre><hr id="1fb8d968-54a6-8074-9f5b-f8646ccde0c2"/><p id="1fb8d968-54a6-8013-b54b-f989051c8894" class="">
+</p><p id="1fb8d968-54a6-8005-b7c1-fe323d12e0e6" class="">
+</p><p id="1fb8d968-54a6-808e-856d-c31e4440008c" class="">
+</p><h1 id="1fb8d968-54a6-80bf-8d2e-fe5541c5b7dd" class="">✅ 接口（interface）与抽象类（abstract class）详细讲解</h1><hr id="1fb8d968-54a6-802c-add5-f4236696c1ae"/><h2 id="1fb8d968-54a6-80e9-8904-c7abcd70ec02" class="">一、抽象类（abstract class）</h2><h3 id="1fb8d968-54a6-8049-bb87-dadafcbae401" class="">🔹 1. 什么是抽象类？</h3><blockquote id="1fb8d968-54a6-802a-98fb-ee2ad6ec1e59" class="">抽象类是不能被实例化的类，它用来作为其他类的**“父类模板”**，定义一组共通的属性和行为。</blockquote><h3 id="1fb8d968-54a6-8073-8a6e-ff8a92564273" class="">🧠 背后设计思想：</h3><ul id="1fb8d968-54a6-805c-8d8e-f4659408b59d" class="bulleted-list"><li style="list-style-type:disc">有些类是<strong>抽象概念</strong>，本身无法独立存在（如“动物 Animal”），但其子类（如“狗 Dog”、“猫 Cat”）可以。</li></ul><ul id="1fb8d968-54a6-80c3-a4ed-f02939af9fb1" class="bulleted-list"><li style="list-style-type:disc">抽象类用于<strong>代码复用 + 强制子类实现特定方法</strong>。</li></ul><hr id="1fb8d968-54a6-801e-9ced-d02f63809463"/><h3 id="1fb8d968-54a6-8015-9e5b-dbf7eeb42505" class="">🔹 2. 语法规则</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-809c-aece-e0215e01627d" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public abstract class Animal {
+    String name;
+
+    public void sleep() {
+        System.out.println(name + &quot; 睡觉&quot;);
+    }
+
+    public abstract void speak(); // 抽象方法，没有方法体
+}</code></pre><h3 id="1fb8d968-54a6-8037-8198-d20118fe732d" class="">🔸 特点详解：</h3><table id="1fb8d968-54a6-80e0-a0da-e7a363e7f72f" class="simple-table"><tbody><tr id="1fb8d968-54a6-801c-b821-d14673a1202a"><td id="^GEz" class="">特性</td><td id="eH}_" class="">说明</td></tr><tr id="1fb8d968-54a6-802b-8937-d397cbc8a281"><td id="^GEz" class="">是否可实例化</td><td id="eH}_" class="">❌ 不能用 <code>new Animal()</code></td></tr><tr id="1fb8d968-54a6-80a5-b47b-db222cae61aa"><td id="^GEz" class="">是否可包含字段</td><td id="eH}_" class="">✅ 可以定义字段（如 <code>String name</code>）</td></tr><tr id="1fb8d968-54a6-8095-b18b-cc9818ed3f44"><td id="^GEz" class="">是否可包含构造器</td><td id="eH}_" class="">✅ 可以（用于初始化字段）</td></tr><tr id="1fb8d968-54a6-8070-8a9d-cfde9b776e20"><td id="^GEz" class="">是否可包含方法实现</td><td id="eH}_" class="">✅ 普通方法、抽象方法都可以</td></tr><tr id="1fb8d968-54a6-807d-8b7c-d58ecb271d8c"><td id="^GEz" class="">是否可以继承其他类</td><td id="eH}_" class="">✅ 可以（包括继承抽象类）</td></tr><tr id="1fb8d968-54a6-8058-9988-c29091c88561"><td id="^GEz" class="">是否支持多继承</td><td id="eH}_" class="">❌ 不支持多个类的继承</td></tr></tbody></table><hr id="1fb8d968-54a6-8095-a21e-e38fbf1c2a93"/><h3 id="1fb8d968-54a6-8075-ba4b-f63ea322ce10" class="">🔹 3. 子类继承抽象类的规则</h3><ul id="1fb8d968-54a6-80d0-b31f-d6edf228e16f" class="bulleted-list"><li style="list-style-type:disc">子类必须<strong>实现所有抽象方法</strong></li></ul><ul id="1fb8d968-54a6-8020-8980-f6e376831d42" class="bulleted-list"><li style="list-style-type:disc">或者子类本身也必须是抽象类</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80f7-9c22-c65a8fcb0934" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class Dog extends Animal {
+    public void speak() {
+        System.out.println(&quot;狗：汪汪！&quot;);
+    }
+}</code></pre><hr id="1fb8d968-54a6-8002-bc31-f0eed788682c"/><h3 id="1fb8d968-54a6-8094-b5d9-df7f9b1033c6" class="">🔹 4. 抽象类的实际应用场景</h3><ul id="1fb8d968-54a6-80da-9ad9-e56f9044943e" class="bulleted-list"><li style="list-style-type:disc">通用业务逻辑复用（如通用增删改查）</li></ul><ul id="1fb8d968-54a6-805b-8b51-c961484b8790" class="bulleted-list"><li style="list-style-type:disc">父类定义骨架，子类定义具体逻辑（Template 模式）</li></ul><ul id="1fb8d968-54a6-8000-9178-f7e312a0b558" class="bulleted-list"><li style="list-style-type:disc">框架底层：Spring 的 <code>AbstractController</code>、<code>AbstractApplicationContext</code></li></ul><hr id="1fb8d968-54a6-801d-89be-d039621923ee"/><h2 id="1fb8d968-54a6-80eb-82ae-f663356a3181" class="">二、接口（interface）</h2><h3 id="1fb8d968-54a6-808d-b0c0-ff07c8a70405" class="">🔹 1. 什么是接口？</h3><blockquote id="1fb8d968-54a6-8080-a74b-f3dcb9b40b55" class="">接口是一组方法的规范，用于约束类的行为。它不关注“做什么”，而关注“能做什么”。</blockquote><h3 id="1fb8d968-54a6-804d-aa11-f97412abf6f8" class="">🧠 设计背景：</h3><ul id="1fb8d968-54a6-80af-afe9-dc4bc83e83ec" class="bulleted-list"><li style="list-style-type:disc">Java 不支持多继承 → 接口弥补这一点</li></ul><ul id="1fb8d968-54a6-80ea-88db-e7b501befbdd" class="bulleted-list"><li style="list-style-type:disc">接口定义“能力”或“行为契约”，例如“USB 接口”“可比较对象 Comparable”</li></ul><hr id="1fb8d968-54a6-80de-af3f-d19a6e580fc5"/><h3 id="1fb8d968-54a6-809c-9c46-cfaa8015a07c" class="">🔹 2. 语法规则</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80df-88db-fc20eaf6d11c" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public interface USB {
+    // 默认是 public abstract（即使不写）
+    void connect();
+}</code></pre><h3 id="1fb8d968-54a6-809d-94ed-e648bee1b304" class="">🔸 接口中成员默认特性：</h3><table id="1fb8d968-54a6-8080-a87a-d36a0d51456b" class="simple-table"><tbody><tr id="1fb8d968-54a6-8057-af19-cbc83ac5f5d4"><td id="l:vO" class="">成员</td><td id="DFaE" class="">默认修饰符</td></tr><tr id="1fb8d968-54a6-80b9-8daa-fa67aab99a01"><td id="l:vO" class="">方法</td><td id="DFaE" class=""><code>public abstract</code></td></tr><tr id="1fb8d968-54a6-80b7-9ba0-eff17d7618ef"><td id="l:vO" class="">变量</td><td id="DFaE" class=""><code>public static final</code>（常量）</td></tr></tbody></table><hr id="1fb8d968-54a6-809b-b640-d37966526398"/><h3 id="1fb8d968-54a6-80dd-a85a-da17a2343540" class="">🔹 3. 实现接口的类必须如何做？</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8086-8bbd-f5760c95f67c" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class Mouse implements USB {
+    public void connect() {
+        System.out.println(&quot;鼠标连接成功&quot;);
+    }
+}</code></pre><ul id="1fb8d968-54a6-80ea-b1c0-ccf2ebc9041c" class="bulleted-list"><li style="list-style-type:disc">类可以实现多个接口（<code>implements A, B, C</code>）</li></ul><ul id="1fb8d968-54a6-801b-84bf-c1fc3131ffaf" class="bulleted-list"><li style="list-style-type:disc">一个类最多只能继承一个类（单继承）</li></ul><hr id="1fb8d968-54a6-8058-bd80-e84c24b81f39"/><h3 id="1fb8d968-54a6-8027-962d-d488a3a290d5" class="">🔹 4. Java 8+ 的接口新特性（重要）</h3><table id="1fb8d968-54a6-808e-8423-c36171fa7918" class="simple-table"><tbody><tr id="1fb8d968-54a6-805d-9e6c-fd923463d95d"><td id="~Fxn" class="">特性</td><td id="LQr~" class="">说明</td><td id="&lt;sU&lt;" class="">示例</td></tr><tr id="1fb8d968-54a6-800c-9ee8-d93709f7df42"><td id="~Fxn" class=""><code>default</code> 方法</td><td id="LQr~" class="">接口可以提供默认实现</td><td id="&lt;sU&lt;" class=""><code>default void log() {}</code></td></tr><tr id="1fb8d968-54a6-802f-bd8f-e6f54528a8a0"><td id="~Fxn" class=""><code>static</code> 方法</td><td id="LQr~" class="">可定义工具方法</td><td id="&lt;sU&lt;" class=""><code>static void help() {}</code></td></tr><tr id="1fb8d968-54a6-8064-acff-c0cce4d96342"><td id="~Fxn" class=""><code>private</code> 方法（Java 9）</td><td id="LQr~" class="">内部辅助方法</td><td id="&lt;sU&lt;" class=""><code>private void helper()</code></td></tr></tbody></table><h3 id="1fb8d968-54a6-80d9-8755-e3bfeab81e30" class="">示例：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8036-bf02-e91cdb4f20ab" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">interface Logger {
+    default void log(String msg) {
+        System.out.println(&quot;日志：&quot; + msg);
+    }
+
+    static void help() {
+        System.out.println(&quot;帮助信息&quot;);
+    }
+}</code></pre><hr id="1fb8d968-54a6-800a-9f07-ed781795b148"/><h3 id="1fb8d968-54a6-805c-a49d-ed6c151ff64d" class="">🔹 5. 接口的实际使用场景</h3><ul id="1fb8d968-54a6-803b-aaaa-db17a44ceb51" class="bulleted-list"><li style="list-style-type:disc">面向接口编程（Spring 全是接口驱动）</li></ul><ul id="1fb8d968-54a6-8021-91c8-f27fffe96be9" class="bulleted-list"><li style="list-style-type:disc">框架回调机制（如 Runnable 接口、Controller 接口）</li></ul><ul id="1fb8d968-54a6-80d4-8f19-c1e90a332fe2" class="bulleted-list"><li style="list-style-type:disc">策略模式、适配器模式</li></ul><hr id="1fb8d968-54a6-801c-8b14-d2670bfdb1eb"/><h2 id="1fb8d968-54a6-80b2-a2a1-d7d608b10697" class="">三、抽象类 vs 接口：详细对比表</h2><table id="1fb8d968-54a6-80ae-a321-ecd60d1c1916" class="simple-table"><tbody><tr id="1fb8d968-54a6-8088-b6ee-e7d3bb383101"><td id="vzFe" class="">比较维度</td><td id="Q|cc" class="">抽象类</td><td id="L@C}" class="">接口</td></tr><tr id="1fb8d968-54a6-80ec-9d75-da143d7c4832"><td id="vzFe" class="">是否类</td><td id="Q|cc" class="">是</td><td id="L@C}" class="">不是类，是“接口规范”</td></tr><tr id="1fb8d968-54a6-80f7-b50e-fe4527ed9c70"><td id="vzFe" class="">语法关键字</td><td id="Q|cc" class=""><code>abstract class</code></td><td id="L@C}" class=""><code>interface</code></td></tr><tr id="1fb8d968-54a6-806d-a0f5-fe109af9526f"><td id="vzFe" class="">是否有构造方法</td><td id="Q|cc" class="">✅ 有构造器</td><td id="L@C}" class="">❌ 没有构造器（不能 <code>new</code>）</td></tr><tr id="1fb8d968-54a6-80ca-8427-cde29564784a"><td id="vzFe" class="">是否可有字段</td><td id="Q|cc" class="">✅ 可有变量（普通 + 静态）</td><td id="L@C}" class="">❌ 只能有 <code>public static final</code> 常量</td></tr><tr id="1fb8d968-54a6-800e-ab42-f54d5d2d1232"><td id="vzFe" class="">是否可有方法实现</td><td id="Q|cc" class="">✅ 可有方法体</td><td id="L@C}" class="">Java 8 之前 ❌，Java 8 之后 ✅（<code>default</code>）</td></tr><tr id="1fb8d968-54a6-8050-b887-c8d6917a2f7d"><td id="vzFe" class="">是否可继承多个</td><td id="Q|cc" class="">❌ 单继承</td><td id="L@C}" class="">✅ 多接口实现</td></tr><tr id="1fb8d968-54a6-8075-ad88-d2b2008955a0"><td id="vzFe" class="">适合表示</td><td id="Q|cc" class="">“是什么”的关系</td><td id="L@C}" class="">“能做什么”的能力</td></tr><tr id="1fb8d968-54a6-80eb-9800-e6143f942deb"><td id="vzFe" class="">典型用途</td><td id="Q|cc" class="">父类模板、框架骨架</td><td id="L@C}" class="">行为抽象、多态规范</td></tr></tbody></table><hr id="1fb8d968-54a6-801a-97d2-cc07a1f02e18"/><h2 id="1fb8d968-54a6-8006-9d0d-f577caea2ab5" class="">四、实际应用对比场景（面试回答利器）</h2><table id="1fb8d968-54a6-8026-bdff-d3e102251494" class="simple-table"><tbody><tr id="1fb8d968-54a6-8044-8d5f-d3b744913117"><td id="Y]}E" class="">场景</td><td id="\yfO" class="">推荐使用</td></tr><tr id="1fb8d968-54a6-808c-a8df-f558121354e8"><td id="Y]}E" class="">有状态，有共通属性和方法体</td><td id="\yfO" class="">抽象类</td></tr><tr id="1fb8d968-54a6-8099-87a0-d27bbcc07131"><td id="Y]}E" class="">无状态，仅规范行为</td><td id="\yfO" class="">接口</td></tr><tr id="1fb8d968-54a6-809e-ad0d-fdcfe34a0942"><td id="Y]}E" class="">希望复用通用逻辑（如日志）</td><td id="\yfO" class="">抽象类</td></tr><tr id="1fb8d968-54a6-80f4-98c9-f10b2c8fca41"><td id="Y]}E" class="">希望多类共享同一行为能力定义</td><td id="\yfO" class="">接口</td></tr><tr id="1fb8d968-54a6-80f7-94c4-d4bf3380e55d"><td id="Y]}E" class="">多继承需求</td><td id="\yfO" class="">接口</td></tr></tbody></table><hr id="1fb8d968-54a6-80a2-8306-cde405df92de"/><h2 id="1fb8d968-54a6-80cc-8d98-c6b446b131f3" class="">五、面试常问问题</h2><h3 id="1fb8d968-54a6-8065-a57f-fe6dba1cf1cc" class="">❓ Q1：接口和抽象类的区别是什么？</h3><ul id="1fb8d968-54a6-8065-9a4a-e92f9eeb13fc" class="bulleted-list"><li style="list-style-type:disc">🇨🇳 抽象类是类，有构造器、字段；接口是规范，不可有字段，强调“能力”。</li></ul><ul id="1fb8d968-54a6-8021-9f74-fba9dddf0e68" class="bulleted-list"><li style="list-style-type:disc">🇯🇵 抽象クラスはフィールドを持てるが、インターフェースは定数のみ。</li></ul><p id="1fb8d968-54a6-8055-9cb5-da2897610ba4" class="">
+</p><p id="1fb8d968-54a6-805c-afd9-ef3bb5af3bc0" class="">
+</p><h1 id="1fb8d968-54a6-8024-84ee-c91869f3a819" class="">✅ <strong>包（Package）与访问控制（作用域）</strong></h1><p id="1fb8d968-54a6-8069-bf21-c2f3b57a1b4a" class="">这个模块虽然基础，但非常重要，尤其在大型项目中能帮你<strong>组织代码结构、控制类和成员的访问范围、实现封装与模块化开发</strong>。</p><hr id="1fb8d968-54a6-809e-9f7d-e59e9a71a878"/><h2 id="1fb8d968-54a6-803f-84ee-ff2e5cf67f0a" class="">一、什么是包（Package）？</h2><h3 id="1fb8d968-54a6-80f2-8946-de869216211d" class="">🔹 定义：</h3><blockquote id="1fb8d968-54a6-8058-adb5-de7ecc27faeb" class="">包是 Java 中组织类、接口、枚举等的一种命名空间机制，用于避免命名冲突、分类管理代码。</blockquote><p id="1fb8d968-54a6-80bf-8296-ccc0dbaae3da" class="">就像文件夹分类文档一样，包可以让类结构清晰、分层明确。</p><hr id="1fb8d968-54a6-80ff-bf66-d087ae8a5259"/><h3 id="1fb8d968-54a6-805e-a555-c86688530497" class="">🔹 语法格式：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8084-aeb5-f3e3988ac74a" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">package com.example.utils;  // 声明该类属于的包</code></pre><h3 id="1fb8d968-54a6-80f4-ae80-daafb7f7f7e1" class="">🔹 使用其他包的类：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80a5-b7d5-d3f29e34256f" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">import java.util.Scanner;</code></pre><hr id="1fb8d968-54a6-80e2-81a6-cce1613042d3"/><h2 id="1fb8d968-54a6-8061-bf37-f3e8d33c8ffa" class="">二、包的分类</h2><table id="1fb8d968-54a6-8008-a031-ce4ceb2cff2a" class="simple-table"><tbody><tr id="1fb8d968-54a6-8081-ba49-f358ac8414ff"><td id="r;[e" class="">包类型</td><td id="&gt;qQy" class="">示例</td><td id=";NGD" class="">说明</td></tr><tr id="1fb8d968-54a6-8028-ba7d-c49d4512fb1e"><td id="r;[e" class="">Java 内置包</td><td id="&gt;qQy" class=""><code>java.util</code>, <code>java.io</code></td><td id=";NGD" class="">Java 官方提供</td></tr><tr id="1fb8d968-54a6-80c4-a32e-e0d798c5c5d6"><td id="r;[e" class="">第三方包</td><td id="&gt;qQy" class=""><code>org.springframework.*</code></td><td id=";NGD" class="">外部库</td></tr><tr id="1fb8d968-54a6-80aa-994c-d8ef0b81305e"><td id="r;[e" class="">自定义包</td><td id="&gt;qQy" class=""><code>com.wang.project.service</code></td><td id=";NGD" class="">你自己写的包</td></tr></tbody></table><hr id="1fb8d968-54a6-80ce-b03f-fb156289a105"/><h2 id="1fb8d968-54a6-8082-b561-fab141a58315" class="">三、包与目录的对应关系</h2><ul id="1fb8d968-54a6-80d3-b0e7-d241206e658b" class="bulleted-list"><li style="list-style-type:disc">包名和文件路径一一对应<p id="1fb8d968-54a6-802a-9552-e9c5eeb1b867" class="">例如：</p></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-807b-9fe9-f66dd99fa92f" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">package com.wang.app.model;</code></pre><p id="1fb8d968-54a6-8067-b229-eff812f53f5a" class="">➡️ Java 文件应该位于：<code>com/wang/app/model/</code> 目录下</p><hr id="1fb8d968-54a6-8063-9337-d133af8dd8fa"/><h2 id="1fb8d968-54a6-80be-ba05-f81d748da2aa" class="">四、包的命名规范（面试常问）</h2><ul id="1fb8d968-54a6-803f-9404-f376c86b536f" class="bulleted-list"><li style="list-style-type:disc">通常使用<strong>公司域名反写 + 项目名 + 模块名</strong></li></ul><ul id="1fb8d968-54a6-8059-8712-fed87111a29c" class="bulleted-list"><li style="list-style-type:disc">例如：<code>com.google.search.api</code></li></ul><hr id="1fb8d968-54a6-8082-b8e0-c7580c1999cc"/><h2 id="1fb8d968-54a6-80d0-87b7-cf132d99f593" class="">五、访问控制符（访问作用域）</h2><p id="1fb8d968-54a6-80e7-a668-e86b78af2fc7" class="">Java 通过 4 种访问控制符来控制类、方法、字段的<strong>可见性</strong>。</p><table id="1fb8d968-54a6-8039-8cb2-d72348d62e9b" class="simple-table"><tbody><tr id="1fb8d968-54a6-8049-aff3-ddf56a15e500"><td id="&gt;^jg" class="">修饰符</td><td id="f?fy" class="">本类</td><td id="aYKK" class="">同包</td><td id="ChV~" class="">子类（不同包）</td><td id="\hD\" class="">其他包</td><td id="pgmi" class="">常用于</td></tr><tr id="1fb8d968-54a6-805b-80e1-caeeb0ebfb2e"><td id="&gt;^jg" class=""><code>public</code></td><td id="f?fy" class="">✅</td><td id="aYKK" class="">✅</td><td id="ChV~" class="">✅</td><td id="\hD\" class="">✅</td><td id="pgmi" class="">类、方法、变量</td></tr><tr id="1fb8d968-54a6-800d-9c5f-f2fe4fbc6afd"><td id="&gt;^jg" class=""><code>protected</code></td><td id="f?fy" class="">✅</td><td id="aYKK" class="">✅</td><td id="ChV~" class="">✅</td><td id="\hD\" class="">❌</td><td id="pgmi" class="">方法、变量</td></tr><tr id="1fb8d968-54a6-8038-b897-dc8e1310d86a"><td id="&gt;^jg" class=""><em>default</em>（无）</td><td id="f?fy" class="">✅</td><td id="aYKK" class="">✅</td><td id="ChV~" class="">❌</td><td id="\hD\" class="">❌</td><td id="pgmi" class="">类、方法、变量</td></tr><tr id="1fb8d968-54a6-80b5-9e5a-df0fe7334851"><td id="&gt;^jg" class=""><code>private</code></td><td id="f?fy" class="">✅</td><td id="aYKK" class="">❌</td><td id="ChV~" class="">❌</td><td id="\hD\" class="">❌</td><td id="pgmi" class="">方法、变量</td></tr></tbody></table><hr id="1fb8d968-54a6-8084-9687-f7850f4212fc"/><h2 id="1fb8d968-54a6-8022-a4ee-f1e7ed00c244" class="">六、类的访问修饰符</h2><table id="1fb8d968-54a6-8075-acd3-f2ee1c8c8e8e" class="simple-table"><tbody><tr id="1fb8d968-54a6-8014-85af-dd6f4236ad80"><td id="VIb^" class="">类修饰符</td><td id="WuXM" class="">说明</td></tr><tr id="1fb8d968-54a6-80e2-813d-c18a14bd07e6"><td id="VIb^" class=""><code>public</code></td><td id="WuXM" class="">任何地方都能访问，文件名必须与类名一致</td></tr><tr id="1fb8d968-54a6-80a7-b04c-c886283ff69f"><td id="VIb^" class=""><em>默认</em></td><td id="WuXM" class="">只能在同一个包中访问（包私有类）</td></tr></tbody></table><p id="1fb8d968-54a6-807c-b2c3-fccea39f6158" class="">🔸 注意：</p><ul id="1fb8d968-54a6-80e2-abe8-eed8beafe433" class="bulleted-list"><li style="list-style-type:disc">一个 <code>.java</code> 文件最多只能有一个 <code>public class</code>。</li></ul><ul id="1fb8d968-54a6-80fb-9528-df8e5ecd5556" class="bulleted-list"><li style="list-style-type:disc">如果类不是 <code>public</code>，则不能被其他包直接访问。</li></ul><hr id="1fb8d968-54a6-80d9-a50f-d8a77964cf1f"/><h2 id="1fb8d968-54a6-803a-b546-c82f2c691c1f" class="">七、访问修饰符使用示例</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-800e-b44b-c84b3550794a" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">package com.wang.model;
+
+public class Person {
+    public String name;
+    protected int age;
+    String gender;       // default
+    private String ssn;
+
+    public void sayHello() {}
+    private void internalMethod() {}
+}</code></pre><hr id="1fb8d968-54a6-8053-a627-f637cad15283"/><h2 id="1fb8d968-54a6-8081-977c-e8cd90a175ed" class="">八、实际开发中访问控制建议</h2><table id="1fb8d968-54a6-805a-80a1-f50d0754ee8f" class="simple-table"><tbody><tr id="1fb8d968-54a6-804f-a230-c91434353037"><td id="PWX`" class="">情况</td><td id="NGZE" class="">建议修饰符</td></tr><tr id="1fb8d968-54a6-8024-9bca-d0c38e3db370"><td id="PWX`" class="">公共 API 接口类</td><td id="NGZE" class=""><code>public</code></td></tr><tr id="1fb8d968-54a6-80d1-aa77-f072b81c065e"><td id="PWX`" class="">工具类内部方法</td><td id="NGZE" class=""><code>private</code></td></tr><tr id="1fb8d968-54a6-80b3-ab6d-e292f10ae904"><td id="PWX`" class="">封装字段 + 提供 getter/setter</td><td id="NGZE" class=""><code>private</code> + <code>public</code></td></tr><tr id="1fb8d968-54a6-8024-a5c6-c15110e87acf"><td id="PWX`" class="">基类方法允许子类扩展</td><td id="NGZE" class=""><code>protected</code></td></tr></tbody></table><p id="1fb8d968-54a6-80c8-8e99-f2b1a31c51bc" class="">
+</p><p id="1fb8d968-54a6-80b8-a0d0-eddd6e154023" class="">
+</p><h1 id="1fb8d968-54a6-8067-96fa-f7b514d0eeee" class="">✅ Java 的异常处理机制（Exception Handling）</h1><p id="1fb8d968-54a6-8017-953e-ddcca5edf157" class="">这是实际开发和面试中<strong>必考知识点</strong>，能否写出健壮、安全的代码，取决于你是否真正理解了 Java 的异常系统。</p><hr id="1fb8d968-54a6-8083-8a72-fd357ed7fa22"/><h2 id="1fb8d968-54a6-80d5-9f45-c86409e85078" class="">一、什么是异常（Exception）？</h2><blockquote id="1fb8d968-54a6-806a-b6fd-e1144456945f" class="">异常是在程序运行过程中发生的不正常情况，如除以 0、数组越界、空指针等。<p id="1fb8d968-54a6-8002-a842-ee9f3f10eaef" class="">Java 通过 <strong>异常类（Exception Class）</strong> 来封装错误，并使用 <strong>try-catch 机制</strong> 捕获处理，避免程序崩溃。</p></blockquote><hr id="1fb8d968-54a6-8024-9f5d-eacc1cd8411f"/><h2 id="1fb8d968-54a6-8040-848c-c8846c90f16b" class="">二、异常体系结构图（继承关系）</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8038-9b21-fd3d247539ed" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Throwable（所有异常的顶级父类）
+├── Error（严重错误，如内存溢出，程序不能处理 ❌）
+└── Exception（一般异常，程序可以捕获处理 ✅）
+    ├── 编译时异常（Checked Exception）→ 必须处理
+    └── 运行时异常（Unchecked Exception）→ 可选处理</code></pre><hr id="1fb8d968-54a6-806a-8c5f-d8365d86d7e0"/><h2 id="1fb8d968-54a6-8012-a9c1-e697e2f91029" class="">三、异常的分类</h2><table id="1fb8d968-54a6-808b-9e67-f155310de095" class="simple-table"><tbody><tr id="1fb8d968-54a6-80d1-a815-d1f4e619843f"><td id="wA\~" class="">类型</td><td id="@:OZ" class="">名称</td><td id="SK`;" class="">说明</td><td id="emjT" class="">示例</td></tr><tr id="1fb8d968-54a6-8077-bc06-c98302fb8778"><td id="wA\~" class="">Checked Exception（受检异常）</td><td id="@:OZ" class="">IOException、SQLException</td><td id="SK`;" class="">编译器强制处理，必须 <code>try-catch</code> 或 <code>throws</code></td><td id="emjT" class="">文件找不到</td></tr><tr id="1fb8d968-54a6-804f-affd-d039037a009a"><td id="wA\~" class="">Unchecked Exception（非受检异常）</td><td id="@:OZ" class="">NullPointerException、ArrayIndexOutOfBoundsException</td><td id="SK`;" class="">编译不强制处理，可选</td><td id="emjT" class="">空指针、越界</td></tr><tr id="1fb8d968-54a6-80dc-8f30-c1412af2bf19"><td id="wA\~" class="">Error（错误）</td><td id="@:OZ" class="">OutOfMemoryError、StackOverflowError</td><td id="SK`;" class="">程序无法恢复，不建议捕获</td><td id="emjT" class="">内存溢出</td></tr></tbody></table><hr id="1fb8d968-54a6-805a-ad14-c5f4fbf4d6be"/><h2 id="1fb8d968-54a6-8065-8e8d-d17decdb486d" class="">四、try-catch-finally 语法结构</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8075-8961-dd104bd82ec4" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">try {
+    // 可能出异常的代码
+} catch (异常类型1 e1) {
+    // 异常处理逻辑1
+} catch (异常类型2 e2) {
+    // 异常处理逻辑2
+} finally {
+    // 无论是否异常，都会执行
+}</code></pre><h3 id="1fb8d968-54a6-80a0-bde4-ccbeb7ab28ee" class="">示例：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8084-9f67-db4f33540890" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class Demo {
+    public static void main(String[] args) {
+        try {
+            int a = 10 / 0;
+        } catch (ArithmeticException e) {
+            System.out.println(&quot;发生算术异常：&quot; + e.getMessage());
+        } finally {
+            System.out.println(&quot;无论异常与否都会执行&quot;);
+        }
+    }
+}</code></pre><p id="1fb8d968-54a6-80ba-aa3b-e0d0444d40dd" class="">输出：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-801e-8df0-e2dd5dc8b53c" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">发生算术异常：/ by zero
+无论异常与否都会执行</code></pre><hr id="1fb8d968-54a6-8001-a927-ef4fccebc55e"/><h2 id="1fb8d968-54a6-8032-9d6d-fcaf036c0416" class="">五、throws 与 throw 的区别（非常重要）</h2><table id="1fb8d968-54a6-8062-b98f-ce747a9edc1e" class="simple-table"><tbody><tr id="1fb8d968-54a6-80f7-a918-fd4c8c692825"><td id="VE]B" class="">关键词</td><td id="s_aL" class="">说明</td><td id="z}qq" class="">用法</td></tr><tr id="1fb8d968-54a6-80ce-ae24-d08440816c47"><td id="VE]B" class=""><code>throw</code></td><td id="s_aL" class=""><strong>手动抛出一个异常对象</strong></td><td id="z}qq" class=""><code>throw new NullPointerException();</code></td></tr><tr id="1fb8d968-54a6-80fa-ad76-c07152186fa8"><td id="VE]B" class=""><code>throws</code></td><td id="s_aL" class=""><strong>声明该方法可能抛出的异常</strong></td><td id="z}qq" class=""><code>public void readFile() throws IOException {}</code></td></tr></tbody></table><hr id="1fb8d968-54a6-80f9-85ea-db78c52049de"/><h3 id="1fb8d968-54a6-80d2-965c-d1d239da4fa1" class="">示例：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8094-a556-ffe062af2e8c" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public void readFile(String path) throws IOException {
+    FileReader fr = new FileReader(path);  // 受检异常
+}
+
+/*
+FileReader 是 Java 提供的内置类，在 java.io 包中。
+它用于 按字符方式读取文本文件。
+它的构造方法会抛出 FileNotFoundException，所以必须 try-catch 或 throws。
+你不需要也不应该自己去定义一个同名类。
+*/</code></pre><p id="1fb8d968-54a6-8073-abdb-cf09fc3f47da" class="">调用方必须处理：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80c4-a8f6-e3acf707ed71" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">try {
+    readFile(&quot;a.txt&quot;);
+} catch (IOException e) {
+    e.printStackTrace();
+}
+
+//完整示例
+import java.io.*;
+
+public class FileReaderDemo {
+
+    // 方法定义处：抛出异常
+    public void readFile(String path) throws IOException {
+        FileReader fr = new FileReader(path);
+        int ch;
+        while ((ch = fr.read()) != -1) {
+            System.out.print((char) ch);
+        }
+        fr.close(); // 关闭资源
+    }
+
+    public static void main(String[] args) {
+        FileReaderDemo demo = new FileReaderDemo();
+
+        // 调用处：try-catch 捕获异常
+        try {
+            demo.readFile(&quot;a.txt&quot;);
+        } catch (IOException e) {
+            System.out.println(&quot;读取文件时发生错误！&quot;);
+            e.printStackTrace();
+        }
+    }
+}
+
+图解流程：
+你写了一个 readFile 方法 ----&gt; 里面用到了 FileReader ----&gt; 可能抛 IOException（受检）
+==&gt; 你必须告诉别人：“我可能会抛异常” ----&gt; 所以方法签名加上 throws IOException
+==&gt; 别人在调用你这个方法时，Java 编译器会强制他们加上 try-catch 或继续 throws</code></pre><hr id="1fb8d968-54a6-8005-a4e8-c8a906758e0c"/><h2 id="1fb8d968-54a6-803e-9433-f6e99919c578" class="">六、自定义异常类（面试加分项）</h2><h3 id="1fb8d968-54a6-80cc-8830-c85650935fb4" class="">步骤：</h3><ol type="1" id="1fb8d968-54a6-80b9-8380-da5b92ca5615" class="numbered-list" start="1"><li>继承 <code>Exception</code> 或 <code>RuntimeException</code></li></ol><ol type="1" id="1fb8d968-54a6-805b-be33-f3a834c9ad5f" class="numbered-list" start="2"><li>提供构造函数</li></ol><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8087-9906-c3a0c6978a0e" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class MyException extends Exception {
+    public MyException(String message) {
+        super(message);
+    }
+}</code></pre><p id="1fb8d968-54a6-8015-8caf-d365fe02fd4d" class="">使用：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-809e-b0bc-d5561b6c4e48" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">if (age &lt; 0) {
+    throw new MyException(&quot;年龄不能为负数&quot;);
+}</code></pre><p id="1fb8d968-54a6-8036-8da3-ec871bb097c5" class="">
+</p><h2 id="1fb8d968-54a6-8073-83f1-f4a0ee6f209e" class="">✅ 七、多个 catch 的执行顺序与异常捕获机制</h2><ul id="1fb8d968-54a6-80e3-be4c-edf9b08f6e4a" class="bulleted-list"><li style="list-style-type:disc">catch 从上往下执行，一旦匹配就不再往下执行</li></ul><ul id="1fb8d968-54a6-800a-a253-fd87c40469ef" class="bulleted-list"><li style="list-style-type:disc"><strong>子类异常必须写在前面，父类异常写在后面</strong></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8010-8324-ca94a9cc3ecc" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">try {
+    ...
+} catch (NullPointerException e) {
+    ...
+} catch (Exception e) {
+    ...
+}
+// 如果反了顺序，会编译错误</code></pre><hr id="1fb8d968-54a6-80f3-9016-eb511893f6dd"/><h2 id="1fb8d968-54a6-8066-b831-d93d903ae59e" class="">✅ 八、finally 的特殊情况说明</h2><table id="1fb8d968-54a6-8059-991b-f8938e2cf51f" class="simple-table"><tbody><tr id="1fb8d968-54a6-8026-990d-e4c10a88df22"><td id="tBfL" class="">情况</td><td id="ts~&lt;" class="">finally 是否执行</td></tr><tr id="1fb8d968-54a6-80d8-bfe3-c65decae9eac"><td id="tBfL" class="">正常结束</td><td id="ts~&lt;" class="">✅ 会</td></tr><tr id="1fb8d968-54a6-8097-a29f-fd7d4056a0c6"><td id="tBfL" class="">catch 捕获</td><td id="ts~&lt;" class="">✅ 会</td></tr><tr id="1fb8d968-54a6-80c5-ba0e-cc018b64a071"><td id="tBfL" class="">方法中 return</td><td id="ts~&lt;" class="">✅ 会（return 后先执行 finally）</td></tr><tr id="1fb8d968-54a6-8007-9607-dc80209fcdcc"><td id="tBfL" class="">try/catch 中有 <code>System.exit(0)</code></td><td id="ts~&lt;" class="">❌ 不会</td></tr></tbody></table><hr id="1fb8d968-54a6-8087-bc46-ee5406ef1192"/><h2 id="1fb8d968-54a6-8050-a88a-d7553372c625" class="">✅ 九、最佳实践建议（工作中常用）</h2><table id="1fb8d968-54a6-805e-8f52-c8bcb9b0ed65" class="simple-table"><tbody><tr id="1fb8d968-54a6-807e-afca-fc5e294dc3aa"><td id="}zmr" class="">场景</td><td id="uo`G" class="">推荐做法</td></tr><tr id="1fb8d968-54a6-8016-a7a3-f4b248c60b3c"><td id="}zmr" class="">IO 操作</td><td id="uo`G" class="">用 try-with-resources 自动关闭</td></tr><tr id="1fb8d968-54a6-80aa-9199-da1febb15ddc"><td id="}zmr" class="">不确定操作</td><td id="uo`G" class="">使用多 catch 区分异常</td></tr><tr id="1fb8d968-54a6-8080-a58f-fc740714ded2"><td id="}zmr" class="">方法中抛异常</td><td id="uo`G" class=""><code>throws</code> + 自定义异常类</td></tr><tr id="1fb8d968-54a6-80a2-8cbc-dffe8dd572e7"><td id="}zmr" class="">统一异常处理</td><td id="uo`G" class="">使用 Spring 的 <code>@ControllerAdvice</code></td></tr><tr id="1fb8d968-54a6-80f3-9a1f-ec4cba8c9158"><td id="}zmr" class="">不建议滥用</td><td id="uo`G" class="">不要用异常控制程序逻辑分支</td></tr></tbody></table><hr id="1fb8d968-54a6-806d-8ea7-cfe8c92e870a"/><p id="1fb8d968-54a6-80d3-8397-c667f20fcc67" class="">
+</p><p id="1fb8d968-54a6-8075-b790-c22e3e99902e" class="">
+</p><h1 id="1fb8d968-54a6-80a9-9d8f-eceea9524879" class="">✅ Java 集合框架详解（List / Set / Map）</h1><p id="1fb8d968-54a6-803f-9d4a-db6070b8a0dc" class="">Java 的集合框架主要用来<strong>存储、操作对象数据</strong>，分为以下几大核心接口和实现类：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-808c-b97d-e78dc7d8e530" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">
+            ┌──────── Collection（接口） ────────┐
+            ↓                                     ↓
+        List（有序，可重复）                 Set（无序，不重复）
+            ↓                                     ↓
+     ArrayList, LinkedList              HashSet, TreeSet, LinkedHashSet
+
+            ┌──────── Map（接口） ───────────────┐
+            ↓                                     ↓
+     HashMap, TreeMap, LinkedHashMap      （键值对结构）
+</code></pre><hr id="1fb8d968-54a6-8000-9fde-dc2bf8f83a7b"/><h2 id="1fb8d968-54a6-80f0-8b65-fe14b43f3a1c" class="">一、Collection 接口体系（List / Set）</h2><h3 id="1fb8d968-54a6-80c0-8b9f-cbaf45f34297" class="">📌 Collection 是最顶层接口（Map 除外）</h3><p id="1fb8d968-54a6-80fb-bef4-d513e1f815e3" class="">它有两个重要子接口：</p><table id="1fb8d968-54a6-8034-8dd7-fdb56fe01b8b" class="simple-table"><tbody><tr id="1fb8d968-54a6-80df-9c29-e242ecfe217c"><td id="AMCX" class="">接口名</td><td id="U=&gt;`" class="">特点</td></tr><tr id="1fb8d968-54a6-8001-af00-cc3aba40bf3f"><td id="AMCX" class=""><code>List</code></td><td id="U=&gt;`" class="">有序、允许重复元素</td></tr><tr id="1fb8d968-54a6-8098-b295-d3c0e3f98104"><td id="AMCX" class=""><code>Set</code></td><td id="U=&gt;`" class="">无序、不允许重复元素（自动去重）</td></tr></tbody></table><hr id="1fb8d968-54a6-802b-86a6-c6563c4b1b60"/><h2 id="1fb8d968-54a6-8052-bd47-f06f1d364a52" class="">二、List 接口及其实现类</h2><h3 id="1fb8d968-54a6-8089-8cb1-d1e10689c88f" class="">📌 List：<strong>有序、可重复、可通过索引访问</strong></h3><table id="1fb8d968-54a6-80c4-8e97-dfe2a49e91cb" class="simple-table"><tbody><tr id="1fb8d968-54a6-8075-ab3c-fb5c25d81439"><td id="Qn`k" class="">实现类</td><td id="KOFD" class="">特点</td><td id="M}Fa" class="">常用场景</td></tr><tr id="1fb8d968-54a6-8003-9e39-f99cb42f1229"><td id="Qn`k" class=""><code>ArrayList</code></td><td id="KOFD" class="">数组结构，查找快、增删慢</td><td id="M}Fa" class="">查询多、增删少</td></tr><tr id="1fb8d968-54a6-804d-81d7-dc95d6e9e1b5"><td id="Qn`k" class=""><code>LinkedList</code></td><td id="KOFD" class="">链表结构，插入/删除快</td><td id="M}Fa" class="">频繁插入删除</td></tr><tr id="1fb8d968-54a6-801e-ada7-ca386d49441a"><td id="Qn`k" class=""><code>Vector</code></td><td id="KOFD" class="">线程安全，但已过时</td><td id="M}Fa" class="">基本不用了</td></tr></tbody></table><h3 id="1fb8d968-54a6-8017-b169-d4c7fe767745" class="">✅ 常见用法：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8091-b30f-f956f2e60eeb" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">List&lt;String&gt; list = new ArrayList&lt;&gt;();
+list.add(&quot;A&quot;);
+list.add(&quot;B&quot;);
+list.add(&quot;A&quot;);  // 允许重复
+
+System.out.println(list.get(1));  // B</code></pre><hr id="1fb8d968-54a6-8041-b5af-f5c43d204dcb"/><h2 id="1fb8d968-54a6-802f-9310-e603a52ada71" class="">三、Set 接口及其实现类</h2><h3 id="1fb8d968-54a6-80f5-a0ad-fe325ca24dd9" class="">📌 Set：<strong>无序、不允许重复</strong></h3><table id="1fb8d968-54a6-803b-bc87-f1a295d94579" class="simple-table"><tbody><tr id="1fb8d968-54a6-80a1-aa34-c4c453b8157a"><td id="AFmX" class="">实现类</td><td id="FEvM" class="">特点</td></tr><tr id="1fb8d968-54a6-8008-a634-e80c3af623bf"><td id="AFmX" class=""><code>HashSet</code></td><td id="FEvM" class="">最常用，基于 Hash 表，元素无顺序</td></tr><tr id="1fb8d968-54a6-80ee-8aa7-f6d311ea8a09"><td id="AFmX" class=""><code>LinkedHashSet</code></td><td id="FEvM" class="">有插入顺序</td></tr><tr id="1fb8d968-54a6-8071-8359-c8278a0cce55"><td id="AFmX" class=""><code>TreeSet</code></td><td id="FEvM" class="">可排序（基于红黑树）</td></tr></tbody></table><h3 id="1fb8d968-54a6-803f-b1c7-d0aeb8c515c7" class="">✅ 示例：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80b1-84b1-c0229611b8f9" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Set&lt;String&gt; set = new HashSet&lt;&gt;();
+set.add(&quot;Java&quot;);
+set.add(&quot;Java&quot;);  // 自动去重
+
+for (String s : set) {
+    System.out.println(s);
+}</code></pre><hr id="1fb8d968-54a6-805a-94c8-e3c52d64aedd"/><h2 id="1fb8d968-54a6-8094-894c-c6aa94a35c3a" class="">四、Map 接口及其实现类</h2><h3 id="1fb8d968-54a6-806f-aabb-faf64ac2ee8f" class="">📌 Map：<strong>键值对结构，key 不允许重复，value 可重复</strong></h3><table id="1fb8d968-54a6-8040-84e5-d0e8e5599fe5" class="simple-table"><tbody><tr id="1fb8d968-54a6-8008-a411-ce8a0919a544"><td id="FzGJ" class="">实现类</td><td id="GB@k" class="">特点</td></tr><tr id="1fb8d968-54a6-803f-a04f-c612b3544042"><td id="FzGJ" class=""><code>HashMap</code></td><td id="GB@k" class="">最常用，无序，允许 null</td></tr><tr id="1fb8d968-54a6-80b2-8975-d13b94bad4e2"><td id="FzGJ" class=""><code>LinkedHashMap</code></td><td id="GB@k" class="">有插入顺序</td></tr><tr id="1fb8d968-54a6-8040-b9aa-da7d4c8577e4"><td id="FzGJ" class=""><code>TreeMap</code></td><td id="GB@k" class="">按 key 排序</td></tr><tr id="1fb8d968-54a6-80b9-ba88-d8f3ff041654"><td id="FzGJ" class=""><code>Hashtable</code></td><td id="GB@k" class="">线程安全，已淘汰</td></tr><tr id="1fb8d968-54a6-807b-bf25-d53758bad927"><td id="FzGJ" class=""><code>ConcurrentHashMap</code></td><td id="GB@k" class="">并发安全，高并发场景使用</td></tr></tbody></table><h3 id="1fb8d968-54a6-8055-834e-f259f3773a95" class="">使用示例：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8077-b0df-cd64f35174dd" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
+map.put(&quot;Alice&quot;, 18);
+map.put(&quot;Bob&quot;, 20);
+map.put(&quot;Alice&quot;, 22);  // 会覆盖前面的值
+
+System.out.println(map.get(&quot;Alice&quot;));  // 22</code></pre><hr id="1fb8d968-54a6-8001-9700-c9a718502d56"/><h2 id="1fb8d968-54a6-8087-84c4-efc2121445da" class="">五、区别与选型总结表格</h2><table id="1fb8d968-54a6-80aa-b9c6-dff19b1adf00" class="simple-table"><tbody><tr id="1fb8d968-54a6-80f5-8d25-cf325fcc510a"><td id="?EFu" class="">接口/类</td><td id="}gul" class="">是否有序</td><td id="s}{Y" class="">是否允许重复</td><td id="amxK" class="">是否线程安全</td><td id="j@f&gt;" class="">特点说明</td></tr><tr id="1fb8d968-54a6-8086-a00c-f574b8c23c53"><td id="?EFu" class="">ArrayList</td><td id="}gul" class="">✅ 有序</td><td id="s}{Y" class="">✅ 可重复</td><td id="amxK" class="">❌ 否</td><td id="j@f&gt;" class="">查询快，增删慢</td></tr><tr id="1fb8d968-54a6-8077-811a-e56b295942f3"><td id="?EFu" class="">LinkedList</td><td id="}gul" class="">✅ 有序</td><td id="s}{Y" class="">✅ 可重复</td><td id="amxK" class="">❌ 否</td><td id="j@f&gt;" class="">插入删除快</td></tr><tr id="1fb8d968-54a6-80e5-bba3-c7a7d3eda31e"><td id="?EFu" class="">HashSet</td><td id="}gul" class="">❌ 无序</td><td id="s}{Y" class="">❌ 不可重复</td><td id="amxK" class="">❌ 否</td><td id="j@f&gt;" class="">自动去重</td></tr><tr id="1fb8d968-54a6-80bf-a57c-fa93b356b055"><td id="?EFu" class="">LinkedHashSet</td><td id="}gul" class="">✅ 插入顺</td><td id="s}{Y" class="">❌ 不可重复</td><td id="amxK" class="">❌ 否</td><td id="j@f&gt;" class="">有序去重</td></tr><tr id="1fb8d968-54a6-8024-94c4-f6c3acf5a888"><td id="?EFu" class="">TreeSet</td><td id="}gul" class="">✅ 排序</td><td id="s}{Y" class="">❌ 不可重复</td><td id="amxK" class="">❌ 否</td><td id="j@f&gt;" class="">自动排序</td></tr><tr id="1fb8d968-54a6-8039-bee0-e41d3ff8041c"><td id="?EFu" class="">HashMap</td><td id="}gul" class="">❌ 无序</td><td id="s}{Y" class="">key 不重复</td><td id="amxK" class="">❌ 否</td><td id="j@f&gt;" class="">最常用</td></tr><tr id="1fb8d968-54a6-803b-862d-d4fa10a53cdb"><td id="?EFu" class="">TreeMap</td><td id="}gul" class="">✅ 按 key 排序</td><td id="s}{Y" class="">key 不重复</td><td id="amxK" class="">❌ 否</td><td id="j@f&gt;" class="">可排序</td></tr><tr id="1fb8d968-54a6-8091-9263-ee168294baa8"><td id="?EFu" class="">LinkedHashMap</td><td id="}gul" class="">✅ 插入顺序</td><td id="s}{Y" class="">key 不重复</td><td id="amxK" class="">❌ 否</td><td id="j@f&gt;" class="">保持顺序</td></tr><tr id="1fb8d968-54a6-80dd-b03a-d07b517adb07"><td id="?EFu" class="">ConcurrentHashMap</td><td id="}gul" class="">❌ 无序</td><td id="s}{Y" class="">key 不重复</td><td id="amxK" class="">✅ 并发安全</td><td id="j@f&gt;" class="">高并发推荐</td></tr></tbody></table><hr id="1fb8d968-54a6-8030-a6b0-cda09a7a2b42"/><h2 id="1fb8d968-54a6-805c-ad2c-ebc44c610634" class="">六、遍历方式对比</h2><h3 id="1fb8d968-54a6-8031-9a09-d6a068e50702" class="">🔹 遍历 List</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-805a-8e2f-fc4b62add82b" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">for (int i = 0; i &lt; list.size(); i++) {
+    System.out.println(list.get(i));
+}
+
+for (String s : list) {
+    System.out.println(s);
+}</code></pre><hr id="1fb8d968-54a6-80f5-a020-c4c2f7a455d2"/><h3 id="1fb8d968-54a6-801f-a379-fbcfd5f68d2a" class="">🔹 遍历 Map</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8078-a287-cf28db959f02" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">for (Map.Entry&lt;String, Integer&gt; entry : map.entrySet()) {
+    System.out.println(entry.getKey() + &quot;:&quot; + entry.getValue());
+}
+
+map.forEach((k, v) -&gt; System.out.println(k + &quot;:&quot; + v));</code></pre><hr id="1fb8d968-54a6-8021-ae0a-d431db8f57ed"/><h2 id="1fb8d968-54a6-800e-a744-e439565ff45b" class="">七、集合框架扩展：工具类 &amp; 特殊集合</h2><h3 id="1fb8d968-54a6-80ea-bb0c-e94e62b47266" class="">📌 <code>Collections</code> 工具类（排序、最大值、反转等）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8018-8d67-dd6cdf14d134" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Collections.sort(list);          // 排序
+Collections.reverse(list);       // 反转
+Collections.max(list);           // 最大值</code></pre><h3 id="1fb8d968-54a6-8030-bbeb-f2ed0c964260" class="">📌 <code>Arrays.asList()</code>：快速转集合（注意不能 add/remove）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80bb-ad82-f8ed3b64c152" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">List&lt;String&gt; list = Arrays.asList(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;);</code></pre><hr id="1fb8d968-54a6-80a5-be50-de1773b444c2"/><h2 id="1fb8d968-54a6-80ae-a29f-efed098d9b94" class="">✅ 八、面试常问（中日英三语）</h2><h3 id="1fb8d968-54a6-805c-8564-cdbab0ea5735" class="">❓ Q1：ArrayList 和 LinkedList 的区别？</h3><ul id="1fb8d968-54a6-809f-bc99-f5450f91998f" class="bulleted-list"><li style="list-style-type:disc">🇨🇳 ArrayList 底层数组，查找快；LinkedList 底层链表，增删快。</li></ul><ul id="1fb8d968-54a6-80f9-8ba9-e5c1824f5e10" class="bulleted-list"><li style="list-style-type:disc">🇯🇵 ArrayList は配列ベース、LinkedList はリストベース。</li></ul><hr id="1fb8d968-54a6-804f-bd9b-ef1643d10da1"/><h3 id="1fb8d968-54a6-8030-b2b4-c76bea335054" class="">❓ Q2：HashSet 是如何去重的？</h3><ul id="1fb8d968-54a6-80b1-88c6-cd5d4c4263b0" class="bulleted-list"><li style="list-style-type:disc">依赖元素的 <code>hashCode()</code> + <code>equals()</code> 方法判断是否重复</li></ul><hr id="1fb8d968-54a6-80df-bf97-cc2c9498a3dc"/><h3 id="1fb8d968-54a6-8087-9d2f-dca54a31e713" class="">❓ Q3：HashMap 和 Hashtable 区别？</h3><table id="1fb8d968-54a6-8063-8030-eb7d495acb78" class="simple-table"><tbody><tr id="1fb8d968-54a6-806d-8f1a-d7817665c180"><td id="Z_QD" class="">比较项</td><td id="BfAC" class="">HashMap</td><td id="JNq=" class="">Hashtable</td></tr><tr id="1fb8d968-54a6-8037-9c44-eb6e342622be"><td id="Z_QD" class="">线程安全</td><td id="BfAC" class="">❌ 否</td><td id="JNq=" class="">✅ 是</td></tr><tr id="1fb8d968-54a6-8042-9a39-e9198d2f7b62"><td id="Z_QD" class="">性能</td><td id="BfAC" class="">高</td><td id="JNq=" class="">慢</td></tr><tr id="1fb8d968-54a6-80d2-afda-dd77acc86659"><td id="Z_QD" class="">推荐</td><td id="BfAC" class="">✅ 推荐</td><td id="JNq=" class="">❌ 不推荐</td></tr></tbody></table><hr id="1fb8d968-54a6-8013-858d-faa99f0628e4"/><h2 id="1fb8d968-54a6-8018-b1b4-fa9508330d1a" class="">九、学习建议</h2><table id="1fb8d968-54a6-80fa-9902-d64262dd6b65" class="simple-table"><tbody><tr id="1fb8d968-54a6-800b-99a3-f5ed12866784"><td id="zBiY" class="">推荐实践</td><td id="KF:C" class="">说明</td></tr><tr id="1fb8d968-54a6-80ab-869e-dae83fedf544"><td id="zBiY" class="">熟练掌握 <code>List/Set/Map</code> 常用操作</td><td id="KF:C" class="">add, remove, contains, size, get</td></tr><tr id="1fb8d968-54a6-80c4-977b-fc1a88a32c11"><td id="zBiY" class="">学会使用 <code>Collections</code> 工具类</td><td id="KF:C" class="">sort、shuffle、reverse 等</td></tr><tr id="1fb8d968-54a6-80c5-a0f0-c64832d8a43f"><td id="zBiY" class="">自定义对象放入集合时记得重写 <code>equals()</code> 和 <code>hashCode()</code></td><td id="KF:C" class="">否则 Set/Map 无法判断重复</td></tr><tr id="1fb8d968-54a6-8070-86c0-f46edd962fe2"><td id="zBiY" class="">用 IDEA 代码提示多试试 <code>forEach()</code>、<code>stream()</code> 等高级用法</td><td id="KF:C" class="">能大幅简化代码</td></tr></tbody></table><p id="1fb8d968-54a6-8054-a748-f55197a395bf" class="">
+</p><p id="1fb8d968-54a6-806b-ac0a-d8fa4e55fed7" class="">
+</p><h1 id="1fb8d968-54a6-8083-b58d-dd1d42391ad4" class="">✅ 泛型（Generics）与 迭代器机制（Iterator）</h1><p id="1fb8d968-54a6-808b-85d9-c667159634c9" class="">这是 Java 集合框架的高级基础，理解这部分你才能更好地使用 <code>List&lt;String&gt;</code>、<code>Map&lt;String, Integer&gt;</code>、增强 for 循环、<code>Iterator</code> 等功能。</p><hr id="1fb8d968-54a6-8045-a5f8-ea514b2b48ff"/><h2 id="1fb8d968-54a6-800c-8030-e02e3bde1f74" class="">一、泛型（Generics）</h2><h3 id="1fb8d968-54a6-8047-982d-d3a65b44bcb1" class="">🔹 什么是泛型？</h3><blockquote id="1fb8d968-54a6-80ac-bb52-d609aa5ee0c8" class="">泛型就是给类、接口、方法传入“类型参数”，使代码在编译时就能检测类型安全，提升代码复用性。</blockquote><hr id="1fb8d968-54a6-8040-83cf-f1b2fc60bcff"/><h3 id="1fb8d968-54a6-8099-b736-d9ff936cda9e" class="">🔹 为什么需要泛型？</h3><h3 id="1fb8d968-54a6-8093-b346-d7c1e3eb8370" class="">✅ 没有泛型的写法（容易出错）：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80c7-a32b-dbecacb6f916" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">List list = new ArrayList();
+list.add(&quot;Hello&quot;);
+list.add(123); // 编译不报错，但运行时类型不一致
+
+String str = (String) list.get(0); // 强制类型转换</code></pre><h3 id="1fb8d968-54a6-8023-bfc5-f9fe705d8824" class="">✅ 使用泛型后：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-800a-b4e8-edf2cefbde72" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">List&lt;String&gt; list = new ArrayList&lt;&gt;();
+list.add(&quot;Hello&quot;);
+// list.add(123); // ❌ 编译报错
+
+String str = list.get(0); // 不用强转，安全</code></pre><hr id="1fb8d968-54a6-80e4-bbf9-c10eabc444fb"/><h3 id="1fb8d968-54a6-80dc-8e63-e0bd9a3660d4" class="">🔹 泛型语法形式</h3><table id="1fb8d968-54a6-8058-a898-ceb296b521a9" class="simple-table"><tbody><tr id="1fb8d968-54a6-8088-a5ee-f1a09d045eee"><td id=";lS[" class="">使用位置</td><td id="nTny" class="">示例</td></tr><tr id="1fb8d968-54a6-80e3-b723-e166bf4b97fa"><td id=";lS[" class="">类上</td><td id="nTny" class=""><code>class Box&lt;T&gt; { T data; }</code></td></tr><tr id="1fb8d968-54a6-8068-a43b-fd1a02814da4"><td id=";lS[" class="">方法上</td><td id="nTny" class=""><code>public &lt;T&gt; void print(T t)</code></td></tr><tr id="1fb8d968-54a6-8011-ac9d-d590456b1f60"><td id=";lS[" class="">接口上</td><td id="nTny" class=""><code>interface Comparable&lt;T&gt;</code></td></tr></tbody></table><hr id="1fb8d968-54a6-8015-8be6-e153b7a2fece"/><h3 id="1fb8d968-54a6-803f-be9a-ca904760f1a4" class="">🔹 多种常见写法</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-808b-bdea-dd1dc4af5d1e" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">List&lt;String&gt; list = new ArrayList&lt;&gt;();         // 常见
+Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();    // 键值对类型
+List&lt;?&gt; all = new ArrayList&lt;Integer&gt;();        // 通配符，未知类型</code></pre><hr id="1fb8d968-54a6-8022-8bd4-f648f387e136"/><h3 id="1fb8d968-54a6-80d4-a46d-e6e2d15a14e3" class="">🔹 泛型的类型限制（通配符）</h3><table id="1fb8d968-54a6-8071-b230-c880d45af0e8" class="simple-table"><tbody><tr id="1fb8d968-54a6-80b6-a4fe-e6fbc1960150"><td id="BsFL" class="">写法</td><td id="ycL&lt;" class="">说明</td></tr><tr id="1fb8d968-54a6-8073-bf48-d94a16ae7b4b"><td id="BsFL" class=""><code>?</code></td><td id="ycL&lt;" class="">任意类型</td></tr><tr id="1fb8d968-54a6-800d-ad09-ca8e097ddb49"><td id="BsFL" class=""><code>? extends Number</code></td><td id="ycL&lt;" class="">上限通配符（Number及其子类）</td></tr><tr id="1fb8d968-54a6-8076-9a16-c18ea48c7f4c"><td id="BsFL" class=""><code>? super Integer</code></td><td id="ycL&lt;" class="">下限通配符（Integer及其父类）</td></tr></tbody></table><hr id="1fb8d968-54a6-80b7-8fa7-d3ecf047a61b"/><h2 id="1fb8d968-54a6-80bf-9754-e343cae1ed64" class="">二、迭代器机制（Iterator）</h2><h3 id="1fb8d968-54a6-80fa-b2d3-fe09907e107d" class="">🔹 什么是迭代器？</h3><blockquote id="1fb8d968-54a6-80b9-9b59-e20b2d391f83" class="">迭代器是一种对象，它提供了顺序访问集合中元素的方式，不需要暴露底层结构。</blockquote><p id="1fb8d968-54a6-80c0-a4bd-d3f3baa83c11" class="">所有 Collection 类型都支持迭代器。</p><hr id="1fb8d968-54a6-8045-939d-ee5a98b20ac6"/><h3 id="1fb8d968-54a6-8059-a338-f77a0b46e739" class="">🔹 使用方式</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80ff-b2b7-e3f247c41af9" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">List&lt;String&gt; list = new ArrayList&lt;&gt;();
+list.add(&quot;A&quot;);
+list.add(&quot;B&quot;);
+
+Iterator&lt;String&gt; it = list.iterator();
+
+while (it.hasNext()) {
+    String value = it.next();
+    System.out.println(value);
+}</code></pre><hr id="1fb8d968-54a6-80c5-b1c8-d885ac9a88f1"/><h3 id="1fb8d968-54a6-8067-9fe7-e281feeae157" class="">🔹 方法说明</h3><table id="1fb8d968-54a6-8020-8b68-cff9077bb2ea" class="simple-table"><tbody><tr id="1fb8d968-54a6-8043-87bf-f67f6283eeea"><td id="q~o[" class="">方法</td><td id="ZxYH" class="">含义</td></tr><tr id="1fb8d968-54a6-8097-b92f-da41e8755a63"><td id="q~o[" class=""><code>hasNext()</code></td><td id="ZxYH" class="">是否还有元素</td></tr><tr id="1fb8d968-54a6-80cc-a6bc-d466447f6c06"><td id="q~o[" class=""><code>next()</code></td><td id="ZxYH" class="">获取下一个元素</td></tr><tr id="1fb8d968-54a6-80fb-8bb6-ecb27ff5a20c"><td id="q~o[" class=""><code>remove()</code></td><td id="ZxYH" class="">删除当前元素</td></tr></tbody></table><hr id="1fb8d968-54a6-804e-a2e3-e2ca2004bdcf"/><h3 id="1fb8d968-54a6-80ec-9710-decaff751453" class="">🔹 不能使用 <code>for</code> 循环删除元素，必须用 <code>Iterator</code></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80a1-83ad-ff95f6e5bd98" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">// ❌ 错误方式：直接使用 for 删除元素
+for (String s : list) {
+    if (s.equals(&quot;B&quot;)) {
+        list.remove(s); // 会抛 ConcurrentModificationException
+    }
+}</code></pre><p id="1fb8d968-54a6-804a-923f-ccf717f8f6b7" class="">✅ 正确方式：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80d4-8f2a-d30081231950" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Iterator&lt;String&gt; it = list.iterator();
+while (it.hasNext()) {
+    if (it.next().equals(&quot;B&quot;)) {
+        it.remove(); // 安全删除
+    }
+}</code></pre><hr id="1fb8d968-54a6-801f-aa48-c28e9e2fd859"/><h2 id="1fb8d968-54a6-80c9-9cbb-e6c56c631bbd" class="">三、增强 for 循环（foreach）</h2><h3 id="1fb8d968-54a6-80f6-836e-df553f444409" class="">✅ 本质是基于 Iterator 实现</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80cb-9595-f7ebed07729c" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">for (String s : list) {
+    System.out.println(s);
+}</code></pre><p id="1fb8d968-54a6-8014-a408-dc545f42cdc2" class="">和：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80a3-b24b-c9fb0f380b4c" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Iterator&lt;String&gt; it = list.iterator();
+while (it.hasNext()) {
+    System.out.println(it.next());
+}</code></pre><p id="1fb8d968-54a6-80a8-88bc-c3f8295dd3f2" class="">是等价的，foreach 是语法糖。</p><hr id="1fb8d968-54a6-80cd-89fa-e9f49c273e16"/><h2 id="1fb8d968-54a6-80d9-9f60-ef233930760a" class="">四、泛型 + 迭代器综合应用示例</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8008-a9f7-cd7c8e618c2c" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">List&lt;Integer&gt; numbers = new ArrayList&lt;&gt;();
+numbers.add(1);
+numbers.add(2);
+numbers.add(3);
+
+Iterator&lt;Integer&gt; it = numbers.iterator();
+while (it.hasNext()) {
+    Integer n = it.next();
+    if (n == 2) {
+        it.remove();
+    }
+}
+System.out.println(numbers); // 输出：[1, 3]</code></pre><hr id="1fb8d968-54a6-80fc-bd4d-c20cd191986d"/><h2 id="1fb8d968-54a6-8058-8f4d-e58530551d9f" class="">五、面试常见问题（中日英三语）</h2><h3 id="1fb8d968-54a6-8090-9e48-ca63780a1e90" class="">❓ Q1：泛型是编译期还是运行期有效？</h3><ul id="1fb8d968-54a6-8081-853b-ccf7127c345e" class="bulleted-list"><li style="list-style-type:disc">🇨🇳 编译期有效，运行时泛型信息被擦除（类型擦除 Type Erasure）</li></ul><ul id="1fb8d968-54a6-807b-810c-d1ba8e71bd45" class="bulleted-list"><li style="list-style-type:disc">🇯🇵 コンパイル時のみ有効、実行時は消される（型消去）</li></ul><hr id="1fb8d968-54a6-80e6-8487-ffcd4da26eb9"/><h3 id="1fb8d968-54a6-80ff-b67a-d0b0d4733273" class="">❓ Q2：为什么 foreach 删除元素会报错？</h3><p id="1fb8d968-54a6-80fa-bb5d-f3bcb3c409a5" class="">因为 <strong>增强 for 背后是使用 Iterator</strong> 实现的，但你手动修改集合（比如调用 <code>list.remove()</code>）就会破坏它的结构一致性，抛出 <strong>ConcurrentModificationException</strong></p><hr id="1fb8d968-54a6-8069-b537-c3955aeb6f06"/><p id="1fb8d968-54a6-8015-90bc-c425904dc189" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

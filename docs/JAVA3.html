@@ -1,0 +1,785 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>尹さんのJAVA总结（字符串，数组，lambda）</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1fb8d968-54a6-805d-bdeb-c9fa6ee1084e" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_space_shuttle_challenger.jpg" style="object-position:center 0%"/><h1 class="page-title">尹さんのJAVA总结（字符串，数组，lambda）</h1><p class="page-description"></p></header><div class="page-body"><h1 id="1fb8d968-54a6-80d1-b8de-ecd7cdde765e" class="">✅ Java 字符串（String）详解</h1><p id="1fb8d968-54a6-8041-9ecb-ea754c81cbb2" class="">这是 Java 开发中最常见、最核心的类型之一，<strong>面试必考 + 项目必用 + 细节最多</strong></p><hr id="1fb8d968-54a6-8040-9e28-dac9849e0942"/><h2 id="1fb8d968-54a6-80c6-a43e-cee3a2f1e3fd" class="">一、String 是什么？</h2><blockquote id="1fb8d968-54a6-807a-949a-dcef03ceca70" class="">String 是 Java 中用于表示一串字符的类，是引用类型，定义在 java.lang.String 包下。</blockquote><p id="1fb8d968-54a6-8097-88b8-fcc9d797d1ab" class="">⚠️ <code>String</code> 是 <strong>不可变（immutable）对象</strong>，一旦创建内容不能修改。</p><hr id="1fb8d968-54a6-80b0-890d-d6c752cbf00f"/><h2 id="1fb8d968-54a6-804b-9622-f7718f356539" class="">二、String 的常用创建方式</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80bd-97e2-f0cf26dc1018" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">String s1 = &quot;Hello&quot;;                     // 字面量方式（常量池）
+String s2 = new String(&quot;Hello&quot;);         // 创建新对象（堆内存）</code></pre><h3 id="1fb8d968-54a6-80bc-ad4a-cd6b071e431a" class="">📌 字符串常量池机制（面试重点）：</h3><ul id="1fb8d968-54a6-8059-bcfb-d8ddba2cd3a2" class="bulleted-list"><li style="list-style-type:disc"><code>&quot;Hello&quot;</code> 字面量存放在字符串常量池中，如果已存在，则重用。</li></ul><ul id="1fb8d968-54a6-80dc-a328-d3a549436a81" class="bulleted-list"><li style="list-style-type:disc"><code>new String(&quot;Hello&quot;)</code> 每次都在堆中新建对象，即使内容相同。</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80d3-bd5f-c9535f0cf2f2" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">String a = &quot;abc&quot;;
+String b = &quot;abc&quot;;
+System.out.println(a == b); // true：指向常量池同一地址
+
+String c = new String(&quot;abc&quot;);
+System.out.println(a == c); // false：一个在常量池，一个在堆</code></pre><hr id="1fb8d968-54a6-80b9-8e51-ee286ba37b97"/><h2 id="1fb8d968-54a6-801c-85ad-fddb3dbcd47a" class="">✅ 三、String 的常用方法（超常用！）</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80d6-998c-ea645517c6db" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">String str = &quot; Hello World &quot;;</code></pre><table id="1fb8d968-54a6-8028-82ed-d95804467090" class="simple-table"><tbody><tr id="1fb8d968-54a6-8035-9ff5-c4d2254fe8bc"><td id="IRoh" class="">方法</td><td id="F?:f" class="">说明</td><td id="Ib{@" class="">示例</td></tr><tr id="1fb8d968-54a6-8087-8eb7-d9515202d1bd"><td id="IRoh" class=""><code>length()</code></td><td id="F?:f" class="">获取长度</td><td id="Ib{@" class=""><code>str.length()</code> → 13</td></tr><tr id="1fb8d968-54a6-80ae-81bf-e39129305215"><td id="IRoh" class=""><code>charAt(i)</code></td><td id="F?:f" class="">获取第 i 个字符</td><td id="Ib{@" class=""><code>str.charAt(0)</code> → <code>&#x27; &#x27;</code></td></tr><tr id="1fb8d968-54a6-80ae-a98b-e147d506c668"><td id="IRoh" class=""><code>substring(a, b)</code></td><td id="F?:f" class="">截取子串</td><td id="Ib{@" class=""><code>str.substring(1, 5)</code> → &quot;Hell&quot;</td></tr><tr id="1fb8d968-54a6-80fe-9e25-d0e04f91e58a"><td id="IRoh" class=""><code>toUpperCase()</code></td><td id="F?:f" class="">转大写</td><td id="Ib{@" class=""><code>&quot;abc&quot;.toUpperCase()</code> → &quot;ABC&quot;</td></tr><tr id="1fb8d968-54a6-80dc-b2c6-f292a9a2239f"><td id="IRoh" class=""><code>trim()</code></td><td id="F?:f" class="">去除前后空格</td><td id="Ib{@" class=""><code>&quot; abc &quot;.trim()</code> → &quot;abc&quot;</td></tr><tr id="1fb8d968-54a6-8073-8222-d1dda32375d1"><td id="IRoh" class=""><code>equals()</code></td><td id="F?:f" class="">判断内容是否相等</td><td id="Ib{@" class=""><code>&quot;abc&quot;.equals(&quot;abc&quot;)</code></td></tr><tr id="1fb8d968-54a6-802e-9969-ccee2786bbec"><td id="IRoh" class=""><code>equalsIgnoreCase()</code></td><td id="F?:f" class="">忽略大小写比较</td><td id="Ib{@" class=""><code>&quot;A&quot;.equalsIgnoreCase(&quot;a&quot;)</code></td></tr><tr id="1fb8d968-54a6-80aa-aae2-fabe57e0732b"><td id="IRoh" class=""><code>indexOf()</code></td><td id="F?:f" class="">查找子串位置</td><td id="Ib{@" class=""><code>&quot;hello&quot;.indexOf(&quot;l&quot;)</code> → 2</td></tr><tr id="1fb8d968-54a6-8087-af3d-e56f49e0608f"><td id="IRoh" class=""><code>replace()</code></td><td id="F?:f" class="">替换内容</td><td id="Ib{@" class=""><code>&quot;abc&quot;.replace(&quot;a&quot;, &quot;x&quot;)</code> → &quot;xbc&quot;</td></tr><tr id="1fb8d968-54a6-80b5-9c59-c4892ec7e830"><td id="IRoh" class=""><code>split()</code></td><td id="F?:f" class="">按指定符号切割字符串</td><td id="Ib{@" class=""><code>&quot;a,b,c&quot;.split(&quot;,&quot;)</code></td></tr></tbody></table><hr id="1fb8d968-54a6-80f0-975c-f268eb7d6e17"/><h3 id="1fb8d968-54a6-801d-81fc-ded80149bf65" class="">🔹 示例：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80a1-b7f5-eaf3a379b86d" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">String name = &quot;Alice&quot;;
+System.out.println(name.length());          // 5
+System.out.println(name.charAt(0));         // A
+System.out.println(name.substring(1, 3));   // li
+System.out.println(name.contains(&quot;li&quot;));   // true
+System.out.println(name.toUpperCase());     // ALICE</code></pre><hr id="1fb8d968-54a6-80c0-8ae4-e5e2c4bb4bea"/><h2 id="1fb8d968-54a6-80d2-8fd6-dd900dfc630e" class="">✅ 四、字符串拼接问题（性能陷阱）</h2><h3 id="1fb8d968-54a6-8066-8bc0-c076a3e06e1e" class="">🔸 错误方式：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-800a-b39c-edbe2e37def2" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">String result = &quot;&quot;;
+for (int i = 0; i &lt; 1000; i++) {
+    result += i; // ❌ 每次拼接都创建新对象，极慢
+}</code></pre><h3 id="1fb8d968-54a6-8045-89a2-eb5b8e0875ea" class="">🔸 推荐方式：用 <code>StringBuilder</code></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80d8-aca2-ecc2ac971452" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">StringBuilder sb = new StringBuilder();
+for (int i = 0; i &lt; 1000; i++) {
+    sb.append(i);
+}
+String result = sb.toString();</code></pre><hr id="1fb8d968-54a6-8088-8bce-ccf111775c2d"/><h2 id="1fb8d968-54a6-8045-a22e-cb350894a4fa" class="">✅ 五、String 与 StringBuilder/StringBuffer 的区别</h2><table id="1fb8d968-54a6-80ce-a037-f99253aa42b1" class="simple-table"><tbody><tr id="1fb8d968-54a6-8078-a18f-dbc552ec9e44"><td id="SZpl" class="">比较项</td><td id="}S_c" class="">String</td><td id=":vFh" class="">StringBuilder</td><td id="fXdV" class="">StringBuffer</td></tr><tr id="1fb8d968-54a6-80e1-b069-cfecdf10d371"><td id="SZpl" class="">可变性</td><td id="}S_c" class="">❌ 不可变</td><td id=":vFh" class="">✅ 可变</td><td id="fXdV" class="">✅ 可变</td></tr><tr id="1fb8d968-54a6-8053-ab00-f31b7d300683"><td id="SZpl" class="">线程安全</td><td id="}S_c" class="">❌ 否</td><td id=":vFh" class="">❌ 否</td><td id="fXdV" class="">✅ 是</td></tr><tr id="1fb8d968-54a6-8048-86b5-e172c0d82457"><td id="SZpl" class="">性能</td><td id="}S_c" class="">最差</td><td id=":vFh" class="">最快</td><td id="fXdV" class="">次之</td></tr><tr id="1fb8d968-54a6-8060-bdbe-dfd71e531421"><td id="SZpl" class="">使用场景</td><td id="}S_c" class="">小量、静态</td><td id=":vFh" class="">单线程大量拼接</td><td id="fXdV" class="">多线程安全拼接</td></tr></tbody></table><hr id="1fb8d968-54a6-800e-9836-c213913700d4"/><h2 id="1fb8d968-54a6-80a4-83a0-e3a6164f9c75" class="">✅ 六、字符串比较的常见陷阱</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8010-a6f5-dbac519d31e5" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">String a = &quot;abc&quot;;
+String b = new String(&quot;abc&quot;);
+
+System.out.println(a == b);         // false 比较的是地址
+System.out.println(a.equals(b));    // true 比较的是内容</code></pre><p id="1fb8d968-54a6-80db-b730-cb33eed43de4" class="">📌 <strong>总结</strong>：</p><ul id="1fb8d968-54a6-8014-90e7-ff5c0ede3180" class="bulleted-list"><li style="list-style-type:disc"><code>==</code> 比较地址（引用是否一样）</li></ul><ul id="1fb8d968-54a6-8078-8a2b-d538da16112b" class="bulleted-list"><li style="list-style-type:disc"><code>.equals()</code> 比较内容（值是否一样）</li></ul><hr id="1fb8d968-54a6-80db-9732-e7fbed589e5f"/><h2 id="1fb8d968-54a6-80be-a637-d1f2343effc7" class="">七、字符串转数组、数组转字符串</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-807d-9cb3-d66de1b7e3ac" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">String s = &quot;hello&quot;;
+char[] arr = s.toCharArray();           // 字符串 → 字符数组
+String s2 = new String(arr);            // 字符数组 → 字符串
+
+String[] parts = &quot;a,b,c&quot;.split(&quot;,&quot;);    // 切割字符串
+String joined = String.join(&quot;-&quot;, parts); // 合并字符串</code></pre><hr id="1fb8d968-54a6-80ca-bec1-f66be3402e20"/><h2 id="1fb8d968-54a6-8033-852f-d1a3e3e2ca82" class="">八、面试常见问题（中日英三语）</h2><h3 id="1fb8d968-54a6-801a-b3b0-c80a898c4291" class="">❓ Q1：为什么 String 是不可变的？</h3><ul id="1fb8d968-54a6-8072-b913-cedf462cbeb1" class="bulleted-list"><li style="list-style-type:disc">安全性（如作为 HashMap 的 key）</li></ul><ul id="1fb8d968-54a6-80b9-a090-e893a5ada89b" class="bulleted-list"><li style="list-style-type:disc">线程安全</li></ul><ul id="1fb8d968-54a6-804b-b0be-fa7df59f2242" class="bulleted-list"><li style="list-style-type:disc">常量池机制节省内存</li></ul><hr id="1fb8d968-54a6-8028-873d-dca0df08617c"/><h3 id="1fb8d968-54a6-802f-92e2-c234750d47f6" class="">❓ Q2：String 与 StringBuilder 区别？</h3><ul id="1fb8d968-54a6-802d-b993-c62f29fe519d" class="bulleted-list"><li style="list-style-type:disc">String 是不可变，每次操作都会创建新对象；</li></ul><ul id="1fb8d968-54a6-80a3-b6a8-cb6ae9c0c391" class="bulleted-list"><li style="list-style-type:disc">StringBuilder 是可变，适合高频拼接。</li></ul><hr id="1fb8d968-54a6-8034-a969-ec31ab267c65"/><h3 id="1fb8d968-54a6-8039-88a6-d961eb3268af" class="">❓ Q3：如何高效拼接 10000 个字符串？</h3><ul id="1fb8d968-54a6-80e1-9234-f8acf92efd51" class="bulleted-list"><li style="list-style-type:disc">❌ String +=</li></ul><ul id="1fb8d968-54a6-8032-859d-f12809628885" class="bulleted-list"><li style="list-style-type:disc">✅ 使用 StringBuilder</li></ul><hr id="1fb8d968-54a6-8035-8cca-ff1e3301931a"/><h2 id="1fb8d968-54a6-8017-9946-e55bf40e35b1" class="">九、实用方法推荐（开发必用）</h2><table id="1fb8d968-54a6-8006-ba2e-f2c65775aa7b" class="simple-table"><tbody><tr id="1fb8d968-54a6-8054-83d4-e153f95ade1f"><td id="xBbS" class="">任务</td><td id="OGUU" class="">推荐方法</td></tr><tr id="1fb8d968-54a6-80fb-9829-ff31d71643b5"><td id="xBbS" class="">判断是否为空</td><td id="OGUU" class="">`str == null</td></tr><tr id="1fb8d968-54a6-80a3-928b-e332cae43eb1"><td id="xBbS" class="">去空格</td><td id="OGUU" class=""><code>str.trim()</code></td></tr><tr id="1fb8d968-54a6-802e-ab19-fd90150b17bd"><td id="xBbS" class="">分割字符串</td><td id="OGUU" class=""><code>str.split(&quot;,&quot;)</code></td></tr><tr id="1fb8d968-54a6-80ce-ba91-e945abe06fef"><td id="xBbS" class="">替换字符</td><td id="OGUU" class=""><code>str.replace(&quot;a&quot;, &quot;b&quot;)</code></td></tr><tr id="1fb8d968-54a6-8082-b6ec-c72e4854b975"><td id="xBbS" class="">判断前缀/后缀</td><td id="OGUU" class=""><code>startsWith()</code> / <code>endsWith()</code></td></tr></tbody></table><hr id="1fb8d968-54a6-8080-a01c-c8d72920d0e6"/><p id="1fb8d968-54a6-80ab-8f52-c9b42ed2eb8f" class="">
+</p><p id="1fb8d968-54a6-8049-93fb-d7a56787ee34" class="">
+</p><h1 id="1fb8d968-54a6-80bb-8750-ca249e65ae04" class="">一、数组（Array）</h1><h1 id="1fb8d968-54a6-805a-9bc8-d1c4dcf486e6" class="">二、Java 常用类（String / Math / Arrays / Date 等）</h1><p id="1fb8d968-54a6-8028-a0a5-e120288a8410" class="">这两块内容在笔试、面试、日常编码中都极其常用，尤其是在初学或业务逻辑处理中，非常重要。</p><hr id="1fb8d968-54a6-8027-9bfa-c882861e65dc"/><h2 id="1fb8d968-54a6-80de-8e22-eada48da49db" class="">一、Java 中的数组（Array）</h2><hr id="1fb8d968-54a6-80ec-8ec5-ed1bf5a5ad91"/><h3 id="1fb8d968-54a6-80a4-941f-ef4288f8699c" class="">🔹 1. 什么是数组？</h3><blockquote id="1fb8d968-54a6-80a4-8f5d-f249e631f98e" class="">数组是相同类型数据的有序集合，在内存中是连续分配的空间。</blockquote><hr id="1fb8d968-54a6-803e-bec3-ccf1d1f57064"/><h3 id="1fb8d968-54a6-80df-8f75-cb2a26180eae" class="">🔹 2. 数组的定义方式</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8001-9c15-edc7b070aa8a" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">int[] nums1 = new int[5];             // 定长数组，默认值为0
+String[] names = {&quot;Tom&quot;, &quot;Jerry&quot;};   // 静态初始化</code></pre><hr id="1fb8d968-54a6-80eb-80a7-d938c58d90dc"/><h3 id="1fb8d968-54a6-800d-8bd0-efdb2fe2fbae" class="">🔹 3. 数组的特性</h3><table id="1fb8d968-54a6-802c-98fd-eb0586b6f353" class="simple-table"><tbody><tr id="1fb8d968-54a6-800f-a5a2-eb81c56717d0"><td id="[XaX" class="">特性</td><td id="]k@&lt;" class="">描述</td></tr><tr id="1fb8d968-54a6-8016-a6f9-d4a22745cdcc"><td id="[XaX" class="">固定长度</td><td id="]k@&lt;" class="">一旦声明不能改变长度</td></tr><tr id="1fb8d968-54a6-8047-8f71-c6df18b519a7"><td id="[XaX" class="">同类型元素</td><td id="]k@&lt;" class="">所有元素类型必须一致</td></tr><tr id="1fb8d968-54a6-8034-82ca-c62cf34d9ec5"><td id="[XaX" class="">索引访问</td><td id="]k@&lt;" class="">通过下标访问，<code>[0] ~ [n-1]</code></td></tr><tr id="1fb8d968-54a6-8096-9fd3-fd371483a5a6"><td id="[XaX" class="">可多维</td><td id="]k@&lt;" class="">支持二维数组或更高维度数组</td></tr></tbody></table><hr id="1fb8d968-54a6-80e8-ae17-d861a9b29b0f"/><h3 id="1fb8d968-54a6-80a4-bcf3-d3bab6dc113b" class="">🔹 4. 数组的常用操作</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-800d-8667-d9df41b5a283" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">int[] arr = {3, 5, 7};
+
+// 遍历
+for (int i = 0; i &lt; arr.length; i++) {
+    System.out.println(arr[i]);
+}
+
+// 增强 for 循环
+for (int num : arr) {
+    System.out.println(num);
+}
+
+// 排序
+Arrays.sort(arr);</code></pre><hr id="1fb8d968-54a6-804e-9042-c32076638555"/><h3 id="1fb8d968-54a6-80ba-b91e-fd4902926e27" class="">🔹 5. 多维数组（二维举例）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80d2-99b9-fe99a5f0d40a" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">int[][] matrix = {
+    {1, 2},
+    {3, 4}
+};
+
+System.out.println(matrix[0][1]); // 输出 2</code></pre><hr id="1fb8d968-54a6-8022-9f8d-ec7f7691a21f"/><h3 id="1fb8d968-54a6-8054-9a19-c70484bf0ea3" class="">🔹 6. Arrays 工具类</h3><p id="1fb8d968-54a6-809a-a65b-f53e569af60b" class="">Java 提供了 <code>java.util.Arrays</code> 工具类，对数组操作非常方便：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8016-9094-c70f0582f95e" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">int[] a = {3, 1, 4, 2};
+
+Arrays.sort(a);             // 排序
+int i = Arrays.binarySearch(a, 3); // 二分查找
+String s = Arrays.toString(a);     // 打印输出
+
+</code></pre><hr id="1fb8d968-54a6-8055-baad-fa129b34ec79"/><h2 id="1fb8d968-54a6-80ae-8f39-d461f5976530" class="">二、Java 常用类（重点）</h2><hr id="1fb8d968-54a6-807e-9b27-fc0327fac6ef"/><h3 id="1fb8d968-54a6-806d-9a38-c8222f2a1434" class="">✅ 1. <code>String</code>（字符串类）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80cc-a851-f78eace07571" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">String s = &quot;hello&quot;;
+System.out.println(s.length());       // 长度
+System.out.println(s.charAt(1));      // 第2个字符
+System.out.println(s.toUpperCase());  // 转大写
+System.out.println(s.substring(1, 3));// 截取</code></pre><p id="1fb8d968-54a6-80d1-ae6d-f55501b99c2f" class="">⚠️ 注意：String 是 <strong>不可变对象</strong>，所有修改都会返回新对象。</p><hr id="1fb8d968-54a6-80bc-9e70-ea35eb3bc9fc"/><h3 id="1fb8d968-54a6-806b-9139-dd7597736764" class="">2. <code>StringBuilder</code>（可变字符串）</h3><blockquote id="1fb8d968-54a6-80d3-865e-f36d29c83b39" class="">用于高频率拼接字符串，性能比 String 好</blockquote><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-803b-9b82-cd605221d574" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">StringBuilder sb = new StringBuilder(&quot;abc&quot;);
+sb.append(&quot;123&quot;);
+System.out.println(sb.toString()); // abc123</code></pre><hr id="1fb8d968-54a6-80a5-a738-e560667f800c"/><h3 id="1fb8d968-54a6-80ed-b0a1-fd3b2004ec35" class="">3. <code>Math</code> 类（数学工具类）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8017-a0a3-dc889ec5cbbc" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">int max = Math.max(10, 20);   // 最大值
+double sqrt = Math.sqrt(16); // 开平方
+double r = Math.random();    // 0 ~ 1 随机数</code></pre><hr id="1fb8d968-54a6-8053-a4b6-f47e685a2e3d"/><h3 id="1fb8d968-54a6-8000-9efb-db1f1ff97bca" class="">4. <code>Arrays</code> 工具类（前面讲过）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8049-85c9-d72a470828bc" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">int[] arr = {5, 3, 1};
+Arrays.sort(arr);             // 排序
+Arrays.toString(arr);         // [1, 3, 5]</code></pre><hr id="1fb8d968-54a6-808a-a03c-e3da1f1e954e"/><h3 id="1fb8d968-54a6-80f6-81fe-c60d84fa0cf8" class="">5. <code>Date</code> / <code>LocalDate</code> / <code>Calendar</code></h3><blockquote id="1fb8d968-54a6-80db-af16-ecb83c968d3f" class="">推荐使用 Java 8 的新时间类：java.time</blockquote><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8017-9612-d1ae907bd885" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">LocalDate today = LocalDate.now();
+LocalDate future = today.plusDays(5);
+
+System.out.println(today);    // 当前日期
+System.out.println(future);   // 当前+5天</code></pre><hr id="1fb8d968-54a6-807a-9945-d16d617c9a57"/><h3 id="1fb8d968-54a6-80cd-a6ab-d2c26fc95ed2" class="">6. <code>Scanner</code>（用户输入）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8003-907c-d7dd9504a7aa" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Scanner sc = new Scanner(System.in);
+System.out.print(&quot;输入你的名字：&quot;);
+String name = sc.nextLine();
+System.out.println(&quot;你好，&quot; + name);</code></pre><hr id="1fb8d968-54a6-8008-a73f-f128632c40de"/><h3 id="1fb8d968-54a6-805a-a060-d05c844acb7f" class="">7. <code>Random</code>（随机数）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8033-950f-d78175e7f4a0" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Random r = new Random();
+int num = r.nextInt(10); // 0~9
+
+</code></pre><hr id="1fb8d968-54a6-80e7-907b-c5f8076e27c6"/><h2 id="1fb8d968-54a6-8080-b81e-eb1cfbf774ba" class="">三、数组与集合的区别（面试重点）</h2><table id="1fb8d968-54a6-8032-8bdf-fd13128af158" class="simple-table"><tbody><tr id="1fb8d968-54a6-80c9-b2b6-d480dcff51e1"><td id="{coK" class="">对比点</td><td id="d{Yr" class="">数组</td><td id="j@d&lt;" class="">集合（如 ArrayList）</td></tr><tr id="1fb8d968-54a6-80d0-91d7-e628ed539c9f"><td id="{coK" class="">长度是否固定</td><td id="d{Yr" class="">✅ 固定</td><td id="j@d&lt;" class="">❌ 动态可变</td></tr><tr id="1fb8d968-54a6-8007-8f95-dce0aacefe81"><td id="{coK" class="">数据类型是否统一</td><td id="d{Yr" class="">✅ 必须相同</td><td id="j@d&lt;" class="">✅ 支持泛型</td></tr><tr id="1fb8d968-54a6-80d5-ad22-d3218506ca58"><td id="{coK" class="">是否支持增删操作</td><td id="d{Yr" class="">❌ 不支持</td><td id="j@d&lt;" class="">✅ 支持</td></tr><tr id="1fb8d968-54a6-80a0-819a-d64d74cf1c0e"><td id="{coK" class="">性能</td><td id="d{Yr" class="">高速，但不灵活</td><td id="j@d&lt;" class="">较灵活但开销略大</td></tr><tr id="1fb8d968-54a6-8020-965f-e09cdbe8b72f"><td id="{coK" class="">推荐场景</td><td id="d{Yr" class="">小型定长数据</td><td id="j@d&lt;" class="">数据不定长，动态变化</td></tr></tbody></table><hr id="1fb8d968-54a6-80ac-a72b-d083bf3eb31d"/><h2 id="1fb8d968-54a6-8058-9fc2-ec6f429eee9f" class="">四、面试常见问题（中日英三语）</h2><h3 id="1fb8d968-54a6-8003-a237-c76f1c6833be" class="">❓ Q1：数组和 ArrayList 区别？</h3><ul id="1fb8d968-54a6-8044-9303-ee96494e0198" class="bulleted-list"><li style="list-style-type:disc">🇨🇳 数组长度固定，ArrayList 动态增长；数组效率高，ArrayList 操作方便。</li></ul><ul id="1fb8d968-54a6-809d-ad46-de4df6ba1b83" class="bulleted-list"><li style="list-style-type:disc">🇯🇵 配列は長さ固定、ArrayList は動的サイズ。</li></ul><p id="1fb8d968-54a6-80cd-8ca5-d2227bc0ed8d" class="">
+</p><hr id="1fb8d968-54a6-8099-82b5-c4f2c99e52df"/><h3 id="1fb8d968-54a6-8041-8b3c-e44120c5184d" class="">❓ Q2：String 和 StringBuilder 区别？</h3><table id="1fb8d968-54a6-8032-80d2-de202d1b17a5" class="simple-table"><tbody><tr id="1fb8d968-54a6-8021-bb30-e6c912c9f5ca"><td id="ia[R" class="">对比项</td><td id="KybO" class="">String</td><td id="Q@Yn" class="">StringBuilder</td></tr><tr id="1fb8d968-54a6-806b-b5f5-c1afbb9239dc"><td id="ia[R" class="">可变性</td><td id="KybO" class="">❌ 不可变</td><td id="Q@Yn" class="">✅ 可变</td></tr><tr id="1fb8d968-54a6-80c2-ad3c-ed8a597a118d"><td id="ia[R" class="">性能</td><td id="KybO" class="">较低</td><td id="Q@Yn" class="">较高（适合拼接）</td></tr></tbody></table><h1 id="1fb8d968-54a6-806a-9fde-d7521e71ed38" class="">✅ Java 的 Lambda 表达式（Lambda Expression）</h1><p id="1fb8d968-54a6-80a9-b3e2-faa59206e4a2" class="">Lambda 是 Java 8 引入的一种<strong>函数式编程风格</strong>，可以让你写出更简洁、优雅的代码，尤其在处理集合、回调、事件监听等场景中非常强大。</p><hr id="1fb8d968-54a6-8046-aa55-e69ff7411e7f"/><h2 id="1fb8d968-54a6-8063-819a-dc829454a38c" class="">一、什么是 Lambda 表达式？</h2><blockquote id="1fb8d968-54a6-8078-adab-d9029db0c60e" class="">Lambda 表达式本质上是匿名函数，用于简洁地表示只有一个方法的接口实现（函数式接口）。</blockquote><hr id="1fb8d968-54a6-80fe-8464-d5847ccfec3b"/><h3 id="1fb8d968-54a6-8085-9a20-e417b7924ad2" class="">🔹 常规写法（Java 8 之前）：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8005-a936-e18f4e9838de" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Runnable r = new Runnable() {
+    public void run() {
+        System.out.println(&quot;Hello&quot;);
+    }
+};</code></pre><h3 id="1fb8d968-54a6-804b-954a-cd198cfc67e6" class="">🔹 使用 Lambda：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80e3-a188-cbf916536bcc" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Runnable r = () -&gt; System.out.println(&quot;Hello&quot;);</code></pre><p id="1fb8d968-54a6-80f7-802a-ebea41a832e9" class="">是不是一下清爽很多！</p><hr id="1fb8d968-54a6-8045-8308-f31aad150434"/><h2 id="1fb8d968-54a6-8014-a6ac-cba6634e29d1" class="">✅ 二、Lambda 表达式的语法格式</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80b7-aaf5-dd36abab7e84" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">(参数列表) -&gt; { 方法体 }</code></pre><h3 id="1fb8d968-54a6-80fa-bb37-cbce521a18ce" class="">📌 常见形式对比：</h3><table id="1fb8d968-54a6-8005-9eb5-d233354d9417" class="simple-table"><tbody><tr id="1fb8d968-54a6-80e0-a9f8-fe4b3cf8e76a"><td id="~bvp" class="">写法</td><td id="DBT;" class="">示例</td></tr><tr id="1fb8d968-54a6-80fe-aa64-cdfe32f07698"><td id="~bvp" class="">无参无返回</td><td id="DBT;" class=""><code>() -&gt; System.out.println(&quot;Hi&quot;)</code></td></tr><tr id="1fb8d968-54a6-8046-81dc-cd80f49af5b5"><td id="~bvp" class="">有参无返回</td><td id="DBT;" class=""><code>(x, y) -&gt; System.out.println(x + y)</code></td></tr><tr id="1fb8d968-54a6-803b-ac56-c3c756a0f617"><td id="~bvp" class="">有参有返回</td><td id="DBT;" class=""><code>(x, y) -&gt; x + y</code></td></tr><tr id="1fb8d968-54a6-80b5-9391-ca4bfffac62b"><td id="~bvp" class="">单个参数简写</td><td id="DBT;" class=""><code>x -&gt; x * 2</code></td></tr><tr id="1fb8d968-54a6-808e-91e9-d3239c8a3637"><td id="~bvp" class="">方法体多行需加花括号</td><td id="DBT;" class=""><code>(x, y) -&gt; { int z = x + y; return z; }</code></td></tr></tbody></table><hr id="1fb8d968-54a6-8074-8a53-d8180b441f32"/><h2 id="1fb8d968-54a6-80eb-a769-dec085ca3e0b" class="">✅ 三、Lambda 使用的前提：<strong>函数式接口</strong></h2><h3 id="1fb8d968-54a6-8015-8ca3-db0d9709e1f4" class="">🔹 什么是函数式接口？</h3><blockquote id="1fb8d968-54a6-8075-b67d-c099606cc162" class="">只有一个抽象方法的接口，Java 8 提供了 @FunctionalInterface 注解来标识。</blockquote><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-8099-a443-c6505d4cf0a8" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">@FunctionalInterface
+interface Calculator {
+    int calc(int a, int b);
+}
+
+</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-807b-be6d-c792eb4d0aa6" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Calculator c = (a, b) -&gt; a + b;
+System.out.println(c.calc(3, 4)); // 7</code></pre><hr id="1fb8d968-54a6-8089-98ba-ff40495641c2"/><h2 id="1fb8d968-54a6-80de-a699-e42e28491677" class="">✅ 四、常见的函数式接口（Java 已内置）</h2><table id="1fb8d968-54a6-8087-861f-e4d3557a408b" class="simple-table"><tbody><tr id="1fb8d968-54a6-8047-96fa-d7e336c5a052"><td id="}?yV" class="">接口名</td><td id="b\Vs" class="">方法</td><td id="sfuD" class="">说明</td></tr><tr id="1fb8d968-54a6-80ce-b645-dca8875c046d"><td id="}?yV" class=""><code>Runnable</code></td><td id="b\Vs" class=""><code>void run()</code></td><td id="sfuD" class="">无参无返回</td></tr><tr id="1fb8d968-54a6-80af-8682-e0e8423e8ab6"><td id="}?yV" class=""><code>Callable&lt;T&gt;</code></td><td id="b\Vs" class=""><code>T call()</code></td><td id="sfuD" class="">有返回值</td></tr><tr id="1fb8d968-54a6-8050-833d-e8e672420580"><td id="}?yV" class=""><code>Consumer&lt;T&gt;</code></td><td id="b\Vs" class=""><code>void accept(T t)</code></td><td id="sfuD" class="">接收参数，无返回（forEach）</td></tr><tr id="1fb8d968-54a6-80e7-8584-c782c0d14e05"><td id="}?yV" class=""><code>Supplier&lt;T&gt;</code></td><td id="b\Vs" class=""><code>T get()</code></td><td id="sfuD" class="">无参，有返回</td></tr><tr id="1fb8d968-54a6-80ee-88a9-f477b6363078"><td id="}?yV" class=""><code>Function&lt;T, R&gt;</code></td><td id="b\Vs" class=""><code>R apply(T t)</code></td><td id="sfuD" class="">一参一返回</td></tr><tr id="1fb8d968-54a6-80f6-b43a-c5f21c20afbd"><td id="}?yV" class=""><code>Predicate&lt;T&gt;</code></td><td id="b\Vs" class=""><code>boolean test(T t)</code></td><td id="sfuD" class="">判断型接口</td></tr></tbody></table><hr id="1fb8d968-54a6-807c-afdf-db9acb1f302a"/><h2 id="1fb8d968-54a6-80ce-b440-cc8c021add4d" class="">✅ 五、结合集合使用（超强写法）</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80e4-9027-d63cbe4c2560" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">List&lt;String&gt; names = Arrays.asList(&quot;Tom&quot;, &quot;Jerry&quot;, &quot;Lucy&quot;);
+
+// 传统写法
+for (String name : names) {
+    System.out.println(name);
+}
+
+// Lambda 写法
+names.forEach(name -&gt; System.out.println(name));
+
+// 方法引用（进阶）
+names.forEach(System.out::println);</code></pre><hr id="1fb8d968-54a6-80d9-93ae-f6e68cb7e3d2"/><h2 id="1fb8d968-54a6-802a-af63-c18e157aa729" class="">✅ 六、结合 Stream 流式编程使用（高阶）</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fb8d968-54a6-80d4-b755-d4b74edda398" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">List&lt;String&gt; names = Arrays.asList(&quot;Tom&quot;, &quot;Jerry&quot;, &quot;Lucy&quot;);
+
+names.stream()
+     .filter(name -&gt; name.length() &lt;= 3)   // 过滤
+     .map(String::toUpperCase)             // 映射
+     .sorted()
+     .forEach(System.out::println);        // 打印</code></pre><hr id="1fb8d968-54a6-8056-86dc-ca054681c54c"/><h2 id="1fb8d968-54a6-805e-b0c4-d3c4df1554e7" class="">七、Lambda 的本质是什么？</h2><p id="1fb8d968-54a6-8071-8433-df18222a5166" class="">Lambda 是 <strong>语法糖</strong>，Java 编译器会把它转换为：</p><ol type="1" id="1fb8d968-54a6-8060-b0d2-d0b616328165" class="numbered-list" start="1"><li>匿名内部类</li></ol><ol type="1" id="1fb8d968-54a6-8020-918f-ef95b3a874e2" class="numbered-list" start="2"><li>或者字节码中的 <code>invokedynamic</code> 指令（更底层）</li></ol><p id="1fb8d968-54a6-80cb-9ebc-fb30dbf4b6a6" class="">所以它的本质是 <strong>简化写法 + 保持类型安全</strong></p><hr id="1fb8d968-54a6-804d-a8d8-f2ccbe7339d0"/><h2 id="1fb8d968-54a6-80d4-965e-c489fb96bb26" class="">八、面试常问问题</h2><h3 id="1fb8d968-54a6-8018-90f4-c194d6843743" class="">❓ Q1：Lambda 表达式可以用在什么场景？</h3><ul id="1fb8d968-54a6-80ee-b5b7-ccadaddb12b1" class="bulleted-list"><li style="list-style-type:disc">🇨🇳 用于简化<strong>函数式接口</strong>的匿名实现，常见在集合、事件处理、回调等。</li></ul><ul id="1fb8d968-54a6-80f8-8cec-e24b2dd2587d" class="bulleted-list"><li style="list-style-type:disc">🇯🇵 無名クラスの簡略表現として、コレクション・リスナーなどに使う。</li></ul><hr id="1fb8d968-54a6-8026-b28b-ea7d45900d9e"/><h3 id="1fb8d968-54a6-8076-954d-fb252be90007" class="">❓ Q2：什么是函数式接口？</h3><ul id="1fb8d968-54a6-8037-b052-dcaa96b4fec7" class="bulleted-list"><li style="list-style-type:disc">只有一个抽象方法的接口，常配合 Lambda 使用。可以加 <code>@FunctionalInterface</code> 注解。</li></ul><hr id="1fb8d968-54a6-8004-be68-ce50ebac6543"/><h3 id="1fb8d968-54a6-80b0-b48a-c27839fb12b1" class="">❓ Q3：Lambda 和匿名类有何区别？</h3><table id="1fb8d968-54a6-80fd-9334-cbda0c864521" class="simple-table"><tbody><tr id="1fb8d968-54a6-80dc-a51a-dfa2d74b6158"><td id="G_XY" class="">比较项</td><td id="udkF" class="">匿名类</td><td id="[LVf" class="">Lambda</td></tr><tr id="1fb8d968-54a6-803b-a3f4-d80e50434c01"><td id="G_XY" class="">写法</td><td id="udkF" class="">繁琐</td><td id="[LVf" class="">简洁</td></tr><tr id="1fb8d968-54a6-8075-9399-c7dc58e73b34"><td id="G_XY" class="">可访问多个方法</td><td id="udkF" class="">✅</td><td id="[LVf" class="">❌（只能是函数式接口）</td></tr><tr id="1fb8d968-54a6-80ae-a3a3-eb970d04d97f"><td id="G_XY" class="">this 关键字指代</td><td id="udkF" class="">匿名类对象本身</td><td id="[LVf" class="">外部类</td></tr></tbody></table></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
