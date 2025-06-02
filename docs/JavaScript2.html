@@ -1,0 +1,1433 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>JavaScript 全套笔记2</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1fc8d968-54a6-80eb-b1db-d01724e3d969" class="page sans"><header><h1 class="page-title"></h1><p class="page-description"></p></header><div class="page-body"><h2 class="" id = "hanshu1">JavaScript 函数定义与调用</h2><p id="1fc8d968-54a6-8054-ade6-c2c5605eeb72" class="">函数是 JavaScript 的核心机制之一，它是一段可以重复执行的代码块，用于组织逻辑、减少冗余、提高可维护性。</p><hr id="1fc8d968-54a6-804f-905a-ceecdd78ae98"/><h3 id="1fc8d968-54a6-8001-bb11-ed4d43f63376" class="">一、函数的定义方式</h3><h3 id="1fc8d968-54a6-8084-a3bd-faaffca6de25" class="">1. 使用 <code>function</code> 关键字声明（命名函数）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80fc-b2c7-eebeb9615c25" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+function greet(name) {
+  return &quot;Hello, &quot; + name;
+}</code></pre><h3 id="1fc8d968-54a6-8062-95a3-c6682c46a5d2" class="">2. 匿名函数表达式（函数作为值赋给变量）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-800a-b295-d167773a3d0c" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const greet = function(name) {
+  return &quot;Hi, &quot; + name;
+};
+
+</code></pre><h3 id="1fc8d968-54a6-800c-8be2-c2610328791d" class="">3. 箭头函数（ES6）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8081-9256-fec764d8fa53" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const greet = (name) =&gt; {
+  return &quot;Welcome, &quot; + name;
+};
+
+</code></pre><ul id="1fc8d968-54a6-8099-87c0-c3634af4a17a" class="bulleted-list"><li style="list-style-type:disc">如果只有一个参数、一个返回值可简写为：</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80ab-b56c-f7d893ed0c9c" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const greet = name =&gt; &quot;Hello, &quot; + name;
+
+</code></pre><hr id="1fc8d968-54a6-8079-ad3a-ff0784eedd79"/><h3 id="1fc8d968-54a6-8027-bbe6-fcea8198209d" class="">二、函数调用</h3><p id="1fc8d968-54a6-803f-be50-fe01ebb2fc80" class="">函数必须<strong>调用</strong>才会执行：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80f4-9aaf-fcdf2dab196a" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+let result = greet(&quot;Tom&quot;);
+console.log(result); // 输出 Hello, Tom
+
+</code></pre><hr id="1fc8d968-54a6-80e9-b5a7-f5e2197a0da3"/><h3 id="1fc8d968-54a6-809f-a13f-e7f60a846509" class="">三、函数参数</h3><p id="1fc8d968-54a6-80b7-b478-fe6afd9dd6ae" class="">函数可以定义多个参数，用逗号分隔：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-804d-a8f8-c73969523b17" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+function sum(a, b) {
+  return a + b;
+}
+console.log(sum(3, 4)); // 输出 7
+
+</code></pre><hr id="1fc8d968-54a6-809c-9cf3-e95f4ed29262"/><h3 id="1fc8d968-54a6-80c3-bd9d-da43e8fdbf64" class="">四、默认参数值（ES6）</h3><p id="1fc8d968-54a6-80da-9230-f2382c0dd782" class="">如果调用时没有提供参数，可以为其设置默认值：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-806e-b957-f8749d4e4a64" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+function greet(name = &quot;游客&quot;) {
+  return &quot;你好，&quot; + name;
+}
+console.log(greet()); // 输出 你好，游客
+
+</code></pre><hr id="1fc8d968-54a6-800c-acf0-dee08fb2785e"/><h3 id="1fc8d968-54a6-80a9-81f7-c271bb3f22b4" class="">五、返回值 return</h3><p id="1fc8d968-54a6-80b2-b38c-d951938d3531" class="">函数可以使用 <code>return</code> 返回一个值，并立即结束函数执行。</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80ab-aa88-fafa7329c221" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+function multiply(a, b) {
+  return a * b;
+  console.log(&quot;不会执行&quot;); // return 后的代码不会执行
+}
+
+</code></pre><hr id="1fc8d968-54a6-803a-b975-cf48a0df20dc"/><h3 id="1fc8d968-54a6-80f4-bb31-d02aea1297d7" class="">六、函数作为参数（高阶函数）</h3><p id="1fc8d968-54a6-8098-8023-c9a9ca402d11" class="">函数可以作为参数传递给另一个函数：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-807f-99ab-ef7273d2874f" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+function sayHi() {
+  return &quot;Hi&quot;;
+}
+
+function callFunction(fn) {
+  console.log(fn()); // 执行传入的函数
+}
+
+callFunction(sayHi); // 输出 Hi
+
+</code></pre><hr id="1fc8d968-54a6-800a-8d01-ff9c40f97e75"/><h3 id="1fc8d968-54a6-8010-8936-df369266ca48" class="">七、函数作为返回值</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8049-8d96-d3422a19503a" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+function outer() {
+  return function() {
+    console.log(&quot;我是内部函数&quot;);
+  };
+}
+
+const fn = outer();
+fn(); // 输出：我是内部函数
+
+</code></pre><hr id="1fc8d968-54a6-80c3-bcfd-d96308225330"/><h3 id="1fc8d968-54a6-8026-af68-ff7c2d24dede" class="">八、立即执行函数（IIFE）</h3><p id="1fc8d968-54a6-80fb-a662-c83ce4435407" class="">函数可以定义后立刻执行，常用于模块封装：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8012-bc03-e4891a718d12" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+(function() {
+  console.log(&quot;立即执行！&quot;);
+})();
+
+</code></pre><p id="1fc8d968-54a6-80b4-a9f3-c05c0801301a" class="">或 ES6 箭头函数：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8011-bb6b-fa8b134709a6" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+(() =&gt; {
+  console.log(&quot;立即执行！&quot;);
+})();
+
+</code></pre><hr id="1fc8d968-54a6-8033-91c0-d2672fe85211"/><h3 id="1fc8d968-54a6-80de-951d-eac637a4e988" class="">九、函数总结</h3><table id="1fc8d968-54a6-80f8-a838-e1561e70f0f1" class="simple-table"><tbody><tr id="1fc8d968-54a6-80ec-8290-e05b66a08fb1"><td id="n]hW" class="">项目</td><td id="a=zW" class="">说明</td></tr><tr id="1fc8d968-54a6-8077-afcf-c84743876d73"><td id="n]hW" class="">命名函数</td><td id="a=zW" class="">可重复调用，便于调试</td></tr><tr id="1fc8d968-54a6-8089-b91f-e08f723b3b8d"><td id="n]hW" class="">匿名函数</td><td id="a=zW" class="">常用于回调、作为参数传递</td></tr><tr id="1fc8d968-54a6-8049-a7a8-dd74b155998d"><td id="n]hW" class="">箭头函数</td><td id="a=zW" class="">简洁写法，<code>this</code> 指向外层作用域</td></tr><tr id="1fc8d968-54a6-80a3-b93b-d33fe39afa56"><td id="n]hW" class="">IIFE</td><td id="a=zW" class="">封装作用域，常用于模块/立即执行逻辑</td></tr></tbody></table><p id="1fd8d968-54a6-802d-9123-fe4a17a52954" class="">
+</p><p id="1fd8d968-54a6-8087-8d0b-d6454fdb2372" class="">
+</p><p id="1fd8d968-54a6-8051-8c2e-ef596442bad4" class="">
+</p><h2  class="" id = "hanshu2">JavaScript 事件绑定与处理（事件流）</h2><p id="1fc8d968-54a6-801e-a802-d137ff28c6c0" class="">在 Web 编程中，JavaScript 常用于<strong>响应用户的交互操作</strong>，例如点击、键盘输入、鼠标移动等，这就是所谓的“事件处理”。</p><hr id="1fc8d968-54a6-807a-a43a-e4385e746e4c"/><h3 id="1fc8d968-54a6-8054-b5d6-f72599fad23d" class="">一、常见事件类型</h3><table id="1fc8d968-54a6-80c8-b6f7-c14104dee3bb" class="simple-table"><tbody><tr id="1fc8d968-54a6-80d0-82ce-e2aaa649646a"><td id="jOcq" class="">事件名称</td><td id="ZL|F" class="">说明</td></tr><tr id="1fc8d968-54a6-808a-9274-f976375c0288"><td id="jOcq" class=""><code>onclick</code></td><td id="ZL|F" class="">鼠标点击</td></tr><tr id="1fc8d968-54a6-8033-98bc-f1f08b4a5514"><td id="jOcq" class=""><code>onmouseover</code></td><td id="ZL|F" class="">鼠标移入</td></tr><tr id="1fc8d968-54a6-80c3-ab1b-f4b0bde8b80a"><td id="jOcq" class=""><code>onmouseout</code></td><td id="ZL|F" class="">鼠标移出</td></tr><tr id="1fc8d968-54a6-80b8-a490-e046960b78b5"><td id="jOcq" class=""><code>onkeydown</code></td><td id="ZL|F" class="">按下键盘</td></tr><tr id="1fc8d968-54a6-802b-82bd-e997e6480070"><td id="jOcq" class=""><code>onload</code></td><td id="ZL|F" class="">页面或资源加载完成</td></tr><tr id="1fc8d968-54a6-8023-94c7-ce1011187190"><td id="jOcq" class=""><code>oninput</code></td><td id="ZL|F" class="">表单输入变更</td></tr><tr id="1fc8d968-54a6-800f-afb0-cc460ba1f81c"><td id="jOcq" class=""><code>onsubmit</code></td><td id="ZL|F" class="">表单提交</td></tr></tbody></table><hr id="1fc8d968-54a6-8080-8b94-d6b9db5fbed6"/><h3 id="1fc8d968-54a6-8089-b6ca-daa8258725ee" class="">二、绑定事件的方式</h3><h3 id="1fc8d968-54a6-803a-bd2e-d5d2ab7acfc4" class="">1. HTML 方式（不推荐）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80c1-ba36-cb09dd753953" class="code"><code class="language-HTML" style="white-space:pre-wrap;word-break:break-all">html
+
+&lt;button onclick=&quot;sayHello()&quot;&gt;点击我&lt;/button&gt;
+
+</code></pre><h3 id="1fc8d968-54a6-804f-93fb-d6527a37d12f" class="">2. DOM 元素绑定（推荐）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8006-8c11-c3392aca232a" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const btn = document.getElementById(&quot;myBtn&quot;);
+btn.onclick = function() {
+  alert(&quot;按钮被点击&quot;);
+};
+
+</code></pre><h3 id="1fc8d968-54a6-80c4-91ab-c58b153b1f41" class="">3. addEventListener（推荐，支持多个事件）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-802a-a326-d184e0029f3a" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+btn.addEventListener(&quot;click&quot;, function() {
+  alert(&quot;点击事件被触发&quot;);
+});
+
+</code></pre><hr id="1fc8d968-54a6-801d-b68c-dfdd615ec9bc"/><h3 id="1fc8d968-54a6-804c-a6f5-fd22fd50ac0c" class="">三、事件对象 <code>event</code></h3><p id="1fc8d968-54a6-80fa-9ffb-f687e5a19f75" class="">在事件触发时，会传入一个事件对象 <code>event</code>，包含当前事件的各种信息。</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80b7-a9b4-db2029f7b351" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+btn.addEventListener(&quot;click&quot;, function(e) {
+  console.log(e.target); // 触发事件的元素
+});
+
+</code></pre><hr id="1fc8d968-54a6-8001-944c-e5baf39edbe7"/><h3 id="1fc8d968-54a6-80b6-a82a-fae444c95147" class="">四、事件移除</h3><p id="1fc8d968-54a6-8082-a352-d59cef4778e3" class="">可以使用 <code>removeEventListener</code> 移除绑定的事件。</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8068-a1e8-dae07a62d447" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+function sayHi() {
+  alert(&quot;Hi!&quot;);
+}
+btn.addEventListener(&quot;click&quot;, sayHi);
+
+// 移除
+btn.removeEventListener(&quot;click&quot;, sayHi);
+
+</code></pre><hr id="1fc8d968-54a6-80d9-bcaf-c4f61206360a"/><h3 id="1fc8d968-54a6-8069-947f-c8d5c1302394" class="">五、事件流（捕获阶段 → 目标阶段 → 冒泡阶段）</h3><p id="1fc8d968-54a6-80e5-99db-ce4a9ffb8ee8" class="">事件从根节点向目标元素传递（捕获），再从目标返回（冒泡）：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-807a-a837-c03a90c7ed52" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+element.addEventListener(&quot;click&quot;, handler, true);  // 捕获
+element.addEventListener(&quot;click&quot;, handler, false); // 冒泡（默认）
+
+</code></pre><hr id="1fc8d968-54a6-80c4-b2bd-c177cf4f42e6"/><h3 id="1fc8d968-54a6-8027-9347-e8580ea75618" class="">六、阻止事件冒泡</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80c4-85d5-e181759318df" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+event.stopPropagation();
+
+</code></pre><hr id="1fc8d968-54a6-80be-8ef8-c3773b0719ff"/><h3 id="1fc8d968-54a6-8010-90a2-ef0204359dbd" class="">七、阻止默认行为</h3><p id="1fc8d968-54a6-80b7-9c61-fc7fee4263fd" class="">比如阻止表单提交、链接跳转：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8026-96b1-ec04389f4bca" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+event.preventDefault();
+
+</code></pre><hr id="1fc8d968-54a6-8005-b3a4-dd405fd55b44"/><h3 id="1fc8d968-54a6-8027-86eb-c0152b79b71c" class="">八、事件绑定小结</h3><table id="1fc8d968-54a6-80b5-bc8c-e37e1d263045" class="simple-table"><tbody><tr id="1fc8d968-54a6-80c1-8a7b-d4eef0a6665f"><td id="hnvp" class="">方法</td><td id="BPpo" class="">特点</td></tr><tr id="1fc8d968-54a6-80fb-9cd4-ef444468726d"><td id="hnvp" class="">HTML 事件（内联）</td><td id="BPpo" class="">简单，但侵入性高，不推荐</td></tr><tr id="1fc8d968-54a6-80cd-9915-ee993e5e3a9f"><td id="hnvp" class=""><code>element.onclick</code></td><td id="BPpo" class="">覆盖旧事件，不支持多个绑定</td></tr><tr id="1fc8d968-54a6-8017-81f2-ddede5487496"><td id="hnvp" class=""><code>addEventListener</code></td><td id="BPpo" class="">标准推荐，可绑定多个函数</td></tr><tr id="1fc8d968-54a6-80e6-bb21-d18778813bdf"><td id="hnvp" class=""><code>removeEventListener</code></td><td id="BPpo" class="">移除指定事件处理器</td></tr></tbody></table><hr id="1fc8d968-54a6-805e-adc8-e916666d1cf5"/><h3 id="1fc8d968-54a6-80f3-a14b-fc52b05c0c92" class="">九、事件示例：按钮点击</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8010-a880-c8ae1aa40ad5" class="code"><code class="language-HTML" style="white-space:pre-wrap;word-break:break-all">html
+
+&lt;button id=&quot;btn&quot;&gt;点击我&lt;/button&gt;
+
+&lt;script&gt;
+  document.getElementById(&quot;btn&quot;).addEventListener(&quot;click&quot;, function() {
+    alert(&quot;你点击了按钮！&quot;);
+  });
+&lt;/script&gt;
+
+</code></pre><p id="1fd8d968-54a6-80b4-8934-db5478b2dd66" class="">
+</p><p id="1fd8d968-54a6-8057-8eca-f2993bb521a3" class="">
+</p><p id="1fd8d968-54a6-8038-aef1-c081704b8746" class="">
+</p><h2  class="" id ="hanshu3" >JavaScript 作用域与作用域链（Scope &amp; Scope Chain）</h2><p id="1fc8d968-54a6-8077-8341-faf23c949157" class="">“作用域”是变量的生存空间，是<strong>理解 JavaScript 的核心基础之一</strong>，决定了变量在何处可访问，函数在何处被调用。</p><hr id="1fc8d968-54a6-80d8-9642-c573f8e8cf0b"/><h3 id="1fc8d968-54a6-802d-b183-de4c1f7a4a52" class="">一、什么是作用域（Scope）</h3><blockquote id="1fc8d968-54a6-805c-9fee-d80410199f4d" class="">作用域： 指程序中定义变量的区域及其可访问性。</blockquote><p id="1fc8d968-54a6-803c-8f52-f08d2d4062ee" class="">JavaScript 中的作用域包括：</p><ul id="1fc8d968-54a6-808a-8551-e664603c6e0e" class="bulleted-list"><li style="list-style-type:disc"><strong>全局作用域（Global Scope）</strong></li></ul><ul id="1fc8d968-54a6-804c-862a-ca218d51402d" class="bulleted-list"><li style="list-style-type:disc"><strong>函数作用域（Function Scope）</strong></li></ul><ul id="1fc8d968-54a6-80d5-8c0c-fa9b0bb43078" class="bulleted-list"><li style="list-style-type:disc"><strong>块级作用域（Block Scope，ES6 引入）</strong></li></ul><hr id="1fc8d968-54a6-80ad-9515-c03ac03556aa"/><h3 id="1fc8d968-54a6-8008-a77f-d907ea5f3d53" class="">二、全局作用域</h3><p id="1fc8d968-54a6-8072-9d81-ed6c811b50c9" class="">在任何函数或块外部声明的变量，属于全局作用域，可被整个脚本访问。</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-800e-9e18-c39b5f9f80be" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+let a = 100; // 全局变量
+
+function show() {
+  console.log(a); // 100，可访问
+}
+
+</code></pre><p id="1fc8d968-54a6-8037-9b0d-f9d7ea1d5d31" class="">📌 在浏览器中，全局变量会绑定到 <code>window</code> 对象：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8016-96a1-ee5e28925e4c" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+var b = 200;
+console.log(window.b); // 200
+
+</code></pre><hr id="1fc8d968-54a6-80bb-872a-cc021ec49262"/><h3 id="1fc8d968-54a6-80d6-97a7-e2bf7db3f5f4" class="">三、函数作用域（Function Scope）</h3><p id="1fc8d968-54a6-8087-8536-c2bd59de95a2" class="">函数内部声明的变量，只能在该函数内部访问。</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-802c-88c6-eacd9798d926" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+function test() {
+  let msg = &quot;Hello&quot;;
+  console.log(msg); // ✅ 有效
+}
+console.log(msg); // ❌ 报错：msg is not defined
+
+</code></pre><blockquote id="1fc8d968-54a6-805c-8d33-c13885799eca" class="">📌 JavaScript 中的 var 是函数作用域，而 let / const 是块级作用域（见下文）。</blockquote><hr id="1fc8d968-54a6-80b7-b6eb-f577383e7766"/><h3 id="1fc8d968-54a6-809f-a643-fc1519158b56" class="">四、块级作用域（Block Scope）【ES6 新增】</h3><p id="1fc8d968-54a6-80cd-9b20-e6eede9627bd" class="">使用 <code>let</code> 或 <code>const</code> 声明的变量，在 <code>{}</code> 块中有效。</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-808c-849c-e38b5d21b03c" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+{
+  let a = 10;
+  const b = 20;
+}
+console.log(a); // ❌ 报错
+
+</code></pre><p id="1fc8d968-54a6-8024-8aaa-d30056af6c4b" class="">⚠️ <code>var</code> 没有块级作用域：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-803c-a062-cbffac57de8c" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+{
+  var x = 5;
+}
+console.log(x); // ✅ 输出 5
+
+</code></pre><hr id="1fc8d968-54a6-8060-afe0-de0977c1c207"/><h3 id="1fc8d968-54a6-804f-b6c4-f844e377b545" class="">五、作用域链（Scope Chain）</h3><p id="1fc8d968-54a6-8023-8b86-efa9b5a334e1" class="">当访问一个变量时，JavaScript 引擎会从当前作用域向外层作用域逐级查找，直到全局作用域为止。</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8003-9a19-e93ee6c2ed33" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+let x = 1;
+
+function outer() {
+  let y = 2;
+
+  function inner() {
+    let z = 3;
+    console.log(x, y, z); // 1, 2, 3
+  }
+
+  inner();
+}
+
+outer();
+
+</code></pre><blockquote id="1fc8d968-54a6-8042-a087-dcaeaac22440" class="">📌 如果在作用域链中都找不到变量，则会抛出 ReferenceError。</blockquote><hr id="1fc8d968-54a6-80bd-b7f8-ffa0ac7b6708"/><h3 id="1fc8d968-54a6-8083-9e5b-ca6727465f4a" class="">六、词法作用域（静态作用域）</h3><p id="1fc8d968-54a6-801d-bacd-f0363c184948" class="">JavaScript 是<strong>词法作用域</strong>语言，作用域在<strong>定义时决定</strong>，与运行时无关。</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80e7-972f-dcb66360ae3a" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+let a = &quot;全局&quot;;
+
+function test() {
+  console.log(a);
+}
+
+function run() {
+  let a = &quot;局部&quot;;
+  test(); // 输出：全局，而不是“局部”
+}
+
+run();
+
+</code></pre><blockquote id="1fc8d968-54a6-80b7-94b6-db26153ef63b" class="">❗这与“动态作用域”的语言（如某些 shell 脚本语言）不同。</blockquote><hr id="1fc8d968-54a6-8043-b97f-cb661329c789"/><h3 id="1fc8d968-54a6-805b-86bb-c7e56cb9cb2c" class="">七、扩展：作用域与闭包的关系</h3><blockquote id="1fc8d968-54a6-8077-bdfc-c0ed87d04dba" class="">闭包是“作用域链”的应用场景。</blockquote><p id="1fc8d968-54a6-8045-8129-defcdc04b4c8" class="">当一个函数访问了它<strong>外部函数的变量</strong>，并将其返回或传出时，就形成了闭包（Closure）。这使得<strong>局部变量得以保存在内存中</strong>。</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80f9-ab9e-dca49cb03e2e" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+function outer() {
+  let count = 0;
+  return function inner() {
+    count++;
+    console.log(count);
+  };
+}
+
+const counter = outer();
+counter(); // 1
+counter(); // 2
+
+</code></pre><p id="1fc8d968-54a6-80ef-8c07-fe5a9703927a" class="">🧠 你可以理解为：</p><ul id="1fc8d968-54a6-801c-a20a-c62e07bd64f0" class="bulleted-list"><li style="list-style-type:disc">作用域链保证了 <code>count</code> 在外层函数结束后仍然可被访问；</li></ul><ul id="1fc8d968-54a6-8077-95f9-e062e18bf08a" class="bulleted-list"><li style="list-style-type:disc">闭包延长了局部变量的生命周期，可能造成内存泄漏风险（需小心）。</li></ul><hr id="1fc8d968-54a6-805c-8ab1-dba44ed61ce4"/><h3 id="1fc8d968-54a6-80f7-97f0-f795dce637b7" class="">八、最佳实践与注意事项</h3><p id="1fc8d968-54a6-801e-b5fc-c8848d5cee0d" class="">✅ 推荐使用 <code>let</code> / <code>const</code> 来声明变量，避免作用域提升和污染：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8013-8e46-c5f684d0cbfc" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+for (let i = 0; i &lt; 3; i++) {
+  setTimeout(() =&gt; console.log(i), 100); // 输出 0, 1, 2
+}
+
+</code></pre><p id="1fc8d968-54a6-80d6-a9f7-f2b150a9caff" class="">❌ 若用 <code>var</code> 会输出 3, 3, 3，因为 <code>var</code> 是函数级作用域：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8047-b2f3-db87655c6666" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+for (var i = 0; i &lt; 3; i++) {
+  setTimeout(() =&gt; console.log(i), 100); // 3, 3, 3
+}
+
+</code></pre><p id="1fc8d968-54a6-80db-96cf-ee11598eabee" class="">✅ 避免全局变量污染，封装变量：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-809f-ac30-f9455ba15e93" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+(function() {
+  const privateData = &quot;隐藏变量&quot;;
+  console.log(privateData);
+})();
+
+</code></pre><hr id="1fc8d968-54a6-80c1-b531-d6ad4eca8ff1"/><h3 id="1fc8d968-54a6-8052-ac5e-ea7d744b8e8d" class="">九、总结图解（思维导图建议）</h3><p id="1fc8d968-54a6-8068-abda-f88d8831a048" class="">作用域的结构：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8090-8917-eb53f05e95ab" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">
+复制编辑
+全局作用域
+ └── 函数作用域
+      └── 块级作用域
+
+</code></pre><p id="1fc8d968-54a6-80ab-8dfc-cdb160694956" class="">查找变量时，向外层逐级查找 —— 这就是<strong>作用域链（Scope Chain）</strong>。</p><p id="1fc8d968-54a6-80a9-a485-d3983348c622" class="">
+</p><p id="1fd8d968-54a6-80bc-9de7-cec7ddb3fd59" class="">
+</p><p id="1fd8d968-54a6-804f-ae07-fb4a4b871636" class="">
+</p><p id="1fd8d968-54a6-8085-9bcf-fca7875c7d3b" class="">
+</p><h2  class="" id = "duixiang1">JavaScript 对象创建与访问（Object）</h2><p id="1fc8d968-54a6-80b4-b2b0-f389fdecbbed" class="">对象是 JavaScript 中最重要的数据类型之一，是一组“键值对（key-value）”的集合，用于描述一类事物的属性和行为。</p><hr id="1fc8d968-54a6-80f2-ac82-dbe84a1fbbde"/><h3 id="1fc8d968-54a6-808a-a755-d6adbe8e0c45" class="">一、什么是对象？</h3><p id="1fc8d968-54a6-8027-bb14-cfa2a67937ed" class="">对象是由<strong>属性</strong>和<strong>方法</strong>组成的结构：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-809a-91b6-c9b081fea659" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+let person = {
+  name: &quot;Tom&quot;,              // 属性
+  age: 20,
+  sayHello: function() {    // 方法
+    console.log(&quot;Hello!&quot;);
+  }
+};
+
+</code></pre><blockquote id="1fc8d968-54a6-805d-ae92-e0fa766e045b" class="">📌 属性是值，方法是函数</blockquote><hr id="1fc8d968-54a6-8004-937b-fd8a8823e82d"/><h3 id="1fc8d968-54a6-8015-9d19-e90c29cdd8da" class="">二、创建对象的方式</h3><h3 id="1fc8d968-54a6-80b6-8a7d-cb8afe90e76d" class="">1. 字面量创建法（推荐）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-809d-8c44-d26f77b32513" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const car = {
+  brand: &quot;Toyota&quot;,
+  year: 2022
+};
+
+</code></pre><p id="1fc8d968-54a6-809a-a86f-d4175716d141" class="">✔️ 简洁直观，是最常用的方式。</p><hr id="1fc8d968-54a6-80e3-81d8-d3bebcb0eaab"/><h3 id="1fc8d968-54a6-808e-9033-df94b4ced7f4" class="">2. 使用 <code>new Object()</code></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80bc-8142-ee92db0d198c" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const book = new Object();
+book.title = &quot;JavaScript 入门&quot;;
+book.price = 59;
+
+</code></pre><p id="1fc8d968-54a6-8071-84e7-ee10432da856" class="">⚠️ 实际开发中较少使用。</p><hr id="1fc8d968-54a6-8070-903e-c4ef8eb8ae45"/><h3 id="1fc8d968-54a6-8071-bfe9-f98e5d692c97" class="">3. 使用构造函数</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8034-8296-ec536357f54a" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+function Animal(name, age) {
+  this.name = name;
+  this.age = age;
+}
+
+const dog = new Animal(&quot;Lucky&quot;, 3);
+
+</code></pre><p id="1fc8d968-54a6-801e-bdb1-cf4e30edefeb" class="">✔️ 用于创建“多个相同结构”的对象。</p><hr id="1fc8d968-54a6-80b9-9bb8-e144fca26ebe"/><h3 id="1fc8d968-54a6-8081-90db-f19968d96471" class="">4. 使用工厂函数（更灵活）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8045-8bd1-df00569cf984" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+function createUser(name, email) {
+  return {
+    name,
+    email,
+    isAdmin: false
+  };
+}
+
+const user1 = createUser(&quot;小明&quot;, &quot;test@example.com&quot;);
+
+</code></pre><blockquote id="1fc8d968-54a6-80af-b6a4-f03e9e78166a" class="">✅ 推荐用于生成“定制对象”，灵活不依赖 new。</blockquote><hr id="1fc8d968-54a6-804b-a601-d352920a5e9a"/><h3 id="1fc8d968-54a6-80c1-9df7-dd8cb7e49471" class="">5. 使用 <code>Object.create()</code>（继承推荐）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-806f-b1c1-fcbd945d2383" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const base = { greet() { console.log(&quot;Hi&quot;); } };
+const child = Object.create(base);
+child.name = &quot;Child&quot;;
+
+</code></pre><p id="1fc8d968-54a6-806a-80c6-cf8a71702128" class="">✔️ 用于构建原型链，底层封装框架常用。</p><hr id="1fc8d968-54a6-8079-88b8-e84b34edb8f0"/><h3 id="1fc8d968-54a6-80ea-93d2-e01532112098" class="">三、访问对象属性</h3><p id="1fc8d968-54a6-809f-86a3-ea09bced447f" class="">有两种方式访问对象属性：</p><h3 id="1fc8d968-54a6-8027-b07d-d327f5b7bf32" class="">1. 点（.）语法</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8003-b9ec-cb30515feec3" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+console.log(person.name); // Tom
+
+</code></pre><h3 id="1fc8d968-54a6-80df-bef2-f4801c2b4b40" class="">2. 方括号（[]）语法</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-806d-b478-fc86ae2ee348" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+console.log(person[&quot;age&quot;]); // 20
+
+</code></pre><blockquote id="1fc8d968-54a6-80d5-8b7f-cca4e254b16f" class="">✅ 方括号方式适用于：<ul id="1fc8d968-54a6-80b3-82e5-d2dd78f8f968" class="bulleted-list"><li style="list-style-type:disc">属性名是动态变量时</li></ul><ul id="1fc8d968-54a6-80ef-bd90-dd1b3b4068fc" class="bulleted-list"><li style="list-style-type:disc">属性名包含空格、符号时</li></ul></blockquote><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8064-a2fd-db77fe232cec" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+let key = &quot;name&quot;;
+console.log(person[key]); // Tom
+
+const obj = {
+  &quot;first name&quot;: &quot;Alice&quot;
+};
+console.log(obj[&quot;first name&quot;]);
+
+</code></pre><hr id="1fc8d968-54a6-80ce-8e48-f02c51a8af57"/><h3 id="1fc8d968-54a6-80f2-a8bb-ed061bb230aa" class="">四、修改对象属性</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-809a-b386-f5cbe1ca7831" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+person.age = 25;
+person[&quot;name&quot;] = &quot;Jerry&quot;;
+
+</code></pre><hr id="1fc8d968-54a6-8076-95be-ffc838dbee79"/><h3 id="1fc8d968-54a6-80dc-9305-e55a46c62561" class="">五、添加/删除属性</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-803b-b7ea-e669ac5383f1" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+person.city = &quot;Tokyo&quot;;   // 添加
+delete person.age;       // 删除
+
+</code></pre><hr id="1fc8d968-54a6-802c-be59-c5669bb96811"/><h3 id="1fc8d968-54a6-8029-ac90-eb72237be0ff" class="">六、检测属性存在性</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80cb-8236-fab5f596adb6" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+&quot;name&quot; in person         // true
+person.hasOwnProperty(&quot;age&quot;)  // false（已被删）
+
+</code></pre><hr id="1fc8d968-54a6-8093-8c39-cbe3452cbbed"/><h3 id="1fc8d968-54a6-803e-9584-d41a18f11ab9" class="">七、对象遍历（for...in）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8080-a7a6-e7f799908100" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+for (let key in person) {
+  console.log(key + &quot;: &quot; + person[key]);
+}
+
+</code></pre><p id="1fc8d968-54a6-8025-9ce6-c4b3212cc572" class="">📌 只会遍历<strong>可枚举的自有/继承属性</strong>，可配合 <code>hasOwnProperty</code> 过滤：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-802e-b0bf-cb1009874061" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+for (let key in person) {
+  if (person.hasOwnProperty(key)) {
+    console.log(key);
+  }
+}
+
+</code></pre><hr id="1fc8d968-54a6-8044-b657-e7ac989b710b"/><h3 id="1fc8d968-54a6-8005-b021-f0279ab28336" class="">八、对象方法简写（ES6）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-802b-bb1a-caffae7606e2" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const student = {
+  name: &quot;Lily&quot;,
+  sayHi() {
+    console.log(&quot;你好！&quot;);
+  }
+};
+student.sayHi(); // 你好！
+
+</code></pre><hr id="1fc8d968-54a6-80fc-97ac-eaa71e29dfeb"/><h3 id="1fc8d968-54a6-8048-b614-ce64ef01e065" class="">九、对象扩展：动态属性名（ES6）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8027-830a-eba351927daf" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+let key = &quot;level&quot;;
+let user = {
+  name: &quot;Bob&quot;,
+  [key]: &quot;Admin&quot; // 等同于 user[&quot;level&quot;] = &quot;Admin&quot;
+};
+
+</code></pre><hr id="1fc8d968-54a6-809f-8c3a-f3ad53168e9d"/><h3 id="1fc8d968-54a6-80c0-b71b-feaa88f581f8" class="">🔍 拓展：对象的深拷贝与浅拷贝</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-807a-81dc-d86835b88d76" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const obj1 = { a: 1, b: { c: 2 } };
+const obj2 = Object.assign({}, obj1); // 浅拷贝
+const obj3 = structuredClone(obj1);   // ✅ 深拷贝（现代浏览器支持）
+
+</code></pre><hr id="1fc8d968-54a6-8069-a188-d88b21b99103"/><h3 id="1fc8d968-54a6-807c-8e52-e962273cdce7" class="">🧠 小结</h3><table id="1fc8d968-54a6-80c4-9312-ca0c29c3b5c9" class="simple-table"><tbody><tr id="1fc8d968-54a6-80a8-9831-e3647b9c8072"><td id="T??a" class="">操作</td><td id="jYOr" class="">方法示例</td></tr><tr id="1fc8d968-54a6-80fe-bed0-d21cec36eaa4"><td id="T??a" class="">创建对象</td><td id="jYOr" class="">字面量 / 构造函数 / 工厂函数</td></tr><tr id="1fc8d968-54a6-809c-9ff3-c5799560836e"><td id="T??a" class="">属性访问</td><td id="jYOr" class=""><code>obj.key</code> or <code>obj[&quot;key&quot;]</code></td></tr><tr id="1fc8d968-54a6-8067-866d-c530f0171fc0"><td id="T??a" class="">属性增删改查</td><td id="jYOr" class=""><code>obj.key = ...</code> / <code>delete obj.key</code></td></tr><tr id="1fc8d968-54a6-808e-b316-df000a2ada80"><td id="T??a" class="">遍历对象</td><td id="jYOr" class=""><code>for...in</code> / <code>Object.keys()</code></td></tr><tr id="1fc8d968-54a6-8096-a410-d94eddae5321"><td id="T??a" class="">动态属性名</td><td id="jYOr" class=""><code>[变量名]</code> 形式</td></tr></tbody></table><p id="1fd8d968-54a6-804f-91b3-ffbd9f4139db" class="">
+</p><p id="1fd8d968-54a6-80dd-beb9-d8402632bce3" class="">
+</p><p id="1fd8d968-54a6-8003-a275-e19d9cc1bf33" class="">
+</p><h2  class="" id = "duixiang2">JavaScript 数组（Array）对象与操作方法</h2><p id="1fc8d968-54a6-8030-ab5b-c57c943cc91e" class="">数组是用于存储<strong>一组有序数据</strong>的对象。JavaScript 数组功能强大，是开发中使用频率极高的数据结构。</p><hr id="1fc8d968-54a6-805c-a80e-f8cd137b7955"/><h3 id="1fc8d968-54a6-800a-8d9b-c06984338801" class="">一、创建数组的方式</h3><h3 id="1fc8d968-54a6-80ab-9299-e6564deac7c0" class="">1. 字面量（推荐方式）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-805d-a460-f76a841a7a17" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">
+const fruits = [&quot;apple&quot;, &quot;banana&quot;, &quot;orange&quot;];
+
+</code></pre><h3 id="1fc8d968-54a6-80a8-9dfa-c7f4de7d551c" class="">2. 使用 <code>new Array()</code>（不推荐）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8073-9118-dcbe3f10cc04" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const nums = new Array(1, 2, 3);      // ✅ 正确
+const empty = new Array(5);          // ❌ 创建长度为5的稀疏数组
+
+</code></pre><p id="1fc8d968-54a6-8045-91ef-ebe3e7614bfa" class="">✔️ 字面量更安全、直观。</p><hr id="1fc8d968-54a6-80f0-a598-fb7235565c44"/><h3 id="1fc8d968-54a6-8045-9583-c2908a022ca5" class="">二、访问数组元素</h3><p id="1fc8d968-54a6-80f1-a77f-cf018e5092f3" class="">数组下标从 <code>0</code> 开始：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8091-81ad-e14d78514e31" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+console.log(fruits[0]); // apple
+console.log(fruits[2]); // orange
+
+</code></pre><hr id="1fc8d968-54a6-803e-90d1-ce28a5d4d573"/><h3 id="1fc8d968-54a6-80f4-a0f0-c50f3db7e361" class="">三、修改/添加/删除元素</h3><h3 id="1fc8d968-54a6-80da-92b1-e80408dfefea" class="">修改元素：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80d5-a768-ece3f6e719bd" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+fruits[1] = &quot;pear&quot;;
+
+</code></pre><h3 id="1fc8d968-54a6-80e7-aaa0-da7fbf77fd85" class="">添加元素：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80c3-884a-dff23ab223c2" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+fruits[3] = &quot;mango&quot;;
+fruits.push(&quot;kiwi&quot;);         // 添加到末尾
+fruits.unshift(&quot;grape&quot;);     // 添加到开头
+
+</code></pre><h3 id="1fc8d968-54a6-8073-8711-c40ec0f3368e" class="">删除元素：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-806c-a662-c838e4e0f15f" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+fruits.pop();     // 删除末尾元素
+fruits.shift();   // 删除开头元素
+delete fruits[1]; // ❌ 留空位，不建议
+
+</code></pre><hr id="1fc8d968-54a6-802d-961e-fb346ecbcd0d"/><h3 id="1fc8d968-54a6-809c-9440-dac2b785ef8b" class="">四、数组常用属性与方法</h3><h3 id="1fc8d968-54a6-808a-a6df-c3387ef44cec" class="">1. <code>.length</code> 长度属性</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80ed-9c3a-f4f738d8f2ca" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+console.log(fruits.length); // 数组元素个数
+
+</code></pre><h3 id="1fc8d968-54a6-8012-bc85-fef9b1224858" class="">2. <code>.push()</code> / <code>.pop()</code></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80a8-b921-f267310bfcbc" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+arr.push(&quot;元素&quot;)     // 末尾添加
+arr.pop()           // 删除末尾
+
+</code></pre><h3 id="1fc8d968-54a6-8076-b083-c3787a06a21b" class="">3. <code>.unshift()</code> / <code>.shift()</code></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8045-bef0-f376738d5be7" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+arr.unshift(&quot;头&quot;)    // 开头添加
+arr.shift()         // 删除开头
+
+</code></pre><h3 id="1fc8d968-54a6-8057-b9ff-cc10a35eb617" class="">4. <code>.indexOf()</code> / <code>.includes()</code></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80cc-ac16-d7abc8512da9" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+arr.indexOf(&quot;apple&quot;)    // 找到返回索引，否则 -1
+arr.includes(&quot;banana&quot;)  // 返回 true / false
+
+</code></pre><hr id="1fc8d968-54a6-80f2-b4bd-c5bbf8db7825"/><h3 id="1fc8d968-54a6-80a2-8b44-c371e7466cdb" class="">五、数组遍历方法</h3><h3 id="1fc8d968-54a6-80e9-9d23-f98ff9107637" class="">1. <code>for</code> 经典循环</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80d1-9d5f-e8a388898c41" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+for (let i = 0; i &lt; arr.length; i++) {
+  console.log(arr[i]);
+}
+
+</code></pre><h3 id="1fc8d968-54a6-8065-9293-deda6bc76795" class="">2. <code>for...of</code>（推荐）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80e3-9513-cfad4e2a5619" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+for (const item of arr) {
+  console.log(item);
+}
+
+</code></pre><h3 id="1fc8d968-54a6-80a5-b660-cdc676790e9e" class="">3. <code>forEach()</code> 高阶函数</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8061-9b51-cd992b23d18c" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+arr.forEach((item, index) =&gt; {
+  console.log(index + &quot; = &quot; + item);
+});
+
+</code></pre><hr id="1fc8d968-54a6-809b-b04c-ca9eb743801e"/><h3 id="1fc8d968-54a6-805c-a681-cd449bd5d5e5" class="">六、数组高级操作方法</h3><h3 id="1fc8d968-54a6-8049-840d-feae28be28ec" class="">1. <code>map()</code> → 映射转换新数组</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8005-8923-fc62cb934119" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const squares = [1, 2, 3].map(n =&gt; n * n); // [1, 4, 9]
+
+</code></pre><h3 id="1fc8d968-54a6-800b-b208-dd6407b7e296" class="">2. <code>filter()</code> → 筛选符合条件的元素</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8031-a2cb-da48a4e133f7" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const even = [1, 2, 3, 4].filter(n =&gt; n % 2 === 0); // [2, 4]
+
+</code></pre><h3 id="1fc8d968-54a6-8091-a7a1-ecf011be79fb" class="">3. <code>reduce()</code> → 聚合计算</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8069-b8ee-de1c5b3add8f" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const sum = [1, 2, 3].reduce((acc, cur) =&gt; acc + cur, 0); // 6
+
+</code></pre><h3 id="1fc8d968-54a6-8015-8f9e-e8bb386310d3" class="">4. <code>find()</code> / <code>findIndex()</code></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-803c-a599-f722603b2c73" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+arr.find(item =&gt; item.length &gt; 5);       // 返回匹配项
+arr.findIndex(item =&gt; item === &quot;abc&quot;);   // 返回索引
+
+</code></pre><h3 id="1fc8d968-54a6-8058-ba3a-d73d2f90ba94" class="">5. <code>sort()</code> → 排序（注意必须传比较函数）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8035-a34b-d8d95fbc703c" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const arr = [4, 2, 10];
+arr.sort((a, b) =&gt; a - b); // 升序 [2, 4, 10]
+
+</code></pre><h3 id="1fc8d968-54a6-80ac-b6ec-dad6348819a9" class="">6. <code>slice()</code> / <code>splice()</code></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8056-9d07-f4e7952914b8" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+arr.slice(1, 3);  // 截取（不改变原数组）
+arr.splice(1, 2); // 删除或替换元素（改变原数组）
+
+</code></pre><hr id="1fc8d968-54a6-8006-819e-f014adda8b9d"/><h3 id="1fc8d968-54a6-8002-828a-e84bd25fe83c" class="">七、数组与字符串互转</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8003-b4a3-c084570ff4bb" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const str = arr.join(&quot;, &quot;); // 数组 → 字符串
+const newArr = str.split(&quot;, &quot;); // 字符串 → 数组
+
+</code></pre><hr id="1fc8d968-54a6-8074-b660-f5390d70146f"/><h3 id="1fc8d968-54a6-80aa-aa88-cd65e62ea1a5" class="">八、数组判定方式</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-803a-92de-f37ea8989b63" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+Array.isArray(arr);     // ✅ 推荐
+typeof arr;             // ❌ 返回 &quot;object&quot;，不可靠
+
+</code></pre><hr id="1fc8d968-54a6-80df-bc96-e8fa61f2c958"/><h3 id="1fc8d968-54a6-80d6-88e1-e5b779571903" class="">九、二维数组（矩阵）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8030-805e-d959fa2bdf48" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const matrix = [
+  [1, 2],
+  [3, 4]
+];
+
+console.log(matrix[1][0]); // 3
+
+</code></pre><hr id="1fc8d968-54a6-800a-8ee9-cd400b210c15"/><h3 id="1fc8d968-54a6-80da-8fac-f0a38b9b8c42" class="">🔍 补充：解构与展开运算符（ES6+）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8050-8a21-d48df8be202a" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const [first, ...rest] = [10, 20, 30]; // 解构赋值
+const merged = [...arr1, ...arr2];     // 展开合并
+
+</code></pre><hr id="1fc8d968-54a6-80d1-8d03-c94ced4e1cd2"/><h3 id="1fc8d968-54a6-806f-8522-e9ddffa68401" class="">🧠 小结</h3><table id="1fc8d968-54a6-8063-94fd-c9374c4485f8" class="simple-table"><tbody><tr id="1fc8d968-54a6-80e0-914f-dd15b01887ed"><td id="o}Qi" class="">操作</td><td id="h&lt;Lr" class="">方法</td></tr><tr id="1fc8d968-54a6-80f9-b99a-f62c8a6fcac8"><td id="o}Qi" class="">添加元素</td><td id="h&lt;Lr" class=""><code>push()</code> / <code>unshift()</code></td></tr><tr id="1fc8d968-54a6-805d-a82e-f3154ea94dbd"><td id="o}Qi" class="">删除元素</td><td id="h&lt;Lr" class=""><code>pop()</code> / <code>shift()</code> / <code>splice()</code></td></tr><tr id="1fc8d968-54a6-80a1-8acc-e25e52eb8dec"><td id="o}Qi" class="">遍历</td><td id="h&lt;Lr" class=""><code>for</code> / <code>for...of</code> / <code>forEach()</code></td></tr><tr id="1fc8d968-54a6-8095-be5b-e3c7de6c6685"><td id="o}Qi" class="">转换/过滤</td><td id="h&lt;Lr" class=""><code>map()</code> / <code>filter()</code> / <code>reduce()</code></td></tr><tr id="1fc8d968-54a6-8000-942e-d1163c847165"><td id="o}Qi" class="">判断是否数组</td><td id="h&lt;Lr" class=""><code>Array.isArray()</code></td></tr><tr id="1fc8d968-54a6-8072-b938-c0da23d664f6"><td id="o}Qi" class="">拷贝与合并</td><td id="h&lt;Lr" class=""><code>slice()</code> / <code>[...arr]</code></td></tr></tbody></table><p id="1fc8d968-54a6-805e-95c1-d037c993d57e" class="">
+</p><p id="1fd8d968-54a6-8054-bdb8-fbc12ae0172d" class="">
+</p><p id="1fd8d968-54a6-8038-8e21-d8df0057f10b" class="">
+</p><p id="1fd8d968-54a6-806a-8234-df186b91ad36" class="">
+</p><h2  class="" id = "duixiang3">JavaScript <code>Date</code> 日期对象与时间处理</h2><p id="1fc8d968-54a6-800e-8d15-d95a064bed79" class=""><code>Date</code> 是 JavaScript 用于表示时间的内建对象，包含年、月、日、时、分、秒、毫秒等信息，并支持获取、设置、格式化、计算等操作。</p><hr id="1fc8d968-54a6-8027-9656-c6bfefeb38c9"/><h3 id="1fc8d968-54a6-8072-aa4b-c50394f9a9ec" class="">一、创建日期对象的方式</h3><h3 id="1fc8d968-54a6-8047-a4ae-f538efb090b4" class="">1. 当前时间</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8054-9d94-fce6d1c9d31e" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const now = new Date();
+console.log(now); // 当前日期时间
+
+</code></pre><h3 id="1fc8d968-54a6-8009-bcbf-c79fc6565236" class="">2. 指定时间字符串</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80ee-bb18-f2409d8a3ce6" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const d1 = new Date(&quot;2024-05-23 18:30:00&quot;);
+
+</code></pre><blockquote id="1fc8d968-54a6-809b-9817-ffc256817f59" class="">⚠️ 建议使用 YYYY-MM-DD 这种标准格式，避免地区兼容问题。</blockquote><h3 id="1fc8d968-54a6-804f-af0c-c949ccffda55" class="">3. 年/月/日/时/分/秒/毫秒参数</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8055-8bc9-e9c7560ae1f0" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const d2 = new Date(2024, 4, 23, 18, 30, 0); // 月份从 0 开始
+
+</code></pre><h3 id="1fc8d968-54a6-8012-a62d-ef8a19ca6aef" class="">4. 时间戳（毫秒数）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80d5-80e3-fdd017b493b5" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const d3 = new Date(1716450000000);
+
+</code></pre><hr id="1fc8d968-54a6-801d-86c6-d2923844df11"/><h3 id="1fc8d968-54a6-80ae-a174-f3d8b54c928b" class="">二、获取时间相关信息</h3><table id="1fc8d968-54a6-8037-ab46-f32817fc3f84" class="simple-table"><tbody><tr id="1fc8d968-54a6-807a-b1fa-e7c3b23455e7"><td id="?s{V" class="">方法名</td><td id="dd^Y" class="">含义</td><td id="D[W|" class="">示例返回值（假设 2024-05-23）</td></tr><tr id="1fc8d968-54a6-803b-adce-dabad96d3a42"><td id="?s{V" class=""><code>.getFullYear()</code></td><td id="dd^Y" class="">获取完整年份</td><td id="D[W|" class=""><code>2024</code></td></tr><tr id="1fc8d968-54a6-806c-89f2-e3f42a69b4fa"><td id="?s{V" class=""><code>.getMonth()</code></td><td id="dd^Y" class="">获取月份（0~11）</td><td id="D[W|" class=""><code>4</code></td></tr><tr id="1fc8d968-54a6-806a-9fe1-eb020dc5d134"><td id="?s{V" class=""><code>.getDate()</code></td><td id="dd^Y" class="">获取日（1~31）</td><td id="D[W|" class=""><code>23</code></td></tr><tr id="1fc8d968-54a6-808f-9f69-dfdeb0c4d80d"><td id="?s{V" class=""><code>.getDay()</code></td><td id="dd^Y" class="">获取星期（0=周日）</td><td id="D[W|" class=""><code>4</code>（周四）</td></tr><tr id="1fc8d968-54a6-804e-a40d-d83fa60e2cff"><td id="?s{V" class=""><code>.getHours()</code></td><td id="dd^Y" class="">小时（0~23）</td><td id="D[W|" class=""><code>18</code></td></tr><tr id="1fc8d968-54a6-80be-84e2-d09af5ad865a"><td id="?s{V" class=""><code>.getMinutes()</code></td><td id="dd^Y" class="">分钟（0~59）</td><td id="D[W|" class=""><code>30</code></td></tr><tr id="1fc8d968-54a6-807f-935e-ef1fe5d38ab7"><td id="?s{V" class=""><code>.getSeconds()</code></td><td id="dd^Y" class="">秒数（0~59）</td><td id="D[W|" class=""><code>0</code></td></tr><tr id="1fc8d968-54a6-8021-9e1c-f100ca174602"><td id="?s{V" class=""><code>.getMilliseconds()</code></td><td id="dd^Y" class="">毫秒（0~999）</td><td id="D[W|" class=""><code>0</code></td></tr><tr id="1fc8d968-54a6-80e1-9e22-ef0f9c3e483e"><td id="?s{V" class=""><code>.getTime()</code></td><td id="dd^Y" class="">获取时间戳（ms）</td><td id="D[W|" class=""><code>1716450000000</code></td></tr></tbody></table><h3 id="1fc8d968-54a6-802c-b3b9-ddb513484522" class="">示例：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8016-9a4d-e4876ce63ff1" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const date = new Date();
+console.log(date.getFullYear(), date.getMonth() + 1, date.getDate());
+
+</code></pre><hr id="1fc8d968-54a6-80e8-8254-ef915e81f55b"/><h3 id="1fc8d968-54a6-8030-b933-feacbf78de5b" class="">三、设置时间</h3><p id="1fc8d968-54a6-800c-9ede-e49ae65f1e53" class="">与 <code>getXxx()</code> 方法对应，也有 <code>setXxx()</code> 方法：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8013-bcd3-ce3b89a7a21f" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+date.setFullYear(2030);
+date.setMonth(0); // 一月
+date.setDate(1);  // 设置为 1 号
+
+</code></pre><hr id="1fc8d968-54a6-80eb-8e79-c7b2a0f5872b"/><h3 id="1fc8d968-54a6-8055-b1a3-c4143be78a88" class="">四、时间戳转换</h3><h3 id="1fc8d968-54a6-8042-b3bf-c7767467f65d" class="">当前时间戳（1970 年以来的毫秒数）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-805c-a113-f05c8d6a9d98" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+Date.now();             // 推荐方式
+new Date().getTime();   // 旧写法
+
+</code></pre><h3 id="1fc8d968-54a6-8014-8ac0-dd0839c6dfd8" class="">时间戳转日期</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-800c-8f9b-fb39ac5a557d" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const ts = 1716450000000;
+const date = new Date(ts);
+
+</code></pre><hr id="1fc8d968-54a6-8015-8fb4-f5d1e8bba572"/><h3 id="1fc8d968-54a6-80f8-90c8-f671d0b16424" class="">五、时间格式化</h3><p id="1fc8d968-54a6-8091-bcdd-daac7613b25c" class="">JavaScript 原生不支持复杂格式化，但常见写法如下：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8050-84b6-f5836f585775" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+function formatDate(date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, &quot;0&quot;);
+  const d = String(date.getDate()).padStart(2, &quot;0&quot;);
+  const h = String(date.getHours()).padStart(2, &quot;0&quot;);
+  const min = String(date.getMinutes()).padStart(2, &quot;0&quot;);
+  const s = String(date.getSeconds()).padStart(2, &quot;0&quot;);
+  return `${y}-${m}-${d} ${h}:${min}:${s}`;
+}
+
+console.log(formatDate(new Date()));
+
+</code></pre><hr id="1fc8d968-54a6-802f-a525-e4d44e8f71a0"/><h3 id="1fc8d968-54a6-802b-9ed0-f3f7b4d7d7d2" class="">六、时间计算与比较</h3><h3 id="1fc8d968-54a6-80b7-bb2f-df1a32caf034" class="">1. 加减毫秒（如加一天）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-808d-ab6d-d2226edba7e5" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+</code></pre><h3 id="1fc8d968-54a6-8028-a50d-e4c9d2bc793f" class="">2. 两个日期之间相差毫秒数</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80d1-abb7-e80e7bb51f3c" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const start = new Date(&quot;2024-01-01&quot;);
+const end = new Date(&quot;2024-05-23&quot;);
+const diff = end - start; // 单位：毫秒
+console.log(diff / (1000 * 60 * 60 * 24)); // 转换成天数
+
+</code></pre><hr id="1fc8d968-54a6-8060-a9a8-dcccf25cfcf8"/><h3 id="1fc8d968-54a6-80dc-9697-de3d3009b482" class="">七、常用日期库推荐（强烈建议）</h3><p id="1fc8d968-54a6-80a7-a90a-fbd2b21c6c2f" class="">由于原生 <code>Date</code> 不支持格式化、时区、本地化，建议使用以下库：</p><table id="1fc8d968-54a6-80b5-b743-f062eb95e1ba" class="simple-table"><tbody><tr id="1fc8d968-54a6-8072-a871-fbaad16af120"><td id="EdUe" class="">库名</td><td id="y;cL" class="">特点说明</td></tr><tr id="1fc8d968-54a6-80d8-94ab-ca468ef2fee4"><td id="EdUe" class=""><code>dayjs</code></td><td id="y;cL" class="">🔥 轻量小巧、语法优雅（推荐）</td></tr><tr id="1fc8d968-54a6-80ee-bf57-f1660b012f89"><td id="EdUe" class=""><code>date-fns</code></td><td id="y;cL" class="">函数式 API，按需引入，无全局污染</td></tr><tr id="1fc8d968-54a6-80f5-828e-e237918c282f"><td id="EdUe" class=""><code>moment</code></td><td id="y;cL" class="">功能强大但较大，已被社区淘汰</td></tr></tbody></table><h3 id="1fc8d968-54a6-8030-891b-c3a8955fcbc0" class="">示例（dayjs）：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8055-b8d3-d8d03c6b560d" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+import dayjs from &quot;dayjs&quot;;
+
+const now = dayjs();
+console.log(now.format(&quot;YYYY-MM-DD HH:mm:ss&quot;)); // 格式化
+console.log(now.add(7, &quot;day&quot;).format());        // 加7天
+
+</code></pre><hr id="1fc8d968-54a6-8006-a185-f4b076b82bbb"/><h3 id="1fc8d968-54a6-8028-9a12-f8aee2515b6e" class="">八、面试 &amp; 实战小技巧</h3><p id="1fc8d968-54a6-8066-ba4f-d54700613773" class="">✅ 判断是否为有效日期：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8066-a542-c243e46e5060" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+function isValidDate(d) {
+  return d instanceof Date &amp;&amp; !isNaN(d);
+}
+
+</code></pre><p id="1fc8d968-54a6-80de-9c21-c43bd61ae2a7" class="">✅ 快速获取今天凌晨、昨天、明天的时间：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8065-8baf-cbcc8d62d265" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+function getTodayZero() {
+  const now = new Date();
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+}
+
+</code></pre><hr id="1fc8d968-54a6-8032-b5ba-dcfdccbdb3f6"/><h3 id="1fc8d968-54a6-8097-9f82-e320bd1c5aad" class="">🧠 小结</h3><table id="1fc8d968-54a6-8040-9b26-fbedecc18af1" class="simple-table"><tbody><tr id="1fc8d968-54a6-80dc-8bef-f1736dad20fc"><td id="jaw]" class="">操作</td><td id="EiHd" class="">方法</td></tr><tr id="1fc8d968-54a6-80b4-9a9e-c0c0e532b46b"><td id="jaw]" class="">当前时间</td><td id="EiHd" class=""><code>new Date()</code> / <code>Date.now()</code></td></tr><tr id="1fc8d968-54a6-8050-9f06-e4a605a2d1b6"><td id="jaw]" class="">获取时间成分</td><td id="EiHd" class=""><code>getFullYear()</code> / <code>getMonth()</code> 等</td></tr><tr id="1fc8d968-54a6-80e1-bc3b-d343c44516e5"><td id="jaw]" class="">设置时间</td><td id="EiHd" class=""><code>setFullYear()</code> / <code>setDate()</code> 等</td></tr><tr id="1fc8d968-54a6-8082-b73a-d2b74d012314"><td id="jaw]" class="">格式化时间</td><td id="EiHd" class=""><code>自定义函数</code> / <code>dayjs.format()</code></td></tr><tr id="1fc8d968-54a6-80e8-98b8-c16edab19e01"><td id="jaw]" class="">时间差计算</td><td id="EiHd" class="">直接减法得到毫秒差</td></tr><tr id="1fc8d968-54a6-8095-9ca5-f76662eddf2b"><td id="jaw]" class="">高级操作</td><td id="EiHd" class="">推荐使用 <code>dayjs</code> 等库</td></tr></tbody></table><p id="1fc8d968-54a6-80c7-8fbc-cf8d47d77771" class="">
+</p><p id="1fd8d968-54a6-80db-ac67-d521efab80ed" class="">
+</p><p id="1fd8d968-54a6-8016-8b3b-d1de1fe0de63" class="">
+</p><p id="1fd8d968-54a6-809d-ae47-f5281e4753a3" class="">
+</p><h2  class="" id = "duixiang4">JavaScript Math 对象（数学常用方法与技巧）</h2><p id="1fc8d968-54a6-8031-85ca-c7242cf4791d" class=""><code>Math</code> 是 JavaScript 的内建对象，用于执行各种数学计算。它<strong>不是构造函数</strong>，不能使用 <code>new Math()</code>，所有方法均以静态方式调用。</p><hr id="1fc8d968-54a6-80dd-b58f-e42d171236fc"/><h3 id="1fc8d968-54a6-80aa-8118-f0534274bd8b" class="">一、常用数学属性（常量）</h3><table id="1fc8d968-54a6-80cb-b024-d2b44ea2b879" class="simple-table"><tbody><tr id="1fc8d968-54a6-8099-aa69-d77225be10df"><td id="yqYg" class="">属性名</td><td id="dyLJ" class="">含义</td><td id="M|vP" class="">示例值</td></tr><tr id="1fc8d968-54a6-8041-9efa-d1b5d2940216"><td id="yqYg" class=""><code>Math.PI</code></td><td id="dyLJ" class="">圆周率 π</td><td id="M|vP" class="">3.1415926…</td></tr><tr id="1fc8d968-54a6-80b5-98d2-de654b5c0ea2"><td id="yqYg" class=""><code>Math.E</code></td><td id="dyLJ" class="">自然对数的底数 e</td><td id="M|vP" class="">2.7182818…</td></tr><tr id="1fc8d968-54a6-80f4-b55a-f09109edc09a"><td id="yqYg" class=""><code>Math.LN2</code></td><td id="dyLJ" class="">2 的自然对数 ln(2)</td><td id="M|vP" class="">0.693…</td></tr><tr id="1fc8d968-54a6-804a-b08c-f52f29e30b6a"><td id="yqYg" class=""><code>Math.LN10</code></td><td id="dyLJ" class="">10 的自然对数 ln(10)</td><td id="M|vP" class="">2.302…</td></tr><tr id="1fc8d968-54a6-80b0-8c6a-f24000882862"><td id="yqYg" class=""><code>Math.SQRT2</code></td><td id="dyLJ" class="">√2</td><td id="M|vP" class="">1.414…</td></tr><tr id="1fc8d968-54a6-80ff-bcf4-f37557951384"><td id="yqYg" class=""><code>Math.SQRT1_2</code></td><td id="dyLJ" class="">1/√2</td><td id="M|vP" class="">0.707…</td></tr></tbody></table><hr id="1fc8d968-54a6-80fd-8da6-c8dd6c7bdb5f"/><h3 id="1fc8d968-54a6-8069-9033-ef057841e653" class="">二、基本数学方法</h3><h3 id="1fc8d968-54a6-80ee-b4ed-c89514856a05" class="">1. 四舍五入相关</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8019-9829-ceede9593665" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+Math.round(4.7);  // 四舍五入 → 5
+Math.floor(4.7);  // 向下取整 → 4
+Math.ceil(4.1);   // 向上取整 → 5
+Math.trunc(4.9);  // 去除小数部分（不四舍五入）→ 4（ES6）
+
+</code></pre><blockquote id="1fc8d968-54a6-8007-8546-d249fc0d0bb5" class="">✅ trunc() 仅保留整数部分，适用于正负数统一处理。</blockquote><hr id="1fc8d968-54a6-8052-bb31-ddedbc28ad99"/><h3 id="1fc8d968-54a6-803f-a901-f43d2b402440" class="">2. 随机数（重点）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80eb-8a5b-f4e5f78168e3" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+Math.random(); // 0 ≤ x &lt; 1 之间的随机小数
+
+</code></pre><p id="1fc8d968-54a6-80d4-8e09-c56a5f051e8f" class="">生成任意范围内的整数：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-804b-8999-e65b0c13bea4" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+// [min, max] 之间的随机整数
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+</code></pre><hr id="1fc8d968-54a6-80a2-ba6b-c47654ac937f"/><h3 id="1fc8d968-54a6-80b4-bf86-ef10cfc4a8c2" class="">3. 最大值 / 最小值</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-805f-8d13-e6f8691c60d5" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+Math.max(3, 6, 2);  // 6
+Math.min(3, 6, 2);  // 2
+
+</code></pre><p id="1fc8d968-54a6-8092-a35e-c960b1689f17" class="">⚠️ 不支持数组直接传入（需配合扩展运算符）：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8085-8350-cfe77e78bdcc" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+let arr = [1, 3, 2];
+Math.max(...arr);  // ✅ 正确
+
+</code></pre><hr id="1fc8d968-54a6-803d-9b4f-e98c7d48f8fc"/><h3 id="1fc8d968-54a6-80b2-a393-e4848f95d97e" class="">4. 幂与根</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8004-a1db-dee884c9e46b" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+Math.pow(2, 3);   // 2 的 3 次方 → 8
+Math.sqrt(16);    // 平方根 → 4
+Math.cbrt(27);    // 立方根（ES6）→ 3
+
+</code></pre><hr id="1fc8d968-54a6-8073-a550-eb52781e4346"/><h3 id="1fc8d968-54a6-80cc-a78b-c4e541c0dc4d" class="">5. 绝对值</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80b2-9bf5-e70cdf3ed5f2" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+Math.abs(-7);     // → 7
+
+</code></pre><hr id="1fc8d968-54a6-803b-b52a-f8705e422b4a"/><h3 id="1fc8d968-54a6-800a-82d9-d41af21c7bd9" class="">6. 三角函数（角度需转弧度）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-809e-8297-e235a190ab25" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+Math.sin(Math.PI / 2); // 1
+Math.cos(0);           // 1
+Math.tan(Math.PI / 4); // ≈ 1
+
+</code></pre><p id="1fc8d968-54a6-80d1-aa82-e74fa0252c9e" class="">角度转弧度函数：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80fa-804d-cd242081e895" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+function toRadians(deg) {
+  return deg * Math.PI / 180;
+}
+
+</code></pre><hr id="1fc8d968-54a6-8036-b963-d42d4c000af2"/><h3 id="1fc8d968-54a6-80e8-98ff-e0ac48ca7a08" class="">7. 对数与指数</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-803a-ae84-e0ae75d42ad0" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+Math.log(10);      // 以 e 为底
+Math.log10(100);   // 以 10 为底（ES6）
+Math.exp(1);       // e 的 1 次方
+
+</code></pre><hr id="1fc8d968-54a6-80a8-9aca-c5b0e85e7fd3"/><p id="1fd8d968-54a6-800c-98ef-e4ae8089ac50" class="">
+</p><p id="1fd8d968-54a6-80df-9722-c8cae7267c7b" class="">三、实战技巧场景</p><h3 id="1fc8d968-54a6-80d9-89cf-d7513c4dc59b" class="">✅ 保留指定位小数（非字符串）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8067-af3d-d3c84915c152" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+复制编辑
+function roundTo(n, digits) {
+  const factor = Math.pow(10, digits);
+  return Math.round(n * factor) / factor;
+}
+
+roundTo(3.14159, 2); // → 3.14
+
+</code></pre><h3 id="1fc8d968-54a6-80dc-827d-d606aab3157f" class="">✅ 数组最大/最小值</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-801a-8461-db4610fa5a27" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const scores = [88, 99, 74, 100];
+const max = Math.max(...scores);
+const min = Math.min(...scores)</code></pre><h3 id="1fc8d968-54a6-80a7-8ff1-fdb181c94be8" class="">✅ 自定义取整函数</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80e2-a884-ca2a863b5d04" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+// 向下取整到 10 的倍数
+function floorTo10(n) {
+  return Math.floor(n / 10) * 10;
+}
+
+</code></pre><hr id="1fc8d968-54a6-809e-8b46-d4446b989dfc"/><h3 id="1fc8d968-54a6-804c-b009-e64ec8449435" class="">四、Math 对象总结</h3><table id="1fc8d968-54a6-80b3-b198-de5269fa7f16" class="simple-table"><tbody><tr id="1fc8d968-54a6-8041-8e1c-da9ddc1476dc"><td id="i{ns" class="">操作类型</td><td id="Tcag" class="">方法示例</td></tr><tr id="1fc8d968-54a6-802d-9a77-de94e65f7dd1"><td id="i{ns" class="">随机数</td><td id="Tcag" class=""><code>Math.random()</code></td></tr><tr id="1fc8d968-54a6-8060-9c41-e8f66a44fe5e"><td id="i{ns" class="">四舍五入</td><td id="Tcag" class=""><code>Math.round()</code> / <code>ceil()</code> / <code>floor()</code></td></tr><tr id="1fc8d968-54a6-80a6-aed8-fc32b4fc7847"><td id="i{ns" class="">幂运算</td><td id="Tcag" class=""><code>Math.pow()</code> / <code>sqrt()</code></td></tr><tr id="1fc8d968-54a6-8049-8d06-f545d67199da"><td id="i{ns" class="">最大/最小值</td><td id="Tcag" class=""><code>Math.max(...arr)</code></td></tr><tr id="1fc8d968-54a6-8012-af89-cb9486c4d5e6"><td id="i{ns" class="">三角函数</td><td id="Tcag" class=""><code>Math.sin()</code> / <code>cos()</code></td></tr><tr id="1fc8d968-54a6-80bc-b2ad-f3b242531793"><td id="i{ns" class="">对数/指数</td><td id="Tcag" class=""><code>Math.log()</code> / <code>exp()</code></td></tr><tr id="1fc8d968-54a6-80ba-b3f6-dad7fb8f4f90"><td id="i{ns" class="">常量</td><td id="Tcag" class=""><code>Math.PI</code> / <code>Math.E</code></td></tr></tbody></table><hr id="1fc8d968-54a6-8072-bdf3-da99bcadeefd"/><h3 id="1fc8d968-54a6-80c1-9f4e-c33cd2048449" class="">五、推荐扩展（进阶）</h3><ul id="1fc8d968-54a6-8032-81f1-ca57415710f8" class="bulleted-list"><li style="list-style-type:disc"><code>BigInt</code>：处理超大整数（<code>Math</code> 不支持）</li></ul><ul id="1fc8d968-54a6-803f-aac2-f2526cbfe244" class="bulleted-list"><li style="list-style-type:disc"><code>Number.isFinite()</code>：判断是否为有限值</li></ul><ul id="1fc8d968-54a6-8062-87dd-cbe6ac1eb98c" class="bulleted-list"><li style="list-style-type:disc"><code>Intl.NumberFormat</code>：格式化货币、百分比（更适合显示用）</li></ul><p id="1fc8d968-54a6-80b4-83a8-fcbdff12b4c6" class="">
+</p><p id="1fd8d968-54a6-80a4-95d6-e9c81564e7b5" class="">
+</p><p id="1fd8d968-54a6-8058-9c2e-d0aca41842d1" class="">
+</p><p id="1fd8d968-54a6-8023-bb78-d0e3bd0f4376" class="">
+</p><h2 class="" id = "duixiang5">JavaScript 正则表达式 RegExp（字符串模式匹配神器）</h2><p id="1fc8d968-54a6-807e-8b27-ea8987c79abb" class="">正则表达式（Regular Expression）是<strong>用于匹配、查找、替换字符串中字符模式的强大工具</strong>，在表单验证、文本提取、数据清洗等场景中广泛使用。</p><hr id="1fc8d968-54a6-8061-bec1-cc48a060c9b4"/><h3 id="1fc8d968-54a6-8095-83a0-fb89ac7aa3ef" class="">一、创建正则表达式的方式</h3><h3 id="1fc8d968-54a6-80f3-bc0d-ca0cb043dbfe" class="">1. 字面量形式（推荐）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8012-b68c-d7d787f538b7" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const regex = /abc/;
+
+</code></pre><h3 id="1fc8d968-54a6-806b-a164-fadebf9ea3fd" class="">2. 构造函数形式（可动态传参）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80a3-9b60-f2b04b5c5ddc" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const regex = new RegExp(&quot;abc&quot;);
+
+</code></pre><hr id="1fc8d968-54a6-8042-a00a-fd6a1d81d6d2"/><h3 id="1fc8d968-54a6-8019-9ccb-dd0bcb4578b3" class="">二、正则表达式常用元字符</h3><table id="1fc8d968-54a6-8011-b19f-eccec56c2a5b" class="simple-table"><tbody><tr id="1fc8d968-54a6-804a-9a25-cbaed206340f"><td id="Qv^w" class="">元字符</td><td id="DXZM" class="">含义</td><td id="gAnt" class="">示例</td></tr><tr id="1fc8d968-54a6-80f0-b681-fe60a908620b"><td id="Qv^w" class=""><code>.</code></td><td id="DXZM" class="">匹配任意单个字符（换行符除外）</td><td id="gAnt" class=""><code>/a.b/</code> → ab, acb</td></tr><tr id="1fc8d968-54a6-80c4-a192-db65b5820f1d"><td id="Qv^w" class=""><code>\d</code></td><td id="DXZM" class="">匹配任意一个数字（<code>[0-9]</code>）</td><td id="gAnt" class=""><code>/\d\d\d/</code> → 123</td></tr><tr id="1fc8d968-54a6-8071-8d6f-dbf6bb6b80a1"><td id="Qv^w" class=""><code>\w</code></td><td id="DXZM" class="">匹配字母/数字/下划线（<code>[A-Za-z0-9_]</code>）</td><td id="gAnt" class=""><code>/\w\w/</code></td></tr><tr id="1fc8d968-54a6-80b4-9a6e-e62c5f1fbc9e"><td id="Qv^w" class=""><code>\s</code></td><td id="DXZM" class="">匹配任意空白字符</td><td id="gAnt" class=""><code>/\s+/</code></td></tr><tr id="1fc8d968-54a6-801c-98c0-ef2c4083bcc7"><td id="Qv^w" class=""><code>\b</code></td><td id="DXZM" class="">匹配单词边界</td><td id="gAnt" class=""><code>/\bcat\b/</code></td></tr><tr id="1fc8d968-54a6-8012-9474-c373cc30ade8"><td id="Qv^w" class=""><code>^</code></td><td id="DXZM" class="">匹配输入开始</td><td id="gAnt" class=""><code>/^a/</code></td></tr><tr id="1fc8d968-54a6-8097-b6cf-c9d1a91bab78"><td id="Qv^w" class=""><code>$</code></td><td id="DXZM" class="">匹配输入结束</td><td id="gAnt" class=""><code>/end$/</code></td></tr><tr id="1fc8d968-54a6-80d7-a013-d358c6fc3453"><td id="Qv^w" class=""><code>[]</code></td><td id="DXZM" class="">字符集，匹配其中任意一个字符</td><td id="gAnt" class=""><code>/[abc]/</code></td></tr><tr id="1fc8d968-54a6-8070-8c97-e5739af6e2d1"><td id="Qv^w" class=""><code>[^]</code></td><td id="DXZM" class="">否定字符集，排除其中字符</td><td id="gAnt" class=""><code>/[^abc]/</code></td></tr><tr id="1fc8d968-54a6-80fd-b8eb-e59fe87ed4f7"><td id="Qv^w" class="">`</td><td id="DXZM" class="">`</td><td id="gAnt" class="">或</td></tr><tr id="1fc8d968-54a6-805d-8dd9-eccc7a87cac1"><td id="Qv^w" class=""><code>()</code></td><td id="DXZM" class="">分组</td><td id="gAnt" class=""><code>/(abc)+/</code></td></tr></tbody></table><hr id="1fc8d968-54a6-80c8-8943-c98f7ca22a44"/><h3 id="1fc8d968-54a6-80c1-b193-ea032c74f7ae" class="">三、量词（重复匹配）</h3><table id="1fc8d968-54a6-8034-b354-f400e1031ddd" class="simple-table"><tbody><tr id="1fc8d968-54a6-8050-9b07-fd3f980973a0"><td id="TLD~" class="">量词</td><td id="qoWB" class="">含义</td><td id="t{E|" class="">示例</td></tr><tr id="1fc8d968-54a6-80f5-a2a9-e63369fcdf7c"><td id="TLD~" class=""><code>*</code></td><td id="qoWB" class="">匹配 0 次或多次</td><td id="t{E|" class=""><code>/a*/</code></td></tr><tr id="1fc8d968-54a6-80cf-8a6c-c10ec0e7bfe9"><td id="TLD~" class=""><code>+</code></td><td id="qoWB" class="">匹配 1 次或多次</td><td id="t{E|" class=""><code>/a+/</code></td></tr><tr id="1fc8d968-54a6-8031-a7f4-f6eac902a55c"><td id="TLD~" class=""><code>?</code></td><td id="qoWB" class="">匹配 0 次或 1 次</td><td id="t{E|" class=""><code>/a?/</code></td></tr><tr id="1fc8d968-54a6-800a-902a-ed612c7ec02f"><td id="TLD~" class=""><code>{n}</code></td><td id="qoWB" class="">精确匹配 n 次</td><td id="t{E|" class=""><code>/a{3}/</code></td></tr><tr id="1fc8d968-54a6-8061-a293-e800bfbeafbc"><td id="TLD~" class=""><code>{n,}</code></td><td id="qoWB" class="">至少匹配 n 次</td><td id="t{E|" class=""><code>/a{2,}/</code></td></tr><tr id="1fc8d968-54a6-8090-ad1a-f1a99dab45c8"><td id="TLD~" class=""><code>{n,m}</code></td><td id="qoWB" class="">匹配 n 到 m 次</td><td id="t{E|" class=""><code>/a{2,4}/</code></td></tr></tbody></table><hr id="1fc8d968-54a6-80e8-bd1b-cc8d12592825"/><h3 id="1fc8d968-54a6-8074-a463-d179c1591044" class="">四、常用正则匹配案例</h3><h3 id="1fc8d968-54a6-8099-a25f-eca40aba1f46" class="">1. 验证手机号（11位中国大陆）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8042-859d-fef0b69abe42" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+/^1[3-9]\d{9}$/
+
+</code></pre><h3 id="1fc8d968-54a6-80a8-b2a9-ddf4ccad4483" class="">2. 验证邮箱</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-804d-83cb-da71e83a2a54" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+/^[\w.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+
+</code></pre><h3 id="1fc8d968-54a6-80ae-8b1d-ee8cf581def0" class="">3. 验证身份证（简单版）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-806b-8f54-e06686b0f336" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+/^\d{15}$|^\d{17}[\dXx]$/
+
+</code></pre><h3 id="1fc8d968-54a6-8031-926d-d72474be73b2" class="">4. 匹配中文字符</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80ad-9efa-ccf77a2a016c" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+/[\u4e00-\u9fa5]/g
+
+</code></pre><h3 id="1fc8d968-54a6-8015-bee2-db64f70d544b" class="">5. 去除字符串空格</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80bf-b10c-efc0409b9d22" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+str.replace(/\s+/g, &quot;&quot;);
+
+</code></pre><hr id="1fc8d968-54a6-8030-a0d3-c9b92c6c8a0c"/><p id="1fd8d968-54a6-809c-be7c-c480da002676" class="">
+</p><p id="1fd8d968-54a6-8021-8702-e89270714e2c" class="">
+</p><p id="1fd8d968-54a6-80ef-be1c-f08807a11944" class="">
+</p><h3 id="1fc8d968-54a6-8090-a2f9-ce3139fbcdd6" class="">五、RegExp 对象常用方法</h3><h3 id="1fc8d968-54a6-80be-955c-e95f319d1693" class="">1. <code>.test()</code>：是否匹配</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-802f-8e16-f81bca6d0afb" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+/abc/.test(&quot;abcdef&quot;); // true
+
+</code></pre><h3 id="1fc8d968-54a6-804a-a083-e89c8eefef5b" class="">2. <code>.exec()</code>：返回匹配结果对象（可提取组）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-808d-8448-f2de163a1261" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const result = /(\d+)-(\d+)/.exec(&quot;2024-05&quot;);
+console.log(result[1]); // 2024
+
+</code></pre><hr id="1fc8d968-54a6-80d8-8662-f985ff233a32"/><h3 id="1fc8d968-54a6-8029-9a74-fab7c12a37b8" class="">六、字符串方法配合正则使用</h3><h3 id="1fc8d968-54a6-8075-977d-d141e31da113" class="">1. <code>match()</code></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80c6-af08-c602ab450dab" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+&quot;abc123&quot;.match(/\d+/); // → [&quot;123&quot;]
+
+</code></pre><h3 id="1fc8d968-54a6-80d1-9398-cbf1b7ba40ee" class="">2. <code>replace()</code></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80eb-9424-df79c050adb9" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+&quot;abc123&quot;.replace(/\d+/, &quot;***&quot;); // → abc***
+
+</code></pre><p id="1fc8d968-54a6-80cb-a67e-e842d376c1e3" class="">支持函数作为替换：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80d1-bc4a-d8a849199b96" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+&quot;price:99&quot;.replace(/\d+/, m =&gt; Number(m) + 1); // price:100
+
+</code></pre><h3 id="1fc8d968-54a6-80a0-9ede-f0a9327fe0a0" class="">3. <code>search()</code></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80b5-9b36-d1811a6d9aa1" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+&quot;abc123&quot;.search(/\d+/); // → 索引位置
+
+</code></pre><h3 id="1fc8d968-54a6-80fa-abd0-eb47d5f936d8" class="">4. <code>split()</code></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-804e-8f39-f54da29a588e" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+&quot;a,b c&quot;.split(/[\s,]+/); // → [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]
+
+</code></pre><hr id="1fc8d968-54a6-8098-9d2a-da4cce6c4cae"/><h3 id="1fc8d968-54a6-8096-bdcc-da9cb86559c1" class="">七、修饰符（Flags）</h3><table id="1fc8d968-54a6-80fe-ad2c-e27e88d9ff1f" class="simple-table"><tbody><tr id="1fc8d968-54a6-802c-b4e9-ee886bbdc06b"><td id="Jmrv" class="">修饰符</td><td id="qHE;" class="">含义</td></tr><tr id="1fc8d968-54a6-8028-81fb-d0ca70f70f69"><td id="Jmrv" class=""><code>g</code></td><td id="qHE;" class="">全局匹配</td></tr><tr id="1fc8d968-54a6-8059-8265-fe647c920382"><td id="Jmrv" class=""><code>i</code></td><td id="qHE;" class="">忽略大小写</td></tr><tr id="1fc8d968-54a6-8044-958b-ff3825bf193f"><td id="Jmrv" class=""><code>m</code></td><td id="qHE;" class="">多行匹配（影响 <code>^</code> <code>$</code>）</td></tr></tbody></table><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8076-b334-e64d9d310e56" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const regex = /abc/gi;
+
+</code></pre><hr id="1fc8d968-54a6-8079-b0bb-ff559b0bcfd1"/><h3 id="1fc8d968-54a6-804f-bb5d-f36789f12fb9" class="">八、分组与反向引用</h3><h3 id="1fc8d968-54a6-8009-9fda-edc5b4a9e400" class="">1. 分组提取</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80ab-9675-cb3fcb2e0a70" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+const date = &quot;2024-05-23&quot;;
+const match = /(\d{4})-(\d{2})-(\d{2})/.exec(date);
+console.log(match[1], match[2], match[3]); // 2024 05 23
+
+</code></pre><h3 id="1fc8d968-54a6-80b5-8330-f537d4ef3189" class="">2. 分组替换</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80bb-966e-f8a4a074cb0c" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+&quot;2024-05-23&quot;.replace(/(\d{4})-(\d{2})-(\d{2})/, &quot;$2/$3/$1&quot;); // 05/23/2024
+
+</code></pre><hr id="1fc8d968-54a6-8027-abf2-d42e7ec49f75"/><h3 id="1fc8d968-54a6-80c2-a939-fdffe60bb5b4" class="">九、零宽断言（高级）</h3><h3 id="1fc8d968-54a6-80a2-8651-d09affb602b7" class="">正向预查 <code>(?=pattern)</code></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-8026-952b-e907202c7d73" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+/\d+(?=元)/.exec(&quot;价格为99元&quot;); // → 99
+
+</code></pre><h3 id="1fc8d968-54a6-8050-a23c-d792c2b63557" class="">负向预查 <code>(?!pattern)</code></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1fc8d968-54a6-80ea-b14f-d330e021146d" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">javascript
+
+/\d+(?!元)/.exec(&quot;共100张票&quot;); // → 100
+
+</code></pre><hr id="1fc8d968-54a6-80a4-bc4b-d99540dfb3f9"/><h3 id="1fc8d968-54a6-807e-96e0-f75bc9535c25" class="">🔍 实战建议与陷阱</h3><ul id="1fc8d968-54a6-8092-b85a-d26165513fef" class="bulleted-list"><li style="list-style-type:disc"><code>.*</code> 是贪婪匹配，尽量使用 <code>.*?</code> 避免吃太多字符</li></ul><ul id="1fc8d968-54a6-8000-a449-cbbfbba7ef11" class="bulleted-list"><li style="list-style-type:disc">特殊字符（如 <code>.</code>、<code>+</code>、）要加 <code>\</code> 转义</li></ul><ul id="1fc8d968-54a6-8078-a52a-c50683bd2a71" class="bulleted-list"><li style="list-style-type:disc">验证复杂格式（如 URL、HTML）推荐用正则库或 DOM 解析</li></ul><hr id="1fc8d968-54a6-804f-aa2e-d717ec9630af"/><h3 id="1fc8d968-54a6-80be-9b4d-c7f38ad65c31" class="">🧠 小结</h3><table id="1fc8d968-54a6-8010-98e3-f686d5bfaa3a" class="simple-table"><tbody><tr id="1fc8d968-54a6-804b-a304-dd5ee43f2466"><td id="GB_J" class="">操作</td><td id="eC]J" class="">方法/语法</td></tr><tr id="1fc8d968-54a6-8026-92c2-f04baef4ccda"><td id="GB_J" class="">创建正则</td><td id="eC]J" class=""><code>/pattern/flags</code> or <code>RegExp()</code></td></tr><tr id="1fc8d968-54a6-8098-8576-fdee9317757f"><td id="GB_J" class="">判断匹配</td><td id="eC]J" class=""><code>.test()</code> / <code>.match()</code></td></tr><tr id="1fc8d968-54a6-80ef-9209-c977f1486ac6"><td id="GB_J" class="">提取内容</td><td id="eC]J" class=""><code>.exec()</code> / 分组 <code>$1 $2</code></td></tr><tr id="1fc8d968-54a6-80d4-9551-e00576eee540"><td id="GB_J" class="">替换内容</td><td id="eC]J" class=""><code>.replace()</code></td></tr><tr id="1fc8d968-54a6-80a4-84e1-d1d8e9d55833"><td id="GB_J" class="">分割字符串</td><td id="eC]J" class=""><code>.split()</code></td></tr><tr id="1fc8d968-54a6-8045-9294-e25ad5eb260c"><td id="GB_J" class="">实用场景</td><td id="eC]J" class="">表单验证 / 文本提取 / 清洗替换</td></tr></tbody></table><p id="1fc8d968-54a6-80cd-966f-d1d1de7d38a8" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
