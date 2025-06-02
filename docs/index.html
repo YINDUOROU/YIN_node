@@ -7,6 +7,7 @@
   <title>尹さん的个人主页</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
   <!-- Google 字体 -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
@@ -53,7 +54,7 @@
     }
 
     .logo {
-      width: 45px;
+      width: 60px;
     }
 
     .site-name {
@@ -111,11 +112,22 @@
 
     .intro {
       margin-top: 45px;
+      margin-bottom: 10px;
+      /* 更小的底部间隔 */
+      padding-bottom: 0;
+      text-align: center;
     }
 
     .intro h2 {
-      font-size: 1.5rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
+
 
     .intro p {
       font-size: 1rem;
@@ -133,7 +145,8 @@
     }
 
     .links {
-      margin-top: 40px;
+      margin-top: 10px;
+      /* 卡片区域向上靠拢 */
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: 15px;
@@ -200,6 +213,45 @@
       }
     }
 
+    .quote-block {
+      max-width: 680px;
+      margin: 30px auto 0 auto;
+      padding: 24px 28px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(6px);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      font-family: 'LXGW WenKai', serif;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .quote-block .quote {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .quote-block .author {
+      text-align: right;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.1rem;
+      opacity: 0.8;
+    }
+
+
+    .description {
+      margin: 0;  /* 移除 p 的默认间距 */
+      font-family: 'LXGW WenKai', serif;
+      font-size: 1.15rem;
+      color: #ffffff;
+      text-align: center;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
+      line-height: 1.7;
+      padding: 6px 10px;
+    }
+
     #toast {
       visibility: hidden;
       min-width: 260px;
@@ -247,7 +299,7 @@
 
     <section class="intro">
       <h2>Hello World!</h2>
-      <p>「&nbsp;一个小趴菜的的个人学习笔记主页，藏在某处不起眼角落&nbsp;」</p>
+      <p class="description">「&nbsp;一个小趴菜的的个人学习笔记主页，藏在某处不起眼角落&nbsp;」</p>
     </section>
 
     <section class="icons">
