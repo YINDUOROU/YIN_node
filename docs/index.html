@@ -137,6 +137,7 @@
       font-weight: bold;
       backdrop-filter: blur(5px);
       transition: all 0.3s ease;
+      font-size: 1rem;
     }
 
     .card:hover {
@@ -150,17 +151,25 @@
     }
 
     @media (max-width: 600px) {
+      .links {
+        grid-template-columns: 1fr;
+        /* ✅ 手机上一列显示 */
+        max-width: 95%;
+      }
+
       .site-name {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
       }
 
       .logo {
-        width: 36px;
+        width: 32px;
       }
 
       .time-box {
-        top: 70px;
-        font-size: 0.85rem;
+        top: 65px;
+        left: 12px;
+        font-size: 1rem;
+        padding: 8px 10px;
       }
     }
   </style>
@@ -222,9 +231,9 @@
       const date = now.getDate();
       const weekday = ['日', '一', '二', '三', '四', '五', '六'][now.getDay()];
       document.getElementById('time').innerText = `${h}:${m}:${s}`;
-      document.getElementById('date').innerText = `${year} 年 ${month.toString().padStart(2, '0')} 月 ${date.toString().padStart(2, '0')} 日 `; 
-    document.getElementById('weekday').innerText = `星期${weekday}`;
-    }; 
+      document.getElementById('date').innerText = `${year} 年 ${month.toString().padStart(2, '0')} 月 ${date.toString().padStart(2, '0')} 日 `;
+      document.getElementById('weekday').innerText = `星期${weekday}`;
+    };
     setInterval(updateTime, 1000);
     updateTime();
 
