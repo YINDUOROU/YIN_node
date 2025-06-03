@@ -2,39 +2,81 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8">
-  <title>尹さんのJAVA笔记首页导航</title>
+  <title>尹さんのJava笔记首页导航</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding-top: 100px;
+      font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      background: #f9f9fb;
+      color: #222;
+      margin: 0;
+      padding: 0;
     }
-    a {
+
+    .container {
+      max-width: 700px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+      padding: 36px 32px 32px 32px;
+    }
+
+    h1 {
+      font-size: 2.1em;
+      margin-bottom: 0.5em;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid #eee;
+      margin: 24px 0 18px 0;
+    }
+
+    .section {
+      margin-bottom: 28px;
+    }
+
+    ul.nav {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    ul.nav li {
+      margin-bottom: 16px;
+    }
+
+    ul.nav li a {
       display: inline-block;
-      margin: 20px;
-      padding: 15px 30px;
+      padding: 14px 24px;
       background-color: #4CAF50;
       color: white;
       text-decoration: none;
       border-radius: 8px;
-      font-size: 18px;
-      width: 480px;
+      font-size: 17px;
+      width: 100%;
       box-sizing: border-box;
-      text-align: center;
+      transition: background-color 0.2s;
     }
-    a:hover {
+
+    ul.nav li a:hover {
       background-color: #45a049;
     }
   </style>
 </head>
 <body>
-  <h1>📚 尹さんのJAVA笔记</h1>
-  <hr>
-  <br>
-  <a href="JAVA2.html" target="_blank">JAVA（数据类型,常变量,运算符,循环）笔记</a>
-  <br>
-  <a href="JAVA1.html" target="_blank">JAVA（面向对象基础）笔记</a>
-  <br>
-  <a href="JAVA3.html" target="_blank">JAVA（字符串，数组，lambda）笔记</a>
+  <div class="container">
+    <h1>📚 尹さんのJava笔记首页导航</h1>
+    <hr>
+    <div class="section">
+      <ul class="nav">
+        <li><a href="JAVA2.html" target="_blank">JAVA（数据类型,常变量,运算符,循环）笔记</a></li>
+        <li><a href="JAVA1.html" target="_blank">JAVA（面向对象基础）笔记</a></li>
+        <li><a href="JAVA3.html" target="_blank">JAVA（字符串，数组，lambda）笔记</a></li>
+      </ul>
+    </div>
+  </div>
 </body>
 </html>

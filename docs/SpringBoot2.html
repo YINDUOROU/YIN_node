@@ -1,0 +1,1419 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title></title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2078d968-54a6-80b1-9cd5-f1e171870efc" class="page sans"><header><h1 class="page-title">Spring &amp; Spring Boot笔记2</h1><p class="page-description"></p></header><div class="page-body"><h1 id="s7" class="">第7章：参数校验与全局异常处理机制</h1><blockquote id="2078d968-54a6-8074-8535-d34a2aa321ec" class="">✅ 本章目标：<ul id="2078d968-54a6-80a6-b993-dee241cca77c" class="bulleted-list"><li style="list-style-type:disc">实现后端参数校验（校验请求体的字段是否合法）</li></ul><ul id="2078d968-54a6-8022-8169-c98b411f137e" class="bulleted-list"><li style="list-style-type:disc">学会使用 <code>@Valid</code> 与 Bean Validation 注解</li></ul><ul id="2078d968-54a6-80ce-8a82-e2d93bc67529" class="bulleted-list"><li style="list-style-type:disc">统一处理接口抛出的异常（防止错误信息泄漏）</li></ul><ul id="2078d968-54a6-80a2-8518-d9a8bf0cf8d7" class="bulleted-list"><li style="list-style-type:disc">🌟 拓展：系统设计中如何优雅地处理错误 + 面试常问内容</li></ul><ul id="2078d968-54a6-80ee-af66-d606e2b8347b" class="bulleted-list"><li style="list-style-type:disc">📌 所有代码均加注释，助你轻松理解</li></ul></blockquote><hr id="2078d968-54a6-8047-b5d0-dde880dc3230"/><h2 id="2078d968-54a6-80b1-a11f-f7934e6867b2" class="">1. 为什么需要参数校验与异常处理？</h2><h3 id="2078d968-54a6-802e-84eb-d0f1018a9cbb" class="">✅ 参数校验的作用：</h3><ul id="2078d968-54a6-805a-ab1d-d5a9c52b8135" class="bulleted-list"><li style="list-style-type:disc">防止用户输入非法数据（空字段、格式错误）</li></ul><ul id="2078d968-54a6-80ad-b691-e9ea6f25c7c1" class="bulleted-list"><li style="list-style-type:disc">后端提前过滤无效请求</li></ul><ul id="2078d968-54a6-8049-9885-e4ccbc703934" class="bulleted-list"><li style="list-style-type:disc">提高数据安全性与代码鲁棒性</li></ul><h3 id="2078d968-54a6-80de-857f-c7396fb92e2f" class="">✅ 异常处理的作用：</h3><ul id="2078d968-54a6-808d-b92b-eee0985d0034" class="bulleted-list"><li style="list-style-type:disc">防止系统错误信息泄露（如数据库异常、空指针等）</li></ul><ul id="2078d968-54a6-806f-9d21-e7509af56b53" class="bulleted-list"><li style="list-style-type:disc">提供统一的错误返回结构，便于前端处理</li></ul><ul id="2078d968-54a6-8068-ab23-fe465e8027fc" class="bulleted-list"><li style="list-style-type:disc">集中管理错误逻辑，提升可维护性</li></ul><hr id="2078d968-54a6-8061-baa5-f2f3c59de8c0"/><h2 id="2078d968-54a6-80c4-881c-c47884abb2e8" class="">2. 开启参数校验功能（使用 <code>javax.validation</code>）</h2><hr id="2078d968-54a6-80f6-b9a1-f089a7d2cd84"/><h3 id="2078d968-54a6-807b-986e-f027302cb4e9" class="">✅ 步骤一：添加依赖（如果没有）</h3><p id="2078d968-54a6-801f-96b6-f6d83f66570f" class="">Spring Boot Web 项目通常已自动引入此依赖，但建议检查：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-805c-af13-d8b2ba5a04c2" class="code"><code class="language-XML" style="white-space:pre-wrap;word-break:break-all">xml
+
+&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-starter-validation&lt;/artifactId&gt;
+&lt;/dependency&gt;
+
+</code></pre><hr id="2078d968-54a6-8042-bde1-da2c8800e73e"/><h3 id="2078d968-54a6-80ba-81e8-d3a74bddfd4c" class="">✅ 步骤二：在实体类上添加校验注解</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80f9-8bb3-efcb7d4d50af" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+
+public class User {
+
+    private Long id;
+
+    @NotBlank(message = &quot;姓名不能为空&quot;)
+    private String name;
+
+    @Email(message = &quot;邮箱格式错误&quot;)
+    private String email;
+
+    @Min(value = 18, message = &quot;年龄不能小于18岁&quot;)
+    private Integer age;
+
+    // getter/setter 略
+}
+
+</code></pre><p id="2078d968-54a6-801a-8652-f511eacd74bb" class="">常用校验注解汇总：</p><table id="2078d968-54a6-80c2-82ea-ea55546d513d" class="simple-table"><tbody><tr id="2078d968-54a6-808f-955c-de2ce08c6e35"><td id="cRn:" class="">注解名</td><td id="\K;b" class="">功能说明</td></tr><tr id="2078d968-54a6-800d-aeda-eac374e1a243"><td id="cRn:" class=""><code>@NotBlank</code></td><td id="\K;b" class="">字符串非空</td></tr><tr id="2078d968-54a6-8055-8b1d-d9c004a972fe"><td id="cRn:" class=""><code>@NotNull</code></td><td id="\K;b" class="">任意类型非空</td></tr><tr id="2078d968-54a6-80b2-b4dc-c819af74fc8e"><td id="cRn:" class=""><code>@Email</code></td><td id="\K;b" class="">邮箱格式验证</td></tr><tr id="2078d968-54a6-8010-b84d-e4d6a1e5adc2"><td id="cRn:" class=""><code>@Min</code></td><td id="\K;b" class="">最小值（数字）</td></tr><tr id="2078d968-54a6-807d-85a9-d5c85d6c94cf"><td id="cRn:" class=""><code>@Max</code></td><td id="\K;b" class="">最大值</td></tr><tr id="2078d968-54a6-80f8-b30b-c6cce76fca6d"><td id="cRn:" class=""><code>@Size</code></td><td id="\K;b" class="">字符串长度限制</td></tr><tr id="2078d968-54a6-80c8-9ee4-c18e3da19599"><td id="cRn:" class=""><code>@Pattern</code></td><td id="\K;b" class="">正则表达式匹配</td></tr></tbody></table><hr id="2078d968-54a6-8080-95f0-c3183e04baee"/><h3 id="2078d968-54a6-8090-aff0-eeff02b1aabd" class="">✅ 步骤三：在控制器中启用校验</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8087-ab0a-dd409a0dfff2" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+
+@PostMapping(&quot;/add&quot;)
+public Result&lt;?&gt; addUser(@Valid @RequestBody User user) {
+    return Result.success(user);
+}
+
+</code></pre><p id="2078d968-54a6-80c4-b650-f647a415207d" class=""><code>@Valid</code> 启用校验，<code>@RequestBody</code> 绑定 JSON 请求体</p><p id="2078d968-54a6-8096-b2e4-fef665276c5b" class="">如校验不通过会抛出 <code>MethodArgumentNotValidException</code></p><hr id="2078d968-54a6-8003-9db8-fa0e2b73c152"/><h2 id="2078d968-54a6-80af-9a3f-e38b8df61890" class="">3. 如果不处理异常，后端将返回什么？</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8092-988f-c41f3debd1e4" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">json
+
+{
+  &quot;timestamp&quot;: &quot;2025-06-03T12:34:56&quot;,
+  &quot;status&quot;: 400,
+  &quot;error&quot;: &quot;Bad Request&quot;,
+  &quot;message&quot;: &quot;Validation failed for object=&#x27;user&#x27;&quot;,
+  ...
+}
+
+</code></pre><p id="2078d968-54a6-8035-a53c-fa275d42f6b4" class=""> 这种错误提示非常杂乱，不友好，也会暴露后端实现细节。</p><hr id="2078d968-54a6-8061-bf6f-c05e5e1af9b4"/><h2 id="2078d968-54a6-80d4-9c37-eac294e12cb9" class="">4. 编写全局异常处理器（推荐）</h2><hr id="2078d968-54a6-80dc-a9bc-c16222d21145"/><h3 id="2078d968-54a6-80e8-85bb-c58508e79beb" class="">✅ 步骤一：创建统一异常处理类</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8036-84fc-fc14ee18d1fc" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    // 参数校验异常处理
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Result&lt;?&gt; handleValidException(MethodArgumentNotValidException e) {
+        // 获取第一个字段错误信息
+        String msg = e.getBindingResult().getFieldError().getDefaultMessage();
+        return Result.error(&quot;参数校验失败：&quot; + msg);
+    }
+
+    // 所有运行时异常统一处理
+    @ExceptionHandler(RuntimeException.class)
+    public Result&lt;?&gt; handleRuntimeException(RuntimeException e) {
+        return Result.error(&quot;系统错误：&quot; + e.getMessage());
+    }
+
+    // 自定义异常处理也可加在这里
+}
+
+//@RestControllerAdvice 作用类似于全局 try-catch 拦截器，配合 @ExceptionHandler 拦截指定类型异常。</code></pre><hr id="2078d968-54a6-80c6-9f6f-c46618e4fea0"/><h3 id="2078d968-54a6-80dd-9c50-f9b4d31b33ca" class="">✅ 异常返回格式示例：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8045-8f27-d65d0a6732d4" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">json
+{
+  &quot;code&quot;: 500,
+  &quot;message&quot;: &quot;参数校验失败：姓名不能为空&quot;,
+  &quot;data&quot;: null}
+
+</code></pre><p id="2078d968-54a6-8045-a6e6-c8fa21c5d357" class="">统一风格、易于前端处理，也避免了框架自带的混乱报错。</p><hr id="2078d968-54a6-800d-af1b-cfdb4ac71ab1"/><h2 id="2078d968-54a6-8034-a4c9-eeaddd4482ef" class="">5. 完整示例演练：用户注册接口校验 + 错误处理</h2><hr id="2078d968-54a6-8045-93be-d75e6713f8e2"/><h3 id="2078d968-54a6-801c-8332-f1c54ed07b82" class="">✅ User 实体类（含注释）：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80e7-886f-c9ea56301034" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+
+public class User {
+
+    private Long id;
+
+    @NotBlank(message = &quot;用户名不能为空&quot;)
+    private String name;
+
+    @Email(message = &quot;邮箱格式不正确&quot;)
+    private String email;
+
+    @Min(value = 18, message = &quot;年龄不能小于18&quot;)
+    private Integer age;
+
+    // getter/setter
+}
+
+</code></pre><hr id="2078d968-54a6-805a-b8c5-e68e6a43c4ae"/><h3 id="2078d968-54a6-80ef-8d16-f64e71efb2ad" class="">✅ Controller 示例：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8001-8be5-f59f24abdf32" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+
+@RestController
+@RequestMapping(&quot;/api/user&quot;)
+public class UserController {
+
+    // 模拟添加用户
+    @PostMapping(&quot;/register&quot;)
+    public Result&lt;?&gt; register(@Valid @RequestBody User user) {
+        // 这里只模拟返回，实际应调用 service 层保存
+        return Result.success(&quot;注册成功！&quot;);
+    }
+}
+
+</code></pre><hr id="2078d968-54a6-8041-b303-f3dbf58f40f7"/><h3 id="2078d968-54a6-80d4-a6d7-f69cdfab42a8" class="">返回结果演示</h3><p id="2078d968-54a6-80d0-9294-fa9154db5daf" class="">✅ 正确请求：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-805d-8864-dad9df95f007" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">json
+
+{
+  &quot;name&quot;: &quot;张三&quot;,
+  &quot;email&quot;: &quot;zhang@example.com&quot;,
+  &quot;age&quot;: 22
+}
+
+</code></pre><p id="2078d968-54a6-802d-8651-db2bd838f2b4" class="">✅ 错误请求：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8042-91c6-c90e9711d938" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">json
+
+{
+  &quot;name&quot;: &quot;&quot;,
+  &quot;email&quot;: &quot;abc&quot;,
+  &quot;age&quot;: 15
+}
+
+</code></pre><p id="2078d968-54a6-808f-8d82-dc3f2f38a5fd" class="">返回结果：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8068-8fff-c7a7fd782aaa" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">json
+
+{
+  &quot;code&quot;: 500,
+  &quot;message&quot;: &quot;参数校验失败：用户名不能为空&quot;,
+  &quot;data&quot;: null}
+
+</code></pre><hr id="2078d968-54a6-8042-a14d-fcbf65ba377f"/><h2 id="2078d968-54a6-808f-af46-ebd24eebabb4" class="">🧠 面试强化问题</h2><hr id="2078d968-54a6-80b0-b923-e28b3b22477f"/><h3 id="2078d968-54a6-80e7-946c-f4fcaa2280e1" class="">❓ Q1：Spring Boot 中如何实现参数校验？</h3><p id="2078d968-54a6-80ff-83ae-d38a7fe216de" class="">✅ 回答要点：</p><blockquote id="2078d968-54a6-80c7-9685-e5e599d5614d" class="">使用 Bean Validation 规范（JSR-303），配合 @Valid 注解对实体类参数进行自动校验，并在字段上添加 @NotBlank、@Email 等注解。配合 @RestControllerAdvice 统一处理异常。</blockquote><hr id="2078d968-54a6-80d8-8ffb-f8d3eb759675"/><h3 id="2078d968-54a6-800f-a6f2-e1b9d2ba9764" class="">❓ Q2：全局异常处理的作用是什么？如何实现？</h3><p id="2078d968-54a6-80a3-a7fb-e4eb59a9a3e4" class="">✅ 回答要点：</p><blockquote id="2078d968-54a6-8065-90d9-e6148c80c9b8" class="">为了统一格式返回错误信息，避免系统报错堆栈暴露。实现方式是定义一个 @RestControllerAdvice 类，并用 @ExceptionHandler 注解编写异常拦截方法。</blockquote><hr id="2078d968-54a6-80dd-8e2e-d6ca94d899be"/><h3 id="2078d968-54a6-803c-af2e-dfdb9d6b55f7" class="">❓ Q3：你如何处理多个字段错误信息？</h3><p id="2078d968-54a6-8037-8a42-f0d76d9905f2" class="">✅ 拓展答案：</p><blockquote id="2078d968-54a6-8039-8db7-e4ee18eef294" class="">可以将 e.getBindingResult().getAllErrors() 转成 List，再拼接多个字段的错误信息一起返回，增强用户体验。</blockquote><hr id="2078d968-54a6-807d-8d13-ffdce72ccd76"/><hr id="2078d968-54a6-80c1-8eca-da661c132209"/><h2 id="2078d968-54a6-80ab-a0af-ef77e96a36b8" class="">📚 小结复盘</h2><table id="2078d968-54a6-8052-af62-fab04bf56594" class="simple-table"><tbody><tr id="2078d968-54a6-8098-9b25-eecaf750366d"><td id="&lt;d^f" class="">知识点</td><td id="n&lt;:U" class="">说明</td></tr><tr id="2078d968-54a6-80a1-9dde-cdb6b1f8c4c7"><td id="&lt;d^f" class="">参数校验注解</td><td id="n&lt;:U" class="">使用 <code>@Valid</code> 搭配 <code>@NotBlank</code>, <code>@Email</code> 等</td></tr><tr id="2078d968-54a6-8075-8859-fb55ab738423"><td id="&lt;d^f" class="">校验失败异常</td><td id="n&lt;:U" class=""><code>MethodArgumentNotValidException</code></td></tr><tr id="2078d968-54a6-8084-a4bc-c5c76b90e859"><td id="&lt;d^f" class="">全局异常处理类</td><td id="n&lt;:U" class="">使用 <code>@RestControllerAdvice</code> + <code>@ExceptionHandler</code></td></tr><tr id="2078d968-54a6-8052-b930-fd88b3258b60"><td id="&lt;d^f" class="">返回统一 JSON 格式</td><td id="n&lt;:U" class="">使用 <code>Result&lt;T&gt;</code> 封装返回结果</td></tr><tr id="2078d968-54a6-800a-9966-c6a963e83932"><td id="&lt;d^f" class="">面试重点</td><td id="n&lt;:U" class="">参数校验机制 + 全局异常 + 自定义消息处理</td></tr></tbody></table><p id="2078d968-54a6-8068-9ce5-cf389ce11943" class="">
+</p><p id="2078d968-54a6-806b-b4a8-f0a08ad14be4" class="">
+</p><p id="2078d968-54a6-80a3-9c68-e9a7275d18a1" class="">
+</p><p id="2078d968-54a6-800a-a0dd-c9f7af24a4b9" class="">
+</p><p id="2078d968-54a6-804c-a62d-f97289c720dc" class="">
+</p><h1 id="s8" class="">第8章：配置文件详解与多环境管理（application.yml 高级用法）</h1><blockquote id="2078d968-54a6-8000-8467-fe42d431fee9" class="">✅ 本章目标：<ul id="2078d968-54a6-8047-97e0-e3bced60c5cb" class="bulleted-list"><li style="list-style-type:disc">理解 Spring Boot 配置文件的加载原理</li></ul><ul id="2078d968-54a6-80aa-b384-dc71201a3ca2" class="bulleted-list"><li style="list-style-type:disc">掌握 <code>application.yml</code> 与 <code>application.properties</code> 的区别</li></ul><ul id="2078d968-54a6-8070-8b09-fa5b3d6fb7bf" class="bulleted-list"><li style="list-style-type:disc">实现多环境（dev/test/prod）配置切换</li></ul><ul id="2078d968-54a6-8046-a547-e96e3d0964c7" class="bulleted-list"><li style="list-style-type:disc">学会读取配置值到 Java 类</li></ul><ul id="2078d968-54a6-8071-800e-c42c2797b627" class="bulleted-list"><li style="list-style-type:disc">🌟 拓展：常见配置项清单 + 面试重点解析</li></ul><ul id="2078d968-54a6-802d-a1be-ce592cefe0b8" class="bulleted-list"><li style="list-style-type:disc">📌 配合详细注释，帮助你掌握底层逻辑</li></ul></blockquote><hr id="2078d968-54a6-8052-971b-e613b6c7fd10"/><h2 id="2078d968-54a6-8089-8ae0-cafda124f10d" class="">1. Spring Boot 配置文件类型对比</h2><table id="2078d968-54a6-8029-bd43-ca651a936ee0" class="simple-table"><tbody><tr id="2078d968-54a6-8092-8687-fb05a8e222c2"><td id="A{d}" class="">格式</td><td id="AZ&gt;l" class="">描述</td><td id="FOed" class="">推荐程度</td></tr><tr id="2078d968-54a6-80ac-a84e-f4837c8c2b95"><td id="A{d}" class=""><code>application.properties</code></td><td id="AZ&gt;l" class="">传统 key=value 格式</td><td id="FOed" class="">✅ 简单配置适合</td></tr><tr id="2078d968-54a6-809d-90f9-ec468f587401"><td id="A{d}" class=""><code>application.yml</code></td><td id="AZ&gt;l" class="">层级缩进结构，支持数组等复杂配置</td><td id="FOed" class="">✅ 推荐使用</td></tr></tbody></table><hr id="2078d968-54a6-805d-aaaf-fc1a188d4b92"/><h3 id="2078d968-54a6-80ac-b29f-d844d5b9529e" class="">✅ 示例对比</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80e9-ad1b-ff883684bb0f" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">properties
+
+server.port=8081
+spring.application.name=myapp
+
+</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80e6-a379-c47344c80ff3" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">yaml
+
+server:
+  port: 8081
+spring:
+  application:
+    name: myapp
+
+</code></pre><p id="2078d968-54a6-8032-9d22-df977157851e" class="">🟡 <code>application.yml</code> 支持结构化和数组，是现代项目首选。</p><hr id="2078d968-54a6-8062-a8fb-ea101e15d29c"/><h2 id="2078d968-54a6-80ec-bdca-e2ee785f3af8" class="">2. 常见配置项分类清单</h2><table id="2078d968-54a6-8007-9da7-dfc90d2a9869" class="simple-table"><tbody><tr id="2078d968-54a6-800b-9051-ded16dff08df"><td id="g_HS" class="">类别</td><td id="Z|ib" class="">示例配置项</td></tr><tr id="2078d968-54a6-800b-95da-ea0251a818a9"><td id="g_HS" class="">服务配置</td><td id="Z|ib" class=""><code>server.port</code>, <code>server.servlet.context-path</code></td></tr><tr id="2078d968-54a6-80fa-ae2d-e17a7c8032b6"><td id="g_HS" class="">数据源配置</td><td id="Z|ib" class=""><code>spring.datasource.url</code>, <code>username</code>, <code>password</code></td></tr><tr id="2078d968-54a6-800e-be73-cbf7e4b3bd3c"><td id="g_HS" class="">JPA配置</td><td id="Z|ib" class=""><code>spring.jpa.show-sql</code>, <code>hibernate.ddl-auto</code></td></tr><tr id="2078d968-54a6-800e-80fb-f2cc2e7c7eb0"><td id="g_HS" class="">文件上传限制</td><td id="Z|ib" class=""><code>spring.servlet.multipart.max-file-size</code></td></tr><tr id="2078d968-54a6-80e5-8914-f9fb65ca30e2"><td id="g_HS" class="">日志级别</td><td id="Z|ib" class=""><code>logging.level.root=info</code></td></tr><tr id="2078d968-54a6-8093-b60e-f29b01250392"><td id="g_HS" class="">国际化配置</td><td id="Z|ib" class=""><code>spring.messages.basename=messages</code></td></tr><tr id="2078d968-54a6-8032-9b5f-faf51559602e"><td id="g_HS" class="">自定义配置项</td><td id="Z|ib" class=""><code>myconfig.name</code>, <code>myconfig.description</code></td></tr></tbody></table><hr id="2078d968-54a6-80b6-907d-c73ded521188"/><h2 id="2078d968-54a6-8064-b883-c73fe4c97197" class="">3. 多环境配置（dev/test/prod）</h2><p id="2078d968-54a6-80eb-8104-e2985f39fa8f" class="">Spring Boot 支持多个配置文件，按环境切换加载：</p><h3 id="2078d968-54a6-802a-87c2-dda39337c12c" class="">✅ 示例结构：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80e8-a549-f8d987d219e6" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">
+
+src/
+ └── main/
+     └── resources/
+         ├── application.yml
+         ├── application-dev.yml
+         ├── application-test.yml
+         └── application-prod.yml
+
+</code></pre><hr id="2078d968-54a6-8067-8d21-f286ab108c2a"/><h3 id="2078d968-54a6-8089-80d6-fdf04c96c588" class="">✅ application.yml（主配置）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80f3-8379-c762fc7c08c8" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">yaml
+
+spring:
+  profiles:
+    active: dev  # 激活哪个环境（dev/test/prod）
+
+</code></pre><hr id="2078d968-54a6-80a8-84d8-e86d4b6dbd6c"/><h3 id="2078d968-54a6-80fb-b10d-f7efdf134aee" class="">✅ application-dev.yml（开发环境）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80e6-a9bc-e12da4bf9b10" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">yaml
+
+server:
+  port: 8081
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/dev_db
+    username: root
+    password: dev123
+
+</code></pre><hr id="2078d968-54a6-80e8-98d2-f5669cce3c0a"/><h3 id="2078d968-54a6-80e9-b946-c29ba9b1e1c7" class="">✅ application-prod.yml（生产环境）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8018-b7dd-e83460395f29" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">yaml
+
+server:
+  port: 80
+spring:
+  datasource:
+    url: jdbc:mysql://prod-db:3306/prod_db
+    username: admin
+    password: prodSecure
+
+</code></pre><hr id="2078d968-54a6-80ec-a64a-d913905c5f19"/><h2 id="2078d968-54a6-8024-8678-dc18fbded6e9" class="">4. 启动时动态切换环境</h2><h3 id="2078d968-54a6-8005-adcc-d5307fa3da30" class="">📌 方式一：修改 <code>application.yml</code> 中的 active</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80f5-8d07-e5642d4435e0" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">yaml
+
+spring:
+  profiles:
+    active: prod
+
+</code></pre><hr id="2078d968-54a6-80cf-bc99-ffb897b86d8a"/><h3 id="2078d968-54a6-805b-a85b-ebcaf2d7438e" class="">方式二：命令行启动参数（推荐生产部署）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80a8-8733-c4fe6a10e88a" class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">
+
+java -jar myapp.jar --spring.profiles.active=prod
+
+</code></pre><blockquote id="2078d968-54a6-8057-afbf-f8da751cd39b" class="">✅ 适用于 CI/CD 持续集成、Docker 启动等场景</blockquote><hr id="2078d968-54a6-8023-a63f-d16a0503b3d2"/><h2 id="2078d968-54a6-8064-b123-c60ddc987cf5" class="">5. 自定义配置项读取（自动注入到类中）</h2><hr id="2078d968-54a6-80ff-b662-f35010487554"/><h3 id="2078d968-54a6-80ad-835e-e1d73fd99e2c" class="">✅ application.yml 中定义：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-806a-91b3-f0ad0706bfd5" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">yaml
+
+myconfig:
+  title: SpringBoot 学习系统
+  description: 本项目用于入门与实战
+
+</code></pre><hr id="2078d968-54a6-80ac-b084-c2140a7f58e6"/><h3 id="2078d968-54a6-8080-8aa3-f207ec050759" class="">✅ Java 中读取配置类：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8096-8d9a-d1af25301ec1" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+
+@Component
+@ConfigurationProperties(prefix = &quot;myconfig&quot;)
+public class MyConfig {
+
+    private String title;
+    private String description;
+
+    // getter / setter 必须加
+}
+
+</code></pre><blockquote id="2078d968-54a6-8034-85c9-d04dbea72126" class="">📌 @ConfigurationProperties 是自动批量注入，适合对象层级较多的配置。</blockquote><hr id="2078d968-54a6-8098-8475-dba1c4f6bdaa"/><h3 id="2078d968-54a6-808c-95c6-ea1f4e336c02" class="">✅ 在 Controller 中使用：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8050-a21c-e33758413ff0" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+
+@RestController
+public class ConfigController {
+
+    @Autowired
+    private MyConfig myConfig;
+
+    @GetMapping(&quot;/config&quot;)
+    public Result&lt;?&gt; getConfig() {
+        return Result.success(myConfig);
+    }
+}
+
+</code></pre><hr id="2078d968-54a6-8054-acdd-cd69e9951877"/><h2 id="2078d968-54a6-80dd-a741-f03f0a5135e8" class="">补充：配置优先级加载顺序</h2><p id="2078d968-54a6-8080-9afc-fc4dfedd3daa" class="">Spring Boot 会按以下优先级加载配置（由高到低）：</p><ol type="1" id="2078d968-54a6-80e4-9fcc-ea046667dadd" class="numbered-list" start="1"><li>命令行参数（最高优先级）</li></ol><ol type="1" id="2078d968-54a6-80ad-8dd5-f2db198f1385" class="numbered-list" start="2"><li><code>application-{profile}.yml</code>（根据当前激活的环境）</li></ol><ol type="1" id="2078d968-54a6-801a-b163-d5cd675b1f08" class="numbered-list" start="3"><li><code>application.yml</code>（默认配置）</li></ol><ol type="1" id="2078d968-54a6-807a-963f-c2129f4d5f64" class="numbered-list" start="4"><li><code>@PropertySource</code> 指定文件</li></ol><ol type="1" id="2078d968-54a6-80a1-8144-edbdbc2964da" class="numbered-list" start="5"><li>默认值（代码中硬编码）</li></ol><blockquote id="2078d968-54a6-80b4-afd2-dcbb41939142" class="">推荐原则：公共配置写在主配置文件，环境差异写到 profile 文件中</blockquote><hr id="2078d968-54a6-803e-8e1a-f514e42c8351"/><h2 id="2078d968-54a6-8028-8593-d773b6636e4a" class="">🧠 面试强化问题</h2><hr id="2078d968-54a6-8042-b80f-f4ea02189e53"/><h3 id="2078d968-54a6-801a-a8ac-e04bc6579b67" class="">❓ Q1：Spring Boot 如何支持多环境配置？</h3><p id="2078d968-54a6-802c-a012-cd31ded9fec6" class="">✅ 回答要点：</p><blockquote id="2078d968-54a6-8099-862f-f0f692fa044f" class="">Spring Boot 通过 profile 机制支持多配置文件（如 application-dev.yml、-test.yml），并通过 spring.profiles.active 控制加载哪个配置。还可通过命令行参数切换环境，适合 CI/CD 流水线使用。</blockquote><hr id="2078d968-54a6-80df-afd7-ee59cdd7e0e3"/><h3 id="2078d968-54a6-8081-bc17-c8c7c8d1589e" class="">❓ Q2：你项目中如何管理敏感配置（如数据库密码）？</h3><p id="2078d968-54a6-8051-a5a1-ce0df6bead86" class="">✅ 回答技巧：</p><blockquote id="2078d968-54a6-8066-bc54-ce4a7b1d2cc0" class="">使用 profile 隔离（prod 与 dev 分开）生产环境配置不写入源码，而是通过启动参数注入可结合 Jasypt 实现配置加密（进阶安全实践）</blockquote><hr id="2078d968-54a6-8090-a34f-ee13e6859e29"/><h3 id="2078d968-54a6-80d2-9912-dc7d5661de37" class="">❓ Q3：如何读取自定义配置项？与 <code>@Value</code> 区别？</h3><table id="2078d968-54a6-80dc-a6f2-c0621799b861" class="simple-table"><tbody><tr id="2078d968-54a6-80cf-86d3-cbaf936dc19f"><td id="=dHd" class="">注解</td><td id="AocY" class="">说明</td></tr><tr id="2078d968-54a6-80d6-9faf-fbbf3e540f6c"><td id="=dHd" class=""><code>@Value</code></td><td id="AocY" class="">读取单个配置值（适合零散项）</td></tr><tr id="2078d968-54a6-80ba-babb-ca2e1a6e187e"><td id="=dHd" class=""><code>@ConfigurationProperties</code></td><td id="AocY" class="">批量注入配置（适合结构化数据）</td></tr></tbody></table><hr id="2078d968-54a6-80c3-b3e5-c0c34ccc76ad"/><h2 id="2078d968-54a6-80c6-9b31-d9ecdf0e829b" class="">📚 小结回顾</h2><table id="2078d968-54a6-8013-b31a-d900bd3b48b0" class="simple-table"><tbody><tr id="2078d968-54a6-807c-9fef-f073a3d193e6"><td id="oDlf" class="">知识点</td><td id="p@KZ" class="">内容说明</td></tr><tr id="2078d968-54a6-803d-92f6-fcecdbb1c9c5"><td id="oDlf" class="">配置格式</td><td id="p@KZ" class="">推荐使用 <code>application.yml</code> 结构化清晰</td></tr><tr id="2078d968-54a6-805b-a405-c613a8597f03"><td id="oDlf" class="">多环境切换</td><td id="p@KZ" class=""><code>spring.profiles.active</code> 实现 dev/test/prod 分离</td></tr><tr id="2078d968-54a6-80f1-9b9b-c4b014851645"><td id="oDlf" class="">配置值注入</td><td id="p@KZ" class="">用 <code>@Value</code> 或 <code>@ConfigurationProperties</code></td></tr><tr id="2078d968-54a6-8074-98b4-fda6caf4bc8b"><td id="oDlf" class="">配置优先级</td><td id="p@KZ" class="">命令行参数 &gt; profile 文件 &gt; 主文件 &gt; 默认值</td></tr><tr id="2078d968-54a6-808b-bd1b-ef1066b9af72"><td id="oDlf" class="">实战建议</td><td id="p@KZ" class="">配置文件结构合理、敏感信息外置、安全可维护</td></tr></tbody></table><p id="2078d968-54a6-80b9-b4af-fc0874b0dd7d" class="">
+</p><p id="2078d968-54a6-80f3-912c-f9962286f109" class="">
+</p><p id="2078d968-54a6-8010-8711-d2e04231fdaf" class="">
+</p><p id="2078d968-54a6-8056-9b29-db05768168d9" class="">
+</p><p id="2078d968-54a6-806d-8eb3-fb6cdf8bd97b" class="">
+</p><h1 id="s9" class="">第9章：Spring Security 与认证授权基础（JWT 登录流程）</h1><blockquote id="2078d968-54a6-8014-aa29-f7b148dc4a76" class="">✅ 本章目标：<ul id="2078d968-54a6-80a9-b92d-ee7b0b2f61b4" class="bulleted-list"><li style="list-style-type:disc">理解什么是认证（Authentication）与授权（Authorization）</li></ul><ul id="2078d968-54a6-8060-9887-ea42a1436731" class="bulleted-list"><li style="list-style-type:disc">掌握 Spring Security 的基本使用方式</li></ul><ul id="2078d968-54a6-80f0-b6b1-e025ea4dae63" class="bulleted-list"><li style="list-style-type:disc">实现基于 JWT 的登录验证机制</li></ul><ul id="2078d968-54a6-80d1-9a26-fc3a316a2389" class="bulleted-list"><li style="list-style-type:disc">建立前后端分离项目中的认证安全体系</li></ul><ul id="2078d968-54a6-8081-86eb-e7fca65b8516" class="bulleted-list"><li style="list-style-type:disc">🌟 拓展：安全相关面试问题汇总 + 实战技巧</li></ul><ul id="2078d968-54a6-80bf-940e-f77f12427a17" class="bulleted-list"><li style="list-style-type:disc">📌 所有代码都配注释，助你深入理解流程</li></ul></blockquote><hr id="2078d968-54a6-80da-8660-c94c6dc3926e"/><h2 id="2078d968-54a6-806e-be05-fa2263c1ecfa" class="">1. 认证与授权的区别</h2><table id="2078d968-54a6-8060-b5bf-d441df4587ee" class="simple-table"><tbody><tr id="2078d968-54a6-8033-a18b-cf5f02725e87"><td id="JgxK" class="">项目</td><td id="^L`P" class="">说明</td><td id="B@mE" class="">举例</td></tr><tr id="2078d968-54a6-80cb-9065-c6f5f9a8246e"><td id="JgxK" class="">认证</td><td id="^L`P" class="">验证你是谁</td><td id="B@mE" class="">登录时校验用户名/密码</td></tr><tr id="2078d968-54a6-80fb-93b1-f20e71349f5c"><td id="JgxK" class="">授权</td><td id="^L`P" class="">验证你能干什么</td><td id="B@mE" class="">你是否能访问管理员页面</td></tr></tbody></table><p id="2078d968-54a6-808c-bc0b-e72901ef4115" class="">📌 在安全系统中，通常流程为：先认证，后授权。</p><hr id="2078d968-54a6-8000-a90e-ef51fce4e492"/><h2 id="2078d968-54a6-8011-9bc8-ce0d61c4202b" class="">2. Spring Security 简介</h2><p id="2078d968-54a6-80ea-b914-d38f8327706a" class="">Spring Security 是一个为 Spring 应用提供<strong>安全保护</strong>的框架，具备以下功能：</p><ul id="2078d968-54a6-8021-a61c-d17f31e199d6" class="bulleted-list"><li style="list-style-type:disc">登录认证（支持表单、JWT、OAuth 等）</li></ul><ul id="2078d968-54a6-8031-9dc4-d27ae9416efd" class="bulleted-list"><li style="list-style-type:disc">权限控制（角色控制、方法权限）</li></ul><ul id="2078d968-54a6-80d0-acd6-f87ac6af6c53" class="bulleted-list"><li style="list-style-type:disc">防止攻击（CSRF、Session Fixation、XSS）</li></ul><ul id="2078d968-54a6-8094-a96e-f126119013f6" class="bulleted-list"><li style="list-style-type:disc">安全过滤链机制强大，扩展灵活</li></ul><hr id="2078d968-54a6-805c-a7ce-f7cbe058a698"/><h2 id="2078d968-54a6-801d-9f90-fa4549664a5b" class="">3. 快速引入 Spring Security</h2><hr id="2078d968-54a6-80ca-8a96-c6f2a1c2402a"/><h3 id="2078d968-54a6-8024-9bfb-e0e815cbca15" class="">✅ 添加依赖</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8039-872b-ecf421494a4f" class="code"><code class="language-XML" style="white-space:pre-wrap;word-break:break-all">xml
+
+&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;
+&lt;/dependency&gt;
+
+</code></pre><hr id="2078d968-54a6-8061-8272-ee3a6483c44c"/><h3 id="2078d968-54a6-8026-b63b-efc7b12e7896" class="">✅ 启动后默认行为：</h3><ul id="2078d968-54a6-80b8-8237-d2560f91854e" class="bulleted-list"><li style="list-style-type:disc">系统自动拦截所有接口</li></ul><ul id="2078d968-54a6-80a4-aaf7-de3c9d9ada6b" class="bulleted-list"><li style="list-style-type:disc">控制台输出默认用户名（user）和随机密码</li></ul><ul id="2078d968-54a6-8094-9f02-c61b6d2b61db" class="bulleted-list"><li style="list-style-type:disc">浏览器访问任何地址都会弹出登录框</li></ul><p id="2078d968-54a6-8061-bfc4-de675660cc26" class="">⚠️ 显然这不是我们想要的 —— 接下来我们将自定义整个认证流程（改用 JWT）。</p><hr id="2078d968-54a6-80ac-9c94-d7aca142ab23"/><h2 id="2078d968-54a6-8062-84fa-e40c22643265" class="">4. 前后端分离项目中推荐使用 JWT</h2><hr id="2078d968-54a6-8028-ade0-d1bb45eadfa9"/><h3 id="2078d968-54a6-80bb-a8f6-e9768f6b43d8" class="">✅ 什么是 JWT？</h3><p id="2078d968-54a6-80b7-a74e-fbfa4cb49a5f" class="">JWT（JSON Web Token）：是一种用于前后端通信时保存用户认证状态的<strong>令牌（Token）机制</strong>。</p><p id="2078d968-54a6-8086-9ec0-c6c78e5b9600" class="">结构如下：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-806d-ac6e-c0c0c207be08" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">css
+
+xxxxx.yyyyy.zzzzz
+Header.Payload.Signature
+
+</code></pre><p id="2078d968-54a6-8087-9b38-e2577d372b70" class="">特点：</p><ul id="2078d968-54a6-806a-a66c-f5db7aeeb435" class="bulleted-list"><li style="list-style-type:disc">无需 Session（前后端完全分离）</li></ul><ul id="2078d968-54a6-8048-92c6-f2961dbaace1" class="bulleted-list"><li style="list-style-type:disc">用户登录后，后端生成 token 返回给前端</li></ul><ul id="2078d968-54a6-8083-86ce-d2c05073eee8" class="bulleted-list"><li style="list-style-type:disc">前端后续请求时携带 token，后端验证即可</li></ul><hr id="2078d968-54a6-80d1-bc78-ea9a98815c39"/><h2 id="2078d968-54a6-80ae-bdfb-f19513246dd9" class="">5. 实现 JWT 登录功能步骤</h2><hr id="2078d968-54a6-80d1-8612-cdd1fdcc2489"/><h3 id="2078d968-54a6-80e4-9951-f2c737135dcf" class="">✅ 步骤一：引入 JWT 库依赖</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8079-b328-fe1fd848f1cd" class="code"><code class="language-XML" style="white-space:pre-wrap;word-break:break-all">xml
+&lt;dependency&gt;
+  &lt;groupId&gt;io.jsonwebtoken&lt;/groupId&gt;
+  &lt;artifactId&gt;jjwt&lt;/artifactId&gt;
+  &lt;version&gt;0.9.1&lt;/version&gt;
+&lt;/dependency&gt;
+
+</code></pre><hr id="2078d968-54a6-805b-9a0e-c18d7b41f095"/><h3 id="2078d968-54a6-807a-9ac6-d4883fe074aa" class="">✅步骤二：编写 Jwt 工具类</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8064-a7b0-d4d0605f5306" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+
+@Component
+public class JwtUtil {
+
+    private final String SECRET_KEY = &quot;MySecretKey12345&quot;; // 建议用更强密钥
+
+    // 生成 token（设置过期时间 1 小时）
+    public String generateToken(String username) {
+        return Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 1000))
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .compact();
+    }
+
+    // 解析 token 获取用户名
+    public String extractUsername(String token) {
+        return Jwts.parser().setSigningKey(SECRET_KEY)
+                .parseClaimsJws(token).getBody().getSubject();
+    }
+
+    // 校验 token 是否过期
+    public boolean validateToken(String token) {
+        try {
+            Date exp = Jwts.parser().setSigningKey(SECRET_KEY)
+                    .parseClaimsJws(token).getBody().getExpiration();
+            return exp.after(new Date());
+        } catch (Exception e) {
+            return false;
+        }
+    }
+}
+
+</code></pre><hr id="2078d968-54a6-8022-8de5-e19b1b09ff3b"/><h3 id="2078d968-54a6-8064-bc42-d4fe9d9e6f72" class="">✅ 步骤三：自定义登录接口（不使用默认表单）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-808b-804d-f971bad86900" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+
+@RestController
+@RequestMapping(&quot;/auth&quot;)
+public class AuthController {
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @PostMapping(&quot;/login&quot;)
+    public Result&lt;?&gt; login(@RequestBody LoginForm form) {
+        if (&quot;admin&quot;.equals(form.getUsername()) &amp;&amp; &quot;123456&quot;.equals(form.getPassword())) {
+            // 登录成功，生成 Token
+            String token = jwtUtil.generateToken(form.getUsername());
+            return Result.success(token);
+        } else {
+            return Result.error(&quot;账号或密码错误&quot;);
+        }
+    }
+}
+
+</code></pre><blockquote id="2078d968-54a6-8070-9533-d53053cfec8c" class="">📌 实际项目中应从数据库查询用户信息，这里为了演示简化为静态验证。</blockquote><hr id="2078d968-54a6-80a7-9e35-f5001bb7c283"/><h3 id="2078d968-54a6-805e-93c4-e4cea8d7735e" class="">✅ 登录请求体类 LoginForm.java</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-802e-815d-e7053683b445" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+
+public class LoginForm {
+    private String username;
+    private String password;
+    // getter/setter
+}
+
+</code></pre><hr id="2078d968-54a6-801c-8916-e759644f356b"/><h3 id="2078d968-54a6-8097-a47c-e7b090468468" class="">✅ 返回值示例：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80e6-83e2-dc7ab3ad50ad" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">json
+
+{
+  &quot;code&quot;: 200,
+  &quot;message&quot;: &quot;Success&quot;,
+  &quot;data&quot;: &quot;eyJhbGciOiJIUzI1NiIsInR5cCI6...&quot;
+}
+
+</code></pre><p id="2078d968-54a6-802f-bd32-f85d920f5a6b" class="">前端将此 token 存入 localStorage，在每次请求中作为 Header 发送：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80b8-983b-dfe6a5e086a2" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">
+
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6...
+
+</code></pre><hr id="2078d968-54a6-8020-8765-df6e7495d4c8"/><h2 id="2078d968-54a6-8096-afd3-f57299703dae" class="">6. 设置安全配置类 SecurityConfig</h2><hr id="2078d968-54a6-8011-830a-c9c860c46bd0"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8044-b64e-c57a336dbeb9" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.csrf().disable() // 禁用 CSRF
+            .authorizeHttpRequests(auth -&gt; auth
+                .requestMatchers(&quot;/auth/**&quot;).permitAll() // 登录接口放行
+                .anyRequest().authenticated()
+            );
+
+        return http.build();
+    }
+}
+
+</code></pre><p id="2078d968-54a6-806c-9d35-d7d3390eb180" class="">📌 更多 JWT 过滤器 + 用户校验我们将在下一章扩展（含授权）。</p><hr id="2078d968-54a6-8034-8a1a-fb0be8bc8937"/><h2 id="2078d968-54a6-802b-934b-d321ede98674" class="">🧠 面试强化问题</h2><hr id="2078d968-54a6-80f9-8c34-d6f4eb3b61fe"/><h3 id="2078d968-54a6-80e0-86ad-e2eb7d591b0a" class="">❓ Q1：JWT 有哪些优点与风险？</h3><p id="2078d968-54a6-80d1-9976-f65ade1ec75c" class="">✅ 回答要点：</p><blockquote id="2078d968-54a6-805f-96a1-f8cf0874b278" class="">优点：<ul id="2078d968-54a6-80e1-aec0-fe36b1b29ed2" class="bulleted-list"><li style="list-style-type:disc">无状态：不依赖 Session，支持分布式</li></ul><ul id="2078d968-54a6-80ce-b0ab-c20ec4b2212f" class="bulleted-list"><li style="list-style-type:disc">性能好：不需频繁访问数据库</li></ul><p id="2078d968-54a6-805d-90c0-fba2b9214659" class="">风险：</p><ul id="2078d968-54a6-80d4-bff9-d7a46e293a72" class="bulleted-list"><li style="list-style-type:disc">无法主动失效（登出或账号冻结无法强制令牌失效）</li></ul><ul id="2078d968-54a6-80c4-bfcd-ebaa9b47a524" class="bulleted-list"><li style="list-style-type:disc">token 泄漏风险（需配合 HTTPS）</li></ul></blockquote><hr id="2078d968-54a6-8033-93f8-e139670f2404"/><h3 id="2078d968-54a6-80f2-8416-d86d010d90bf" class="">❓ Q2：Spring Security 的过滤器链是如何工作的？</h3><p id="2078d968-54a6-806b-9e58-c4d0611abbee" class="">✅ 回答要点：</p><blockquote id="2078d968-54a6-80f7-a3d0-e6603f73cc50" class="">Spring Security 在底层有一套 FilterChain（过滤器链），每一个过滤器处理登录、授权、异常等不同职责，执行顺序非常严格。例如：UsernamePasswordAuthenticationFilter 处理登录校验，ExceptionTranslationFilter 处理异常返回。</blockquote><hr id="2078d968-54a6-80fb-8091-e45e1db87fea"/><h2 id="2078d968-54a6-80cc-9a00-d380e1c8ff78" class="">📚 小结回顾</h2><table id="2078d968-54a6-8062-abb8-ddb83c6e434c" class="simple-table"><tbody><tr id="2078d968-54a6-801e-bea5-cd3b7088a2a2"><td id="?\CR" class="">知识点</td><td id="~?fz" class="">内容说明</td></tr><tr id="2078d968-54a6-8071-9d1f-cedab3d9e3a7"><td id="?\CR" class="">认证 vs 授权</td><td id="~?fz" class="">登录校验 vs 权限控制</td></tr><tr id="2078d968-54a6-8064-a78a-e8ce31e9350e"><td id="?\CR" class="">Spring Security 默认行为</td><td id="~?fz" class="">启动即拦截，内置登录表单</td></tr><tr id="2078d968-54a6-8037-90b4-cfd4b35ae4c2"><td id="?\CR" class="">JWT 登录机制</td><td id="~?fz" class="">用户 → 登录 → 返回 token → 请求携带 token</td></tr><tr id="2078d968-54a6-80ca-8080-f6c5286db07b"><td id="?\CR" class="">token 校验方式</td><td id="~?fz" class="">JwtUtil 提供生成/验证方法</td></tr><tr id="2078d968-54a6-80f6-be75-f9b20cda5e2c"><td id="?\CR" class="">安全配置类</td><td id="~?fz" class="">自定义放行接口、安全策略、禁用表单登录</td></tr></tbody></table><p id="2078d968-54a6-8075-a3ae-f29aeec0eb7d" class="">
+</p><p id="2078d968-54a6-80bd-aeb4-fe2128eef981" class="">
+</p><p id="2078d968-54a6-8002-98b9-cdd683aa3265" class="">
+</p><p id="2078d968-54a6-803c-b5fb-f2b452f4d2fa" class="">
+</p><p id="2078d968-54a6-803a-9b4d-c933a217c7e3" class="">
+</p><h1 id="s10" class="">第10章：Spring Security JWT 进阶 — 登录拦截器与权限控制实现</h1><blockquote id="2078d968-54a6-8032-9e85-dc29c3c56ba8" class="">✅ 本章目标：<ul id="2078d968-54a6-8034-90df-f10527952e1b" class="bulleted-list"><li style="list-style-type:disc">利用 JWT 实现登录后的身份识别</li></ul><ul id="2078d968-54a6-8013-a60e-fcbaa174f838" class="bulleted-list"><li style="list-style-type:disc">自定义拦截器，在请求进入 Controller 前完成 token 校验</li></ul><ul id="2078d968-54a6-8049-9352-ed026694be48" class="bulleted-list"><li style="list-style-type:disc">将用户信息写入上下文，便于权限控制</li></ul><ul id="2078d968-54a6-80d1-82b7-d77f985f5932" class="bulleted-list"><li style="list-style-type:disc">实现接口级别的权限拦截（角色控制）</li></ul><ul id="2078d968-54a6-806b-ad60-c378fc0b9563" class="bulleted-list"><li style="list-style-type:disc">🌟 补充面试问题 + 权限设计实践技巧</li></ul><ul id="2078d968-54a6-804b-a38e-c27638a813f6" class="bulleted-list"><li style="list-style-type:disc">📌 全部代码含注释，确保流程清晰易懂</li></ul></blockquote><hr id="2078d968-54a6-80d0-ba7a-f6bf166a33d6"/><h2 id="2078d968-54a6-8066-b081-d26a5a7eb8ad" class="">1. 回顾 JWT 登录流程</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80fa-91e6-e820b97acfac" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">
+用户登录  → 后端生成 JWT → 前端保存 Token → 每次请求携带 Token → 后端拦截器校验 Token
+
+</code></pre><p id="2078d968-54a6-809e-8b95-dc6f3523fdce" class="">接下来，我们补充“后端拦截器校验 + 权限控制”两个关键环节。</p><hr id="2078d968-54a6-8001-9b80-d69c08f85a20"/><h2 id="2078d968-54a6-8096-9763-ff02ffc2fb1d" class="">2. 编写 JWT 拦截器（过滤器）</h2><hr id="2078d968-54a6-8085-8263-d051f309baa5"/><h3 id="2078d968-54a6-80c4-a8c4-eca0b5a6b51a" class="">✅ 步骤一：定义 JwtFilter</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8093-b8fe-fef4489d9199" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+
+@Component
+public class JwtFilter extends OncePerRequestFilter {
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
+
+        // 从 Header 中取出 token
+        String authHeader = request.getHeader(&quot;Authorization&quot;);
+
+        // 判断 token 是否存在且符合格式
+        if (authHeader != null &amp;&amp; authHeader.startsWith(&quot;Bearer &quot;)) {
+            String token = authHeader.substring(7); // 去掉 &quot;Bearer &quot;
+
+            String username = jwtUtil.extractUsername(token);
+
+            // 验证 token 合法性 &amp; 设置认证上下文
+            if (username != null &amp;&amp; jwtUtil.validateToken(token)) {
+                // 模拟创建认证信息（实际应从数据库查权限）
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(
+                                username, null, Collections.emptyList());
+
+                // 写入上下文（SecurityContext）
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
+        }
+
+        filterChain.doFilter(request, response); // 放行请求
+    }
+}
+
+</code></pre><blockquote id="2078d968-54a6-8003-916b-f526b9ffd23a" class="">📌 OncePerRequestFilter 保证过滤器每次请求只调用一次。</blockquote><hr id="2078d968-54a6-803a-8214-d93c26f36dc3"/><h2 id="2078d968-54a6-806b-b7db-e6968a006d81" class="">3. 修改 Security 配置类（加载拦截器）</h2><hr id="2078d968-54a6-80af-a738-f6cb48a38ce9"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80e8-8eef-ca71a3158735" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Autowired
+    private JwtFilter jwtFilter;
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.csrf().disable() // 禁用 CSRF（前后端分离不需要）
+            .authorizeHttpRequests(auth -&gt; auth
+                .requestMatchers(&quot;/auth/**&quot;).permitAll() // 登录接口放行
+                .anyRequest().authenticated()
+            );
+
+        // 添加 JWT 过滤器（在 UsernamePasswordAuthenticationFilter 之前）
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }
+}
+
+</code></pre><hr id="2078d968-54a6-8085-b083-cb696d0934b4"/><h2 id="2078d968-54a6-801b-bfac-eb9efde7d0d7" class="">✅ 4. Controller 中获取当前登录用户</h2><hr id="2078d968-54a6-8063-ac45-e48c724b9a9f"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8031-a706-eee5e606d395" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+复制编辑
+@GetMapping(&quot;/me&quot;)
+public Result&lt;?&gt; getCurrentUser() {
+    // 从上下文中获取用户信息
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    String username = auth.getName(); // 获取用户名
+    return Result.success(&quot;当前用户：&quot; + username);
+}
+
+</code></pre><hr id="2078d968-54a6-80e9-a90b-c65cf48172af"/><h2 id="2078d968-54a6-8088-a57d-f2493ffcd7b2" class="">5. 实现接口级别的权限控制（基于角色）</h2><hr id="2078d968-54a6-8054-8ce2-f92115bed7c9"/><h3 id="2078d968-54a6-80c2-889b-f53461a2c91e" class="">模拟：为不同用户分配角色（实际应查数据库）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8087-b2a7-d127faa88e1b" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+
+List&lt;GrantedAuthority&gt; authorities = AuthorityUtils.createAuthorityList(&quot;ROLE_ADMIN&quot;);
+UsernamePasswordAuthenticationToken authentication =
+        new UsernamePasswordAuthenticationToken(username, null, authorities);
+
+</code></pre><hr id="2078d968-54a6-806c-b157-c59211eadf55"/><h3 id="2078d968-54a6-80fe-a737-e9076e13ef7a" class="">使用权限注解：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80cc-8307-e903e6c9b6d4" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+
+@PreAuthorize(&quot;hasRole(&#x27;ADMIN&#x27;)&quot;)
+@GetMapping(&quot;/admin&quot;)
+public Result&lt;?&gt; adminOnly() {
+    return Result.success(&quot;管理员权限访问成功&quot;);
+}
+
+启用方法级别权限校验：</code></pre><hr id="2078d968-54a6-8081-9bd0-c3ee283720f1"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80b3-b407-f7eefb629f04" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+
+@EnableMethodSecurity // 替代老版本的 @EnableGlobalMethodSecurity
+@Configuration
+public class MethodSecurityConfig {
+}
+
+</code></pre><hr id="2078d968-54a6-8067-858e-fa519a29d087"/><h2 id="2078d968-54a6-80d6-92b5-e7625369a301" class="">🎯 实战流程演练总结</h2><table id="2078d968-54a6-80ed-b660-c49e23b6c10a" class="simple-table"><tbody><tr id="2078d968-54a6-80c9-97e8-f70b6829eef9"><td id="BIN@" class="">步骤</td><td id="m}[?" class="">内容说明</td></tr><tr id="2078d968-54a6-8039-9ce1-f0a1c6d13426"><td id="BIN@" class="">用户登录</td><td id="m}[?" class="">返回 JWT token</td></tr><tr id="2078d968-54a6-8085-88a8-f6bad0ca2c33"><td id="BIN@" class="">请求携带 token</td><td id="m}[?" class="">放入 Header：Authorization: Bearer xxx</td></tr><tr id="2078d968-54a6-80bc-ad3d-f29496d3a433"><td id="BIN@" class="">JwtFilter 拦截器解析 token</td><td id="m}[?" class="">验证合法性并写入上下文</td></tr><tr id="2078d968-54a6-805c-a1ce-eef8be559e6a"><td id="BIN@" class="">Controller 获取认证信息</td><td id="m}[?" class="">从 SecurityContext 中读取</td></tr><tr id="2078d968-54a6-80d5-8792-e8e3f46b042c"><td id="BIN@" class="">方法权限控制</td><td id="m}[?" class="">用 <code>@PreAuthorize</code> 拦截非管理员</td></tr></tbody></table><hr id="2078d968-54a6-8006-b5dc-f045a3e734a4"/><h2 id="2078d968-54a6-80e1-8c59-fe066628339e" class="">🧠 面试强化问题汇总</h2><hr id="2078d968-54a6-8005-9e1f-d741f0d69b8a"/><h3 id="2078d968-54a6-80b1-a00f-f733dd8db745" class="">❓ Q1：如何在 Spring Boot 项目中实现 JWT 登录认证？</h3><p id="2078d968-54a6-80d2-a074-c05250714b34" class="">✅ 回答要点：</p><blockquote id="2078d968-54a6-8079-9f4e-d403157151eb" class="">自定义登录接口生成 JWT，使用拦截器从 Header 中读取并验证 token，解析后写入 SecurityContext，从而实现无 Session 的用户身份识别。</blockquote><hr id="2078d968-54a6-8072-b48c-d782b3ec01de"/><h3 id="2078d968-54a6-80e4-9d7a-e9315ac0a8e3" class="">❓ Q2：Spring Security 如何实现接口权限控制？</h3><p id="2078d968-54a6-8076-8542-c4b7695def45" class="">✅ 回答要点：</p><blockquote id="2078d968-54a6-804f-b39f-e9512de2a1d6" class="">通过方法注解 @PreAuthorize，结合用户拥有的角色列表（如 ROLE_ADMIN）进行拦截控制；配合拦截器提前验证并注入权限信息。</blockquote><hr id="2078d968-54a6-80e4-b900-e2d7d39edd39"/><h3 id="2078d968-54a6-8075-b48a-e2e3c3befd79" class="">❓ Q3：Spring Security 中 Authentication 和 SecurityContext 有什么作用？</h3><p id="2078d968-54a6-80be-8359-d4c751a6a1fc" class="">✅ 回答要点：</p><blockquote id="2078d968-54a6-8007-b361-eeee5822d929" class="">Authentication 是用户身份信息对象，包含用户名、权限等；SecurityContext 是保存 Authentication 的上下文容器，系统通过它识别当前登录用户。</blockquote><hr id="2078d968-54a6-809c-9724-d233a0c6ed40"/><h2 id="2078d968-54a6-80be-a7e3-e77b48528030" class="">📚 小结复盘</h2><table id="2078d968-54a6-809d-8141-f57ea308d55a" class="simple-table"><tbody><tr id="2078d968-54a6-8083-9791-f75436baa03f"><td id="Up&lt;k" class="">知识点</td><td id="joQ&lt;" class="">说明</td></tr><tr id="2078d968-54a6-80d8-b958-f558f526a6ee"><td id="Up&lt;k" class="">JwtFilter</td><td id="joQ&lt;" class="">在请求之前解析 token 并写入用户身份</td></tr><tr id="2078d968-54a6-809e-970e-c74e0aec0c67"><td id="Up&lt;k" class="">SecurityContextHolder</td><td id="joQ&lt;" class="">存放认证后的用户信息</td></tr><tr id="2078d968-54a6-8010-8746-e95e6a1a7b53"><td id="Up&lt;k" class=""><code>@PreAuthorize</code></td><td id="joQ&lt;" class="">接口级别的权限控制注解</td></tr><tr id="2078d968-54a6-80bb-a09d-c30450b455a6"><td id="Up&lt;k" class="">AuthorityUtils 工具</td><td id="joQ&lt;" class="">创建角色列表（模拟角色）</td></tr><tr id="2078d968-54a6-8094-91e4-cf217d165cdb"><td id="Up&lt;k" class="">方法安全配置</td><td id="joQ&lt;" class="">使用 <code>@EnableMethodSecurity</code> 启用注解控制</td></tr><tr id="2078d968-54a6-80ea-be01-f0e96a6bee36"><td id="Up&lt;k" class="">拦截顺序</td><td id="joQ&lt;" class="">JWT 拦截器应添加在默认认证过滤器之前</td></tr></tbody></table><p id="2078d968-54a6-80bb-ad87-fb59c0145056" class="">
+</p><p id="2078d968-54a6-804f-9325-cd2b75b1dd70" class="">
+</p><p id="2078d968-54a6-807a-a84f-c3fc15a3651b" class="">
+</p><p id="2078d968-54a6-8023-b16a-e2ee66d80c92" class="">
+</p><p id="2078d968-54a6-80ee-8b16-f4dd7ddd2efa" class="">
+</p><h1 id="s11" class="">第11章：接口文档生成与可视化展示（Swagger 3 / OpenAPI 3 集成）</h1><blockquote id="2078d968-54a6-80be-b25a-f0a04de1baf8" class="">✅ 本章目标：<ul id="2078d968-54a6-8024-9d02-db07225b804a" class="bulleted-list"><li style="list-style-type:disc">使用 Swagger 自动生成 REST API 文档</li></ul><ul id="2078d968-54a6-8062-9fcc-de5b4c8ce294" class="bulleted-list"><li style="list-style-type:disc">支持接口分组、参数说明、示例数据展示</li></ul><ul id="2078d968-54a6-80de-9732-f199e3db779b" class="bulleted-list"><li style="list-style-type:disc">通过网页调试接口，提高开发/测试效率</li></ul><ul id="2078d968-54a6-80c2-af5d-c3d317022e0a" class="bulleted-list"><li style="list-style-type:disc">🌟 补充 Swagger 使用建议 + 面试问题</li></ul><ul id="2078d968-54a6-8042-8e58-fbbd9a5c9afc" class="bulleted-list"><li style="list-style-type:disc">📌 全代码配注释，确保从集成到使用全流程掌握</li></ul></blockquote><hr id="2078d968-54a6-8074-ba6d-d04cb54b0fc8"/><h2 id="2078d968-54a6-80c6-8972-ea7a732d2c97" class="">1. 什么是 Swagger / OpenAPI？</h2><ul id="2078d968-54a6-80b4-9179-ffabdb7e29f9" class="bulleted-list"><li style="list-style-type:disc"><strong>Swagger</strong> 是用于自动生成 Web API 文档的工具</li></ul><ul id="2078d968-54a6-808d-a022-e45ea6452070" class="bulleted-list"><li style="list-style-type:disc"><strong>OpenAPI 3.0</strong> 是 Swagger 后续发展形成的规范</li></ul><ul id="2078d968-54a6-805c-81dd-dc38437204e2" class="bulleted-list"><li style="list-style-type:disc">Spring Boot 推荐使用 <strong>springdoc-openapi</strong> 实现 Swagger 3 整合</li></ul><p id="2078d968-54a6-8011-b059-d987b25efbe3" class="">📌 文档页面地址默认是：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-806c-91db-d65be07a6b76" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">bash
+
+http://localhost:8080/swagger-ui/index.html
+
+</code></pre><hr id="2078d968-54a6-80ec-97ca-c1c6fe1d88dd"/><h2 id="2078d968-54a6-8031-b95a-c309142ab88a" class="">2. 添加 Swagger 依赖（Springdoc OpenAPI 方式）</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8005-9c2b-c05c3f3d5e12" class="code"><code class="language-XML" style="white-space:pre-wrap;word-break:break-all">xml
+
+&lt;dependency&gt;
+  &lt;groupId&gt;org.springdoc&lt;/groupId&gt;
+  &lt;artifactId&gt;springdoc-openapi-starter-webmvc-ui&lt;/artifactId&gt;
+  &lt;version&gt;2.2.0&lt;/version&gt;
+&lt;/dependency&gt;
+
+</code></pre><p id="2078d968-54a6-80d9-9222-c263931292a5" class="">✅ 版本推荐：2.x 支持 Spring Boot 3 以上版本（较新）</p><hr id="2078d968-54a6-8035-9f17-ee54d926f896"/><h2 id="2078d968-54a6-80e9-ada8-f07c9a7ecbdc" class="">3. 配置文档信息（可选）</h2><p id="2078d968-54a6-8070-b64b-d672e9af99ef" class="">在 <code>application.yml</code> 中添加：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8073-b8c0-cd0a42b4fd9c" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">yaml
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    tagsSorter: alpha
+
+</code></pre><blockquote id="2078d968-54a6-80d4-8bf4-f87afa89c627" class="">api-docs 是后端接口 JSON 数据的路径，swagger-ui.html 是文档页面地址。</blockquote><hr id="2078d968-54a6-801d-a6f0-e58fde932884"/><h2 id="2078d968-54a6-806f-826e-e2599fbfabe6" class="">4. 编写接口 + 注释文档</h2><hr id="2078d968-54a6-804e-be5e-c108403657e6"/><h3 id="2078d968-54a6-80d1-9e0e-cb57d23a22c5" class="">✅ 示例实体类：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8091-a0a4-e3ac56d58137" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">
+
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = &quot;用户信息&quot;)
+public class User {
+
+    @Schema(description = &quot;用户ID&quot;, example = &quot;1001&quot;)
+    private Long id;
+
+    @Schema(description = &quot;用户名&quot;, example = &quot;张三&quot;)
+    private String name;
+
+    @Schema(description = &quot;邮箱&quot;, example = &quot;user@example.com&quot;)
+    private String email;
+
+    // getter / setter
+}
+
+</code></pre><hr id="2078d968-54a6-8082-8662-f4f022af390b"/><h3 id="2078d968-54a6-805d-be2c-f1a5351f7260" class="">✅ 示例控制器：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80d6-acec-d69d9113dc99" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+
+@RestController
+@RequestMapping(&quot;/api/user&quot;)
+@Tag(name = &quot;用户接口&quot;, description = &quot;用户相关接口&quot;)
+public class UserController {
+
+    @Operation(summary = &quot;新增用户&quot;)
+    @PostMapping(&quot;/add&quot;)
+    public Result&lt;?&gt; addUser(@RequestBody User user) {
+        return Result.success(&quot;添加成功&quot;);
+    }
+
+    @Operation(summary = &quot;获取用户列表&quot;)
+    @GetMapping(&quot;/list&quot;)
+    public Result&lt;List&lt;User&gt;&gt; getList() {
+        return Result.success(new ArrayList&lt;&gt;());
+    }
+}
+
+</code></pre><p id="2078d968-54a6-800b-9060-c29fdb5d1f7f" class="">📌 常用注解汇总：</p><table id="2078d968-54a6-8072-9665-c06de555b627" class="simple-table"><tbody><tr id="2078d968-54a6-8035-831d-e86736b92310"><td id="cvwg" class="">注解</td><td id="H`g@" class="">说明</td></tr><tr id="2078d968-54a6-80c5-aed9-cf9ac969829d"><td id="cvwg" class=""><code>@Tag</code></td><td id="H`g@" class="">控制器分类标签</td></tr><tr id="2078d968-54a6-80dd-a1f4-f636cd6201a2"><td id="cvwg" class=""><code>@Operation(summary = &quot;...&quot;)</code></td><td id="H`g@" class="">描述接口用途</td></tr><tr id="2078d968-54a6-804c-96ff-eaf282492be5"><td id="cvwg" class=""><code>@Schema(description=...)</code></td><td id="H`g@" class="">给类、字段加注释</td></tr><tr id="2078d968-54a6-8049-a39b-faa8b3cc32f8"><td id="cvwg" class=""><code>@Parameter(...)</code></td><td id="H`g@" class="">自定义单个参数说明</td></tr></tbody></table><hr id="2078d968-54a6-80ee-94af-fb72017fe838"/><h2 id="2078d968-54a6-80e7-b86c-f230c0445c17" class="">5. 启动项目并访问文档页面</h2><p id="2078d968-54a6-80cf-930a-efc60f52b064" class="">启动 Spring Boot 项目后，访问：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80d3-92b7-cb210e50a8f0" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">bash
+
+http://localhost:8080/swagger-ui/index.html
+
+</code></pre><p id="2078d968-54a6-80e9-bc8e-f0b3564c888a" class="">效果如下：</p><ul id="2078d968-54a6-809e-949b-dcf97e520ac1" class="bulleted-list"><li style="list-style-type:disc">所有接口自动展示</li></ul><ul id="2078d968-54a6-80f8-bf1b-e59763af9162" class="bulleted-list"><li style="list-style-type:disc">请求方式颜色区分（GET、POST）</li></ul><ul id="2078d968-54a6-8047-b31f-ce3ea8535f9f" class="bulleted-list"><li style="list-style-type:disc">支持在线调试、请求参数填写、响应示例查看</li></ul><hr id="2078d968-54a6-80df-aa3a-dd3258d61ffa"/><h2 id="2078d968-54a6-80d9-8b0b-d388fa9ddaad" class="">6. 分组显示多个模块接口（可选）</h2><p id="2078d968-54a6-80de-98b3-d2a8c6506b2f" class="">若项目中有多个模块，可通过 <code>@OpenAPIDefinition</code> 设置分组：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8085-82ef-ebba2f294b49" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+@OpenAPIDefinition(
+    info = @Info(title = &quot;用户管理 API&quot;, version = &quot;v1&quot;),
+    servers = @Server(url = &quot;http://localhost:8080&quot;)
+)
+@Configuration
+public class SwaggerConfig {}
+
+</code></pre><hr id="2078d968-54a6-805a-9ad9-f9c9d2eb6a2d"/><h2 id="2078d968-54a6-8055-992f-e43b492d858b" class="">🧠 面试强化问题</h2><hr id="2078d968-54a6-8027-8501-ed519843c0c3"/><h3 id="2078d968-54a6-807e-ae68-f01f20ff538e" class="">❓ Q1：你们项目中如何管理 API 接口文档？</h3><p id="2078d968-54a6-80d9-b3dc-c23ca3c3721f" class="">✅ 回答要点：</p><blockquote id="2078d968-54a6-80ac-926b-dff30d279e96" class="">我们使用 Swagger + OpenAPI 自动生成接口文档，开发阶段支持可视化调试，部署时可隐藏文档页防止泄露，增强了前后端协作效率与规范性。</blockquote><hr id="2078d968-54a6-80be-986c-c93f98dce114"/><h3 id="2078d968-54a6-80b1-a1ae-d28f0025c921" class="">❓ Q2：Swagger 与 Postman 的区别？</h3><p id="2078d968-54a6-80d9-af44-d4fa7e853c0b" class="">✅ 回答要点：</p><blockquote id="2078d968-54a6-80b7-a95c-f3e820885568" class="">Swagger 是在线 API 文档生成工具，集成在项目中；Postman 是客户端请求测试工具。Swagger 更适合前后端协作，Postman 更适合调试和批量测试。</blockquote><hr id="2078d968-54a6-80cc-9dfe-d49eab4a6512"/><h3 id="2078d968-54a6-80d6-92d4-c985b01e9223" class="">❓ Q3：你如何保护 Swagger 接口文档不暴露给生产用户？</h3><p id="2078d968-54a6-800c-a7bc-fa9b3489f02b" class="">✅ 拓展建议：</p><blockquote id="2078d968-54a6-800c-89a9-dc96d0e83f79" class="">生产环境不引入 Swagger 依赖或者使用 Spring Security 限制 /swagger-ui/** 路径可通过 profile 配置 springdoc.enabled=false 禁用文档功能</blockquote><hr id="2078d968-54a6-8049-99bf-d47af70c2e0b"/><h2 id="2078d968-54a6-80a3-88d7-fd3854512911" class="">📚 小结回顾</h2><table id="2078d968-54a6-80d2-9e51-d47190f30c33" class="simple-table"><tbody><tr id="2078d968-54a6-801a-a03a-d6ce48368a70"><td id="LDOf" class="">知识点</td><td id="a[`F" class="">内容说明</td></tr><tr id="2078d968-54a6-8011-bfd3-f39d828eaf71"><td id="LDOf" class="">Swagger 工具</td><td id="a[`F" class="">自动生成 Web 接口文档 + 可视化调试</td></tr><tr id="2078d968-54a6-802a-948e-d5f9a1fa727f"><td id="LDOf" class="">推荐使用 springdoc-openapi</td><td id="a[`F" class="">兼容 Spring Boot 3，功能强大</td></tr><tr id="2078d968-54a6-8096-8660-e7a6385e6855"><td id="LDOf" class="">常用注解</td><td id="a[`F" class=""><code>@Operation</code>, <code>@Schema</code>, <code>@Tag</code> 等</td></tr><tr id="2078d968-54a6-800b-9ab2-fc636dad9ffc"><td id="LDOf" class="">文档路径</td><td id="a[`F" class=""><code>/swagger-ui/index.html</code></td></tr><tr id="2078d968-54a6-80d4-b065-c48447017382"><td id="LDOf" class="">安全建议</td><td id="a[`F" class="">生产环境应隐藏文档入口，避免接口暴露</td></tr></tbody></table><p id="2078d968-54a6-80a2-a89f-fe4e6a9f3f51" class="">
+</p><p id="2078d968-54a6-80e9-9722-c778bc89a24d" class="">
+</p><p id="2078d968-54a6-80ed-a583-e0824c4b9c1a" class="">
+</p><p id="2078d968-54a6-8084-a17e-f7dd1fe7abbd" class="">
+</p><p id="2078d968-54a6-80ae-b8bb-dcdfc3ba7d67" class="">
+</p><h1 id="s12" class="">第12章：日志系统配置与项目监控（Logback + Spring Boot Actuator）</h1><blockquote id="2078d968-54a6-8089-b201-f4f1433d6209" class="">✅ 本章目标：<ul id="2078d968-54a6-80a0-ae6a-c4b19833d9ac" class="bulleted-list"><li style="list-style-type:disc">配置日志系统，区分输出级别（info/warn/error）</li></ul><ul id="2078d968-54a6-801c-a134-e616b18e3761" class="bulleted-list"><li style="list-style-type:disc">自定义日志格式（控制台 + 文件）</li></ul><ul id="2078d968-54a6-808b-bbaa-d8f804a42079" class="bulleted-list"><li style="list-style-type:disc">使用 Spring Boot Actuator 实现运行状态与健康检查</li></ul><ul id="2078d968-54a6-807e-8029-e8d7e5f52c93" class="bulleted-list"><li style="list-style-type:disc">🌟 拓展：企业中日志设计经验 + 面试问题准备</li></ul><ul id="2078d968-54a6-8024-8a96-dcdd54546d2c" class="bulleted-list"><li style="list-style-type:disc">📌 所有配置含注释，助你构建稳健、可观测的系统基础设施</li></ul></blockquote><hr id="2078d968-54a6-8088-a006-c65c8b973ddc"/><h2 id="2078d968-54a6-8009-be3f-e49d3da7e799" class="">1. 为什么日志与监控很重要？</h2><table id="2078d968-54a6-80f5-983a-cbcd93f8b4a0" class="simple-table"><tbody><tr id="2078d968-54a6-807c-bd93-fba0b81e5e12"><td id="bUIA" class="">项目</td><td id="L^WJ" class="">作用</td></tr><tr id="2078d968-54a6-8062-ab63-ffc7fe91c315"><td id="bUIA" class="">日志系统</td><td id="L^WJ" class="">记录系统运行状态、追踪 Bug、输出审计信息</td></tr><tr id="2078d968-54a6-80ca-8ecb-eaa7a7ed8de9"><td id="bUIA" class="">运行监控</td><td id="L^WJ" class="">实时观察系统健康状况、资源占用、服务活跃度</td></tr></tbody></table><p id="2078d968-54a6-80e4-bcf3-c12c80b0d11c" class="">📌 日志是后端项目中<strong>调试、测试、排错、运营监控</strong>不可或缺的一环。</p><hr id="2078d968-54a6-8011-b87e-c4eb224e94ab"/><h2 id="2078d968-54a6-809b-b9c2-de53ce37f459" class="">2. Spring Boot 默认使用 Logback（日志系统）</h2><p id="2078d968-54a6-80b2-be5f-c1bce6139f4c" class="">Spring Boot 默认内置 Logback 日志系统，支持控制台输出、文件输出、多级别设置。</p><hr id="2078d968-54a6-803f-ad74-dea31f4911f1"/><h2 id="2078d968-54a6-8046-b7df-eb2e1642f510" class="">3. 日志级别与默认格式说明</h2><table id="2078d968-54a6-80a2-bbaf-c0eeeb3f7f18" class="simple-table"><tbody><tr id="2078d968-54a6-80e3-b16b-c94999b17040"><td id="fudc" class="">日志级别</td><td id="AwVI" class="">说明</td><td id="LDUc" class="">使用场景</td></tr><tr id="2078d968-54a6-80b0-8cca-c1a82e12486a"><td id="fudc" class="">TRACE</td><td id="AwVI" class="">追踪（最详细）</td><td id="LDUc" class="">仅开发调试时使用</td></tr><tr id="2078d968-54a6-8038-850e-cf7dadfd8284"><td id="fudc" class="">DEBUG</td><td id="AwVI" class="">调试信息</td><td id="LDUc" class="">输出变量值等细节</td></tr><tr id="2078d968-54a6-80d7-a1b9-c291e1b1d887"><td id="fudc" class="">INFO</td><td id="AwVI" class="">正常运行消息</td><td id="LDUc" class="">推荐业务日志</td></tr><tr id="2078d968-54a6-8054-b9c2-e95636b72775"><td id="fudc" class="">WARN</td><td id="AwVI" class="">警告信息</td><td id="LDUc" class="">潜在问题提示</td></tr><tr id="2078d968-54a6-8037-a587-f4879c7d80ba"><td id="fudc" class="">ERROR</td><td id="AwVI" class="">错误信息</td><td id="LDUc" class="">异常、严重错误</td></tr></tbody></table><p id="2078d968-54a6-8090-b1fe-c596ec7cb250" class="">📌 默认只输出 <code>INFO</code> 及以上级别日志。</p><hr id="2078d968-54a6-80b3-a74a-d373f360df30"/><h2 id="2078d968-54a6-80d6-8cd1-d781e9f323dc" class="">4. 配置日志输出路径与级别</h2><p id="2078d968-54a6-8035-95e2-ea5d8d6bece2" class="">编辑 <code>application.yml</code>：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-807a-ac4e-dd99f3bcc521" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">yaml
+
+logging:
+  level:
+    root: info # 全局默认级别
+    com.example.demo: debug # 指定包级别
+
+  file:
+    name: logs/app.log # 文件名（默认路径为项目目录）
+
+</code></pre><p id="2078d968-54a6-8042-87cb-d2ac43057406" class="">✅ 日志将同时输出到控制台 + 文件（logs/app.log）</p><hr id="2078d968-54a6-80ea-98fe-c8fef99b1e40"/><h2 id="2078d968-54a6-8083-aae1-fd84e4737684" class="">5. 自定义日志格式（logback-spring.xml）</h2><p id="2078d968-54a6-8074-80cc-f8c6a6fd0e49" class="">在 <code>resources/</code> 目录下新建文件：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80d0-a8f9-c33c4f6ab4ed" class="code"><code class="language-XML" style="white-space:pre-wrap;word-break:break-all">xml
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;configuration&gt;
+
+  &lt;property name=&quot;LOG_PATH&quot; value=&quot;logs&quot;/&gt;
+  &lt;property name=&quot;FILE_NAME&quot; value=&quot;app&quot;/&gt;
+
+  &lt;!-- 控制台输出 --&gt;
+  &lt;appender name=&quot;Console&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;&gt;
+    &lt;encoder&gt;
+      &lt;pattern&gt;
+        %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+      &lt;/pattern&gt;
+    &lt;/encoder&gt;
+  &lt;/appender&gt;
+
+  &lt;!-- 文件输出 --&gt;
+  &lt;appender name=&quot;File&quot; class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+    &lt;file&gt;${LOG_PATH}/${FILE_NAME}.log&lt;/file&gt;
+    &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;&gt;
+      &lt;fileNamePattern&gt;${LOG_PATH}/${FILE_NAME}.%d{yyyy-MM-dd}.log&lt;/fileNamePattern&gt;
+      &lt;maxHistory&gt;7&lt;/maxHistory&gt; &lt;!-- 保留最近7天日志 --&gt;
+    &lt;/rollingPolicy&gt;
+    &lt;encoder&gt;
+      &lt;pattern&gt;
+        %d{HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n
+      &lt;/pattern&gt;
+    &lt;/encoder&gt;
+  &lt;/appender&gt;
+
+  &lt;!-- 根日志级别设置 --&gt;
+  &lt;root level=&quot;info&quot;&gt;
+    &lt;appender-ref ref=&quot;Console&quot;/&gt;
+    &lt;appender-ref ref=&quot;File&quot;/&gt;
+  &lt;/root&gt;
+
+&lt;/configuration&gt;
+
+</code></pre><p id="2078d968-54a6-801f-a3b8-e2983f3b6fa4" class="">📌 文件名必须为 <code>logback-spring.xml</code>，否则 Spring Boot 不自动加载。</p><hr id="2078d968-54a6-8098-88be-db65c5fc8717"/><h2 id="2078d968-54a6-80b0-af22-da538289ca01" class="">6. 编程方式输出日志</h2><p id="2078d968-54a6-80e9-8ba4-fd7679590998" class="">在任何类中都可使用：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-803e-a15c-c2f5dcba7784" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+
+private static final Logger logger = LoggerFactory.getLogger(MyClass.class);
+
+logger.info(&quot;正常日志：业务操作成功&quot;);
+logger.warn(&quot;警告日志：数据不一致&quot;);
+logger.error(&quot;错误日志：出现异常&quot;, e);
+
+</code></pre><p id="2078d968-54a6-8000-abe4-c2c7f265e8e9" class="">✅ 推荐只使用 <code>info/warn/error</code> 三种级别。</p><hr id="2078d968-54a6-804d-aa62-f24e6a58781f"/><h2 id="2078d968-54a6-809a-bd69-f97f2c6d61c9" class="">📦 7. 项目运行状态监控：Actuator</h2><hr id="2078d968-54a6-805a-9ff0-c965d96113cd"/><h3 id="2078d968-54a6-80cf-a63e-f15c2ef041b4" class="">✅ 引入依赖</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-800e-a30f-ca3402cc32bc" class="code"><code class="language-XML" style="white-space:pre-wrap;word-break:break-all">xml
+
+&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+&lt;/dependency&gt;
+
+</code></pre><hr id="2078d968-54a6-802b-8fee-c50802131b93"/><h3 id="2078d968-54a6-805f-8902-cb54a19a9667" class="">✅ 配置开启哪些监控端点：</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8056-aefd-dd8ce7016f88" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">
+yaml
+agement:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, env
+
+  endpoint:
+    health:
+      show-details: always
+
+</code></pre><hr id="2078d968-54a6-80d1-84a4-eaeae84f5408"/><h3 id="2078d968-54a6-805b-bcfd-ece93bafeaa4" class="">📌 可用接口示例：</h3><table id="2078d968-54a6-80a0-9480-d286330b5327" class="simple-table"><tbody><tr id="2078d968-54a6-8076-a66d-ec68b634e086"><td id="y|~m" class="">地址</td><td id="LDXg" class="">功能说明</td></tr><tr id="2078d968-54a6-80e0-adda-df5620aa7b24"><td id="y|~m" class=""><code>/actuator/health</code></td><td id="LDXg" class="">系统健康检查（可配置细节）</td></tr><tr id="2078d968-54a6-807c-9845-ccec998829b3"><td id="y|~m" class=""><code>/actuator/info</code></td><td id="LDXg" class="">项目版本、描述等</td></tr><tr id="2078d968-54a6-804d-a85d-db181250b77d"><td id="y|~m" class=""><code>/actuator/metrics</code></td><td id="LDXg" class="">查看 JVM、内存、请求等指标</td></tr><tr id="2078d968-54a6-80aa-a132-f627db49d6cd"><td id="y|~m" class=""><code>/actuator/env</code></td><td id="LDXg" class="">查看当前环境变量</td></tr></tbody></table><hr id="2078d968-54a6-808a-9c17-d4415f772806"/><h3 id="2078d968-54a6-808f-b18f-c6c0b66bd4f9" class="">✅ 示例 info 配置（显示项目信息）</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80f7-9828-e1242f240c6f" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">yaml
+
+info:
+  app:
+    name: SpringBoot示例
+    version: 1.0.0
+
+</code></pre><p id="2078d968-54a6-80d0-aee3-d7958c918911" class="">输出结果：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-805e-8a3d-c9874d60957b" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">json
+
+{
+  &quot;app&quot;: {
+    &quot;name&quot;: &quot;SpringBoot示例&quot;,
+    &quot;version&quot;: &quot;1.0.0&quot;
+  }
+}
+
+</code></pre><hr id="2078d968-54a6-805c-a79c-f64e82a48d9d"/><h2 id="2078d968-54a6-80d2-ba39-f5476c632834" class="">🧠 面试强化问题</h2><hr id="2078d968-54a6-807a-becf-fe0a32aa311f"/><h3 id="2078d968-54a6-80c2-89f7-ddec29d4bc2c" class="">❓ Q1：如何配置日志系统使其便于生产排查？</h3><p id="2078d968-54a6-806f-8daa-d8908f34d9bd" class="">✅ 回答要点：</p><blockquote id="2078d968-54a6-8094-84ea-c0fa09d89b9a" class="">设置合理的日志级别（默认 info）控制台 + 文件同时输出保留 7~14 天滚动日志关键操作打日志（登录、下单、异常等）</blockquote><hr id="2078d968-54a6-80e4-a573-f7061b00f0a3"/><h3 id="2078d968-54a6-80f7-bbaa-f5cf1dce7324" class="">❓ Q2：Spring Boot Actuator 有什么作用？</h3><p id="2078d968-54a6-8066-9848-c03f2ce9c581" class="">✅ 回答要点：</p><blockquote id="2078d968-54a6-808f-9628-f442c4f46cfc" class="">它提供了一组预设的监控接口，可查看服务健康、环境变量、运行指标，便于系统自动化监控与运维（如 Prometheus、Kibana 配合使用）。</blockquote><hr id="2078d968-54a6-80c5-a02f-c32a38772d6a"/><h3 id="2078d968-54a6-8043-8f01-ebc7cf8e130a" class="">❓ Q3：生产环境中如何控制日志大小？</h3><p id="2078d968-54a6-807f-94f8-e56cf5e8ae11" class="">✅ 回答要点：</p><blockquote id="2078d968-54a6-8080-b9f2-ca4997b98b66" class="">使用 Logback 的 RollingFileAppender 策略，设置每日滚动或大小滚动，并限定最大保留天数（如 maxHistory=7）。</blockquote><hr id="2078d968-54a6-806d-9f30-de018511f9e4"/><h2 id="2078d968-54a6-80ba-a885-e4e13c5991f1" class="">📚 小结回顾</h2><table id="2078d968-54a6-8040-a70a-c58ec654bbc4" class="simple-table"><tbody><tr id="2078d968-54a6-8055-9eae-cf1a19c0ee3b"><td id="Pnyb" class="">知识点</td><td id="VPOU" class="">内容说明</td></tr><tr id="2078d968-54a6-8076-acb0-e77bb2f98918"><td id="Pnyb" class="">日志级别</td><td id="VPOU" class="">info/warn/error 常用</td></tr><tr id="2078d968-54a6-8005-8727-c3f93877b2eb"><td id="Pnyb" class="">日志配置方式</td><td id="VPOU" class=""><code>application.yml</code> or <code>logback-spring.xml</code></td></tr><tr id="2078d968-54a6-80a5-a463-d8d904e956db"><td id="Pnyb" class="">文件输出策略</td><td id="VPOU" class="">时间滚动、大小滚动、保留天数</td></tr><tr id="2078d968-54a6-806a-8871-f98a2b491420"><td id="Pnyb" class="">Spring Boot Actuator</td><td id="VPOU" class="">启用后自动暴露服务运行状态接口</td></tr><tr id="2078d968-54a6-80a3-9720-f372664ef169"><td id="Pnyb" class="">常用端点</td><td id="VPOU" class=""><code>/health</code>, <code>/info</code>, <code>/metrics</code>, <code>/env</code></td></tr><tr id="2078d968-54a6-80af-9c41-fffb5304106e"><td id="Pnyb" class="">实战建议</td><td id="VPOU" class="">日志和监控必须落地，运维前提</td></tr></tbody></table><p id="2078d968-54a6-8043-9acb-f392e6b3c26d" class="">
+</p><p id="2078d968-54a6-8091-8494-cbf6d67e391e" class="">
+</p><p id="2078d968-54a6-803d-991c-de9b2faae958" class="">
+</p><p id="2078d968-54a6-8031-816f-e7cb2d8cdd6e" class="">
+</p><p id="2078d968-54a6-8081-8793-dfa76161ed75" class="">
+</p><p id="2078d968-54a6-80f8-8763-fffce77af5ef" class="">
+</p><h1 id="s13" class="">第13章：文件上传与下载接口实现（含图片/文档/头像处理）</h1><blockquote id="2078d968-54a6-804a-b02c-e4c969286b22" class="">✅ 本章目标：<ul id="2078d968-54a6-80f3-99df-e628ee6252a3" class="bulleted-list"><li style="list-style-type:disc">实现单个/多个文件上传接口</li></ul><ul id="2078d968-54a6-807c-bc54-cb1310ce9981" class="bulleted-list"><li style="list-style-type:disc">支持上传图片、PDF、Excel 等格式</li></ul><ul id="2078d968-54a6-807f-bbdc-d610a3ef725a" class="bulleted-list"><li style="list-style-type:disc">实现文件下载接口，支持前端点击保存</li></ul><ul id="2078d968-54a6-8090-b642-c48ebf70d5fd" class="bulleted-list"><li style="list-style-type:disc">实现文件保存到本地磁盘或服务器目录</li></ul><ul id="2078d968-54a6-8046-8b24-e755eec3f330" class="bulleted-list"><li style="list-style-type:disc">🌟 拓展：接口安全、防止文件攻击 + 面试题</li></ul><ul id="2078d968-54a6-8038-ab37-c590e12a3011" class="bulleted-list"><li style="list-style-type:disc">📌 所有代码配注释，含上传验证逻辑与异常处理</li></ul></blockquote><hr id="2078d968-54a6-802c-ba18-ccc87b4fd417"/><h2 id="2078d968-54a6-8068-a102-ed9ce7263962" class="">1. 文件上传的基本流程（Multipart）</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-800a-9ef7-f69dabda1484" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">
+
+前端选择文件 → 构建 Multipart 表单请求 → 后端使用 @RequestParam MultipartFile 接收 → 保存文件
+
+</code></pre><p id="2078d968-54a6-80ca-a0af-d9bf7762545b" class="">Spring Boot 原生支持 <code>multipart/form-data</code> 文件上传格式。</p><hr id="2078d968-54a6-8019-8b3f-f243661f589c"/><h2 id="2078d968-54a6-80e1-838e-eaf5c7222c4e" class="">2. 开启文件上传支持（默认已开启）</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80c8-9787-e6e743bff9b6" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">yaml
+
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 20MB
+
+</code></pre><p id="2078d968-54a6-8081-a482-c66c80973938" class="">📌 <code>max-file-size</code> 是单个文件限制，<code>max-request-size</code> 是所有文件合并大小。</p><hr id="2078d968-54a6-80af-8fcd-ee5278d751f9"/><h2 id="2078d968-54a6-8026-8934-c566b91bafde" class="">3. 实现文件上传接口（支持保存本地）</h2><hr id="2078d968-54a6-80d3-b3a1-c4fa7c1cc1e5"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8082-878f-ddf68c5c1bc8" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+
+@RestController
+@RequestMapping(&quot;/file&quot;)
+public class FileController {
+
+    // 上传目录（可写死，也可通过配置注入）
+    private static final String UPLOAD_DIR = &quot;uploads/&quot;;
+
+    @PostMapping(&quot;/upload&quot;)
+    public Result&lt;?&gt; upload(@RequestParam(&quot;file&quot;) MultipartFile file) {
+        // 判断文件是否为空
+        if (file.isEmpty()) {
+            return Result.error(&quot;上传文件不能为空&quot;);
+        }
+
+        // 获取原始文件名
+        String fileName = file.getOriginalFilename();
+
+        // 设置保存路径（当前项目下）
+        File dest = new File(UPLOAD_DIR + fileName);
+
+        try {
+            file.transferTo(dest); // 保存文件到指定路径
+            return Result.success(&quot;上传成功，文件名：&quot; + fileName);
+        } catch (IOException e) {
+            return Result.error(&quot;上传失败：&quot; + e.getMessage());
+        }
+    }
+}
+
+</code></pre><p id="2078d968-54a6-80ee-ad7c-d60ca0b43ab9" class="">✅ 接口测试：</p><ul id="2078d968-54a6-801e-9be2-c40185b0c3bf" class="bulleted-list"><li style="list-style-type:disc">使用 Postman 设置 <code>form-data</code></li></ul><ul id="2078d968-54a6-80b8-a86a-fc04ac841b7a" class="bulleted-list"><li style="list-style-type:disc">key 为 <code>file</code>，value 选择任意文件</li></ul><hr id="2078d968-54a6-8084-84bd-f19ede646fe1"/><h2 id="2078d968-54a6-805d-a2d4-eec83c59bbd7" class="">4. 实现文件下载接口（支持前端保存）</h2><hr id="2078d968-54a6-8023-ab45-e2285228fd84"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80a1-9b11-ecff61d8cff7" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+
+@GetMapping(&quot;/download&quot;)
+public void download(@RequestParam String filename, HttpServletResponse response) {
+    File file = new File(UPLOAD_DIR + filename);
+
+    if (!file.exists()) {
+        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        return;
+    }
+
+    // 设置响应头
+    response.setContentType(&quot;application/octet-stream&quot;);
+    response.setHeader(&quot;Content-Disposition&quot;, &quot;attachment; filename=&quot; + filename);
+
+    try (InputStream in = new FileInputStream(file);
+         OutputStream out = response.getOutputStream()) {
+
+        byte[] buffer = new byte[1024];
+        int len;
+
+        while ((len = in.read(buffer)) != -1) {
+            out.write(buffer, 0, len);
+        }
+
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
+</code></pre><p id="2078d968-54a6-8022-a287-e0a16d8c6d26" class="">📌 前端点击链接：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80b4-bb09-cb48ee3ce038" class="code"><code class="language-HTML" style="white-space:pre-wrap;word-break:break-all">html
+
+&lt;a href=&quot;/file/download?filename=example.jpg&quot; download&gt;下载文件&lt;/a&gt;
+
+5. 安全性建议（防止路径穿越等攻击）</code></pre><hr id="2078d968-54a6-8039-b441-fb6104dcc48a"/><p id="2078d968-54a6-804f-b2ec-c0c04c4f5194" class="">✅ 校验文件名合法性：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-805b-bcd0-ef806df400cb" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+
+if (filename.contains(&quot;..&quot;)) {
+    throw new RuntimeException(&quot;非法路径名&quot;);
+}
+
+</code></pre><p id="2078d968-54a6-80e6-bf11-f290af04e6c0" class="">✅ 限制上传类型（通过后缀）：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8093-9dad-d392e4a93d4c" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+
+if (!fileName.endsWith(&quot;.jpg&quot;) &amp;&amp; !fileName.endsWith(&quot;.png&quot;)) {
+    return Result.error(&quot;仅支持 JPG/PNG 格式&quot;);
+}
+
+</code></pre><p id="2078d968-54a6-80ba-94f3-f19b85c79941" class="">✅ 上传文件名防重复：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-809e-9cce-eb9120192695" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+
+String uniqueName = UUID.randomUUID() + &quot;_&quot; + fileName;
+
+</code></pre><hr id="2078d968-54a6-80e9-9ce3-f617475d3760"/><h2 id="2078d968-54a6-8060-b6ee-dcd76827136b" class="">6. 多文件上传示例（多个图片/文档）</h2><hr id="2078d968-54a6-8066-bbc9-fcf5ff987f9c"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80fc-aa38-eb63d31eab51" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">java
+
+@PostMapping(&quot;/upload-multiple&quot;)
+public Result&lt;?&gt; uploadMultiple(@RequestParam(&quot;files&quot;) MultipartFile[] files) {
+    List&lt;String&gt; uploaded = new ArrayList&lt;&gt;();
+
+    for (MultipartFile file : files) {
+        if (!file.isEmpty()) {
+            String fileName = file.getOriginalFilename();
+            try {
+                file.transferTo(new File(UPLOAD_DIR + fileName));
+                uploaded.add(fileName);
+            } catch (IOException e) {
+                return Result.error(&quot;部分上传失败：&quot; + fileName);
+            }
+        }
+    }
+
+    return Result.success(&quot;上传成功：&quot; + uploaded);
+}
+
+</code></pre><hr id="2078d968-54a6-809d-887c-ec6eff2b61a0"/><h2 id="2078d968-54a6-807a-9042-c98d524b58db" class="">🧠 面试强化问题</h2><hr id="2078d968-54a6-80a6-a149-d06e940c4fc3"/><h3 id="2078d968-54a6-8014-be82-da1eb52917f5" class="">❓ Q1：Spring Boot 是如何接收上传文件的？</h3><p id="2078d968-54a6-8021-8246-e00cd4d967ea" class="">✅ 回答要点：</p><blockquote id="2078d968-54a6-80b9-9535-e0fc06e2f8b2" class="">Spring Boot 基于 MultipartResolver 自动识别上传类型，使用 @RequestParam MultipartFile file 注入上传文件，底层通过 CommonsMultipartResolver 实现。</blockquote><hr id="2078d968-54a6-8084-ae8f-c2216960247e"/><h3 id="2078d968-54a6-80bf-a82c-d394a767095c" class="">❓ Q2：如何防止用户上传非法文件导致服务器攻击？</h3><p id="2078d968-54a6-805f-8dbf-fab06aaf9969" class="">✅ 拓展建议：</p><blockquote id="2078d968-54a6-804e-886b-c05c8d2d817d" class="">限制文件大小（配置）校验文件扩展名（白名单）防止文件名路径穿越攻击（校验 ../）使用 UUID 重命名上传文件，避免覆盖原有文件</blockquote><hr id="2078d968-54a6-8047-9d82-ead9e58e9b43"/><h3 id="2078d968-54a6-803e-b518-f41243ca9b12" class="">❓ Q3：文件上传时如何保存到对象存储（如阿里 OSS）？</h3><p id="2078d968-54a6-80b5-87ae-c0addea31a09" class="">✅ 回答要点：</p><blockquote id="2078d968-54a6-80be-9152-ed0dd9d56d56" class="">上传文件后不保存在本地磁盘，而是通过 SDK 调用阿里云 OSS、腾讯 COS 或 AWS S3 接口上传字节流，提升可扩展性与安全性。</blockquote><hr id="2078d968-54a6-80e7-adc7-da5efd5fb2a8"/><h2 id="2078d968-54a6-805f-8181-f0434396c32e" class="">📚 小结回顾</h2><table id="2078d968-54a6-8033-93c6-ee8a680c361c" class="simple-table"><tbody><tr id="2078d968-54a6-804a-a16f-de1258e9964c"><td id="@&lt;]=" class="">功能点</td><td id="RCKU" class="">说明</td></tr><tr id="2078d968-54a6-80ad-9b9c-f6816288596a"><td id="@&lt;]=" class="">单文件上传</td><td id="RCKU" class="">使用 <code>MultipartFile file</code> 接收</td></tr><tr id="2078d968-54a6-804c-8abb-ff8595044083"><td id="@&lt;]=" class="">多文件上传</td><td id="RCKU" class="">使用 <code>MultipartFile[] files</code> 接收</td></tr><tr id="2078d968-54a6-80dd-aafe-f53c29b147dd"><td id="@&lt;]=" class="">文件保存位置</td><td id="RCKU" class="">本地磁盘或远程对象存储</td></tr><tr id="2078d968-54a6-80ef-ade6-ed3f79be79bc"><td id="@&lt;]=" class="">文件下载接口</td><td id="RCKU" class="">通过 <code>HttpServletResponse</code> 实现</td></tr><tr id="2078d968-54a6-8054-a8d0-ceb28c62bb73"><td id="@&lt;]=" class="">安全建议</td><td id="RCKU" class="">防路径穿越、类型校验、大小限制</td></tr></tbody></table></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

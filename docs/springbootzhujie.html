@@ -1,0 +1,816 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>🌟 Spring Boot 注解大全（超级详细完整版）</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2078d968-54a6-8071-adef-db0b3fd83ff6" class="page sans"><header><h1 class="page-title">🌟 Spring Boot 注解大全（超级详细完整版）</h1><p class="page-description"></p></header><div class="page-body"><h1 id="2078d968-54a6-8089-9288-c2180d18e5a0" class="">🧩 第一类：应用入口注解</h1><hr id="2078d968-54a6-808e-9b5a-e0660743bc2a"/><h3 id="2078d968-54a6-808c-a710-de59b988838d" class="">1. <code>@SpringBootApplication</code></h3><h3 id="2078d968-54a6-80c2-b39a-c4de25593109" class="">✅ 定义与作用</h3><p id="2078d968-54a6-8076-909d-d688d108f6e9" class="">这是 Spring Boot 应用的核心注解，是一个<strong>组合注解</strong>，整合了以下三个注解：</p><ul id="2078d968-54a6-80f7-8a8f-ee8a7d115a1e" class="bulleted-list"><li style="list-style-type:disc"><code>@Configuration</code>：声明当前类是一个配置类，相当于一个 Spring 的 XML 配置文件；</li></ul><ul id="2078d968-54a6-8099-8ff5-c4218ae2898d" class="bulleted-list"><li style="list-style-type:disc"><code>@EnableAutoConfiguration</code>：启动 Spring Boot 的自动配置功能，根据当前项目的依赖情况自动配置应用；</li></ul><ul id="2078d968-54a6-808e-9857-e0b1056914d7" class="bulleted-list"><li style="list-style-type:disc"><code>@ComponentScan</code>：自动扫描当前类所在包及其子包下所有带注解的类（如 <code>@Controller</code>, <code>@Service</code> 等），并注册为 Spring Bean。</li></ul><h3 id="2078d968-54a6-8000-898b-ea437af9f593" class="">✅ 使用位置</h3><p id="2078d968-54a6-80dd-8575-ed0248f92152" class="">只能用于主类（程序启动入口）上。</p><h3 id="2078d968-54a6-80b3-9176-f03daaec6523" class="">✅ 实际示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-804a-81e7-e07dd2507a79" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">@SpringBootApplication
+public class MyApp {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApp.class, args);
+    }
+}
+</code></pre><h3 id="2078d968-54a6-80c9-b84a-e63032064943" class="">✅ 工作机制详解</h3><ul id="2078d968-54a6-8037-a7a4-f182532a8aff" class="bulleted-list"><li style="list-style-type:disc">Spring Boot 启动时，会从 <code>META-INF/spring.factories</code> 中加载所有自动配置类；</li></ul><ul id="2078d968-54a6-8009-b390-df79b59d443e" class="bulleted-list"><li style="list-style-type:disc">每个自动配置类上带有 <code>@Conditional</code> 系列注解，控制其是否启用（如是否存在某类、是否配置某属性等）；</li></ul><ul id="2078d968-54a6-80be-8b54-d0a2cabe2a9c" class="bulleted-list"><li style="list-style-type:disc">常见自动配置类如 <code>DataSourceAutoConfiguration</code>, <code>WebMvcAutoConfiguration</code> 等。</li></ul><h3 id="2078d968-54a6-8008-99f7-ce18259b89d0" class="">✅ 进阶应用</h3><p id="2078d968-54a6-809a-876b-f169bd4cba69" class="">可使用如下形式排除某些不需要的自动配置类：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-800b-bcf8-f75ba4366069" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+</code></pre><h3 id="2078d968-54a6-808d-b48e-c72840865ef8" class="">⚠️ 注意事项</h3><ul id="2078d968-54a6-8073-86de-e280afabc703" class="bulleted-list"><li style="list-style-type:disc">启动类一定要放在<strong>根包</strong>，以确保能扫描到所有子包的组件；</li></ul><ul id="2078d968-54a6-80ac-bac9-c5d070d35a91" class="bulleted-list"><li style="list-style-type:disc">自动配置不是万能的，有时需要我们手动补充配置；</li></ul><h3 id="2078d968-54a6-804f-b0aa-fd03371379eb" class="">❗常见误区</h3><table id="2078d968-54a6-8045-8733-f481527f4814" class="simple-table"><tbody><tr id="2078d968-54a6-80d4-9262-c5ce158510ca"><td id="SZ\[" class="">问题</td><td id="hvib" class="">错误示例</td><td id="eKZy" class="">正确说明</td></tr><tr id="2078d968-54a6-80d2-b2bb-e2e2b5f3eff1"><td id="SZ\[" class="">启动类放在子包</td><td id="hvib" class="">com.example.controller.App</td><td id="eKZy" class="">建议放在 com.example.MyApp</td></tr><tr id="2078d968-54a6-8010-b089-e777ece14d34"><td id="SZ\[" class="">忘记写注解</td><td id="hvib" class="">public class App { ... }</td><td id="eKZy" class="">必须加 <code>@SpringBootApplication</code> 才能使用自动配置</td></tr></tbody></table><h3 id="2078d968-54a6-80d8-9e24-e3daa2c438ac" class="">🎓 面试扩展问题</h3><blockquote id="2078d968-54a6-800c-ad92-f0b8e001c476" class="">Q1. @SpringBootApplication 内部都包含哪些注解？</blockquote><p id="2078d968-54a6-8094-8910-f61ad8bf97df" class="">答：包含 <code>@Configuration</code>, <code>@EnableAutoConfiguration</code>, <code>@ComponentScan</code>。</p><blockquote id="2078d968-54a6-8060-b8f5-c0bbf3810a5e" class="">Q2. 自动配置是如何实现的？</blockquote><p id="2078d968-54a6-80fd-93c0-cef37e5b7abb" class="">答：Spring Boot 利用 <code>spring.factories</code> 文件通过 SPI 机制加载自动配置类（如 <code>WebMvcAutoConfiguration</code>），这些类本质上是带有 <code>@Configuration</code> 的 Java 配置类，在特定条件下被激活。</p><blockquote id="2078d968-54a6-8020-b058-ea135200b0b0" class="">Q3. 如何禁止某些自动配置？</blockquote><p id="2078d968-54a6-80a2-82df-e3f49f50056f" class="">答：使用 <code>exclude</code> 参数或添加 <code>spring.autoconfigure.exclude</code> 属性。</p><hr id="2078d968-54a6-80f9-b659-fe38bd391f01"/><h2 id="2078d968-54a6-8034-bae3-c756ca0f246f" class="">🧩 第二类：组件注册注解</h2><h3 id="2078d968-54a6-80f5-bfe9-d43e6551777d" class="">2. <code>@Component</code></h3><h3 id="2078d968-54a6-8079-b9b8-ff4cca04a321" class="">✅ 定义</h3><p id="2078d968-54a6-8025-813b-ff504ddd50c4" class="">表示这是一个 Spring 管理的通用组件，最基础的注解形式。</p><h3 id="2078d968-54a6-806e-9577-dc3e19311782" class="">✅ 适用位置</h3><p id="2078d968-54a6-8076-82db-d3abf5fbcc5e" class="">用于类上，Spring 会自动将其加入 ApplicationContext 容器。</p><h3 id="2078d968-54a6-805b-aa55-f7473d6d2c9b" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80d0-a3ae-d98b559e48a3" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">@Component
+public class EmailSender {
+    public void send() {
+        System.out.println(&quot;Send email&quot;);
+    }
+}
+</code></pre><h3 id="2078d968-54a6-80c5-a002-ed1008aee95e" class="">✅ 说明</h3><p id="2078d968-54a6-8058-b3b0-d4489efb21d9" class="">所有其他如 <code>@Service</code>, <code>@Controller</code>, <code>@Repository</code> 都是 <code>@Component</code> 的语义化变种。</p><h3 id="2078d968-54a6-80b1-b6d0-cd393607c5bd" class="">🎓 面试拓展</h3><blockquote id="2078d968-54a6-80ee-adcd-e1fffc5c7719" class="">Q. @Component 和 @Bean 的区别？</blockquote><p id="2078d968-54a6-8092-bf5e-ec5b933480be" class="">答：<code>@Component</code> 注解是自动扫描的方式创建 Bean，<code>@Bean</code> 是通过 Java 配置类手动注册。</p><hr id="2078d968-54a6-80fd-b04e-f0a1a0d7dbf9"/><h3 id="2078d968-54a6-802b-8625-e4013b649937" class="">3. <code>@Service</code></h3><h3 id="2078d968-54a6-80d7-8a4b-c4682c9f9f76" class="">✅ 定义与作用</h3><p id="2078d968-54a6-809a-be3d-f0ca354ba95f" class="">表示这是业务逻辑层的组件，是 <code>@Component</code> 的语义化封装，主要用于标识 service 层的类。</p><h3 id="2078d968-54a6-8003-8988-fd5fa9a03032" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80ff-a2f1-e1f87139dc72" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">@Service
+public class OrderService {
+    public void placeOrder() {
+        // 下单逻辑
+    }
+}
+</code></pre><h3 id="2078d968-54a6-8022-8e5e-f0d47b964194" class="">✅ 区别说明</h3><p id="2078d968-54a6-8035-b720-dd4fc33052c8" class="">与 <code>@Component</code> 功能相同，但 <code>@Service</code> 语义更清晰，有助于分层架构识别。</p><h3 id="2078d968-54a6-80dc-8346-d9cbc8f8db00" class="">🎓 面试拓展</h3><blockquote id="2078d968-54a6-80dd-82cd-d661255f1bf6" class="">Q. @Service 注解的作用除了注册 Bean 外还有什么？</blockquote><p id="2078d968-54a6-800b-a08e-e37c4f9a67c8" class="">答：除了注册为 Spring Bean，还用于让开发者、工具、文档清楚地知道该类是“业务层”的组件，有利于开发规范和分层理解。</p><hr id="2078d968-54a6-809f-a5ea-f1ab7bc6a8fd"/><h3 id="2078d968-54a6-80b2-a337-f483f9f5ee00" class="">4. <code>@Repository</code></h3><h3 id="2078d968-54a6-80b6-ad1f-d5dcc9dfbdc4" class="">✅ 定义与作用</h3><p id="2078d968-54a6-8058-ad75-fec5081c7f74" class="">用于标识 DAO（数据访问对象）层的组件。Spring 会对其方法抛出的异常进行数据访问异常转换（封装为 <code>DataAccessException</code>）。</p><h3 id="2078d968-54a6-808e-b712-eddaa8c81761" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-807f-8244-d5d1226d1be6" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">@Repository
+public class UserRepository {
+    public void save(User user) {
+        // 数据库存储逻辑
+    }
+}
+</code></pre><h3 id="2078d968-54a6-8051-b47b-df411a4747ef" class="">✅ 异常处理说明</h3><p id="2078d968-54a6-80b5-9834-f9e1aa90916c" class="">在使用 Spring Data 或 JdbcTemplate 时，<code>@Repository</code> 能自动将底层 JDBC 异常转换成统一的 Spring 异常体系。</p><h3 id="2078d968-54a6-8073-ae87-d8631b8dc038" class="">🎓 面试拓展</h3><blockquote id="2078d968-54a6-80dc-800a-f0a0a26e07b2" class="">Q. @Repository 和 @Mapper 的区别？</blockquote><p id="2078d968-54a6-800d-8641-ea08ebfeccc1" class="">答：<code>@Repository</code> 是 Spring 的注解，适用于所有持久层组件；而 <code>@Mapper</code> 是 MyBatis 提供的注解，用于自动扫描映射接口。</p><hr id="2078d968-54a6-80f0-9367-cf35d733f195"/><h3 id="2078d968-54a6-80a6-b3c3-d0d5a7ed89f1" class="">5. <code>@Controller</code></h3><h3 id="2078d968-54a6-80cc-af16-de980d9065e0" class="">✅ 定义与作用</h3><p id="2078d968-54a6-800f-9519-e31e819969dc" class="">这是用于 MVC 控制层的注解，表示该类是前端控制器，用于返回视图（非 JSON 的页面）。</p><h3 id="2078d968-54a6-806b-bcbc-f9fa39875cd9" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-801c-9620-f9a528abdeb4" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">@Controller
+public class PageController {
+    @GetMapping(&quot;/hello&quot;)
+    public String hello() {
+        return &quot;hello.html&quot;;
+    }
+}
+</code></pre><h3 id="2078d968-54a6-8067-9012-f5ada39976f7" class="">✅ 注意事项</h3><p id="2078d968-54a6-8025-9927-cfe3ff946f5e" class="">如果希望方法返回 JSON 数据而不是页面内容，应改为使用 <code>@RestController</code>。</p><hr id="2078d968-54a6-801f-9dad-fb9722dbc8e0"/><h3 id="2078d968-54a6-80bd-933c-d8993621b087" class="">6. <code>@RestController</code></h3><h3 id="2078d968-54a6-8036-a65a-dcc6fe342b4d" class="">✅ 定义</h3><p id="2078d968-54a6-80fb-8cc8-d5dac7e09910" class="">组合注解，等价于 <code>@Controller + @ResponseBody</code>，返回结果直接作为 HTTP 响应体输出（通常为 JSON）。</p><h3 id="2078d968-54a6-8062-b126-e7fb105a1622" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8013-8ee5-e53f9ea7ea13" class="code"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">@RestController
+public class ApiController {
+    @GetMapping(&quot;/api/hello&quot;)
+    public String sayHello() {
+        return &quot;Hello, API&quot;;
+    }
+}
+</code></pre><h3 id="2078d968-54a6-80a8-a1ba-d68a3e2b722b" class="">🎓 面试拓展</h3><blockquote id="2078d968-54a6-8005-b54b-fb02bf6162e6" class="">Q. @Controller 和 @RestController 有什么区别？</blockquote><p id="2078d968-54a6-809c-9159-f487a927f615" class="">答：<code>@RestController</code> 的所有方法返回值都会自动进行序列化（如 JSON）；而 <code>@Controller</code> 通常返回视图，需要配合 <code>@ResponseBody</code> 使用才能返回数据。</p><p id="2078d968-54a6-8029-bc76-f99bdae3f3d0" class="">
+</p><h2 id="2078d968-54a6-80f0-a3ec-ce524df8a978" class="">🧩 第三类：依赖注入注解</h2><h3 id="2078d968-54a6-8048-b490-d9b0ec5b8c56" class="">7. <code>@Autowired</code></h3><h3 id="2078d968-54a6-80fc-8a22-f3cc5385bc37" class="">✅ 定义</h3><p id="2078d968-54a6-809a-b15b-e585e7b7f767" class=""><code>@Autowired</code> 是 Spring 提供的自动依赖注入注解，默认按类型注入。</p><h3 id="2078d968-54a6-80f8-916d-e1ca3aefdf65" class="">✅ 使用方式</h3><ul id="2078d968-54a6-8012-9df5-df530e7259ab" class="bulleted-list"><li style="list-style-type:disc">可以注解在<strong>字段</strong>、<strong>构造方法</strong>、<strong>Setter 方法</strong>、<strong>参数</strong>上。</li></ul><ul id="2078d968-54a6-80c7-9335-c5cdf142c680" class="bulleted-list"><li style="list-style-type:disc">默认情况下，字段必须在容器中存在，否则抛出异常。</li></ul><h3 id="2078d968-54a6-80f3-9f65-db08b0b060bc" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8067-8548-f8b5a0de3329" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@Autowired
+private UserService userService;</code></pre><h3 id="2078d968-54a6-80de-840e-da41985bc9ab" class="">✅ 构造器注入</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-807a-aeb3-e7ff5ef1c1c6" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@Autowired
+public MyController(UserService userService) {
+    this.userService = userService;
+}</code></pre><h3 id="2078d968-54a6-800c-ae90-db02661938c3" class="">✅ 可选注入</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80ab-b570-dc75c5ecb1b8" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@Autowired(required = false)
+private SomeService optionalService;</code></pre><h3 id="2078d968-54a6-80fc-a213-ea6fd22723d1" class="">🎓 面试拓展</h3><blockquote id="2078d968-54a6-80c4-ba1c-c4a3f62fa7b1" class="">Q：为什么推荐构造方法注入？<br/>答：构造方法注入有利于测试和保证依赖不可变性（final 修饰），可以检测循环依赖。<br/></blockquote><hr id="2078d968-54a6-80a1-beab-e284b407da9a"/><h3 id="2078d968-54a6-80ef-93f2-e4484dcf70de" class="">8. <code>@Qualifier</code></h3><h3 id="2078d968-54a6-80e4-ba2e-f58f993ac074" class="">✅ 定义</h3><p id="2078d968-54a6-80a5-8a5d-dc46ae258f24" class="">配合 <code>@Autowired</code> 使用，按名称注入。</p><h3 id="2078d968-54a6-80c9-987c-f9b1af988fa9" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80c2-a26e-d2e785aa7c55" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@Autowired
+@Qualifier(&quot;userServiceImpl&quot;)
+private UserService userService;</code></pre><h3 id="2078d968-54a6-805c-8a8e-c3b853fafdf5" class="">🎓 面试拓展</h3><blockquote id="2078d968-54a6-8000-9af8-ec87272fd24b" class="">Q：什么时候用 @Qualifier？<br/>答：当有多个实现类时，@Autowired 无法判断注入哪个，此时使用 @Qualifier 指定 Bean 名称。<br/></blockquote><hr id="2078d968-54a6-80b9-8998-f26eb1797dd9"/><h3 id="2078d968-54a6-8067-b190-dcc1f003a5ad" class="">9. <code>@Resource</code></h3><h3 id="2078d968-54a6-80b1-864e-c0dff22c1883" class="">✅ 定义</h3><p id="2078d968-54a6-80eb-ae7b-cd678155b626" class="">JSR-250 提供的标准注解，默认按名称注入，找不到再按类型。</p><h3 id="2078d968-54a6-8054-97c7-eab930418155" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80e4-b4d4-e3d44ba554dd" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@Resource(name = &quot;userService&quot;)
+private UserService userService;</code></pre><h3 id="2078d968-54a6-8095-8f45-c50e5ed40610" class="">✅ 与 <code>@Autowired</code> 区别</h3><table id="2078d968-54a6-8062-9d27-ce017d3f47f7" class="simple-table"><tbody><tr id="2078d968-54a6-8018-87b3-f50c016c6a11"><td id="z&gt;dX" class="">特点</td><td id="=pF\" class="">@Autowired</td><td id="pfm|" class="">@Resource</td></tr><tr id="2078d968-54a6-8051-9e2b-e1f5782b50f8"><td id="z&gt;dX" class="">默认注入方式</td><td id="=pF\" class="">按类型</td><td id="pfm|" class="">按名称</td></tr><tr id="2078d968-54a6-80ca-b33b-d9467565ffaf"><td id="z&gt;dX" class="">是否为 Spring 原生</td><td id="=pF\" class="">是</td><td id="pfm|" class="">否（JSR 标准）</td></tr></tbody></table><hr id="2078d968-54a6-8050-ace9-fc0272937f63"/><h3 id="2078d968-54a6-8075-beb7-e8d79b75ad42" class="">10. <code>@Inject</code></h3><h3 id="2078d968-54a6-80a2-b84a-e427aedbd572" class="">✅ 定义</h3><p id="2078d968-54a6-80ec-966c-ea6177f59a8d" class="">JSR-330 提供的注解，功能类似 <code>@Autowired</code>。</p><h3 id="2078d968-54a6-809c-9928-e6f7048186f3" class="">✅ 注意事项</h3><ul id="2078d968-54a6-8067-a461-ef0142c01f75" class="bulleted-list"><li style="list-style-type:disc">与 <code>@Autowired</code> 类似，但不支持 Spring 的 <code>required=false</code> 属性。</li></ul><ul id="2078d968-54a6-80f9-9291-eb0e871ab410" class="bulleted-list"><li style="list-style-type:disc">用得较少，通常推荐使用 <code>@Autowired</code>。</li></ul><hr id="2078d968-54a6-8027-8851-f2e3f185017c"/><p id="2078d968-54a6-80c2-ad32-e6c64e61bf61" class="">
+</p><h2 id="2078d968-54a6-802f-a308-f9a36282293c" class="">🧩 第五类：Web 请求映射注解</h2><h3 id="2078d968-54a6-8048-bd42-d2daeeba260a" class="">15. <code>@RequestMapping</code></h3><h3 id="2078d968-54a6-801b-b3e6-d9791e329979" class="">✅ 定义</h3><p id="2078d968-54a6-803b-aeaf-f97fb615946f" class="">通用请求映射注解，可以用于类或方法上，支持 GET、POST、PUT、DELETE 等方法。</p><h3 id="2078d968-54a6-80d7-99bb-c9451a5e2dfc" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80db-88f6-fdd560fc89bb" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@RequestMapping(&quot;/api&quot;)
+public class ApiController {
+    @RequestMapping(value = &quot;/user&quot;, method = RequestMethod.GET)
+    public String getUser() {
+        return &quot;Tom&quot;;
+    }
+}</code></pre><h3 id="2078d968-54a6-8076-a216-d12de56142bb" class="">🎓 面试拓展</h3><blockquote id="2078d968-54a6-80e9-802a-fa9e631d0a75" class="">Q：如何实现 RESTful 风格的接口？</blockquote><p id="2078d968-54a6-809b-873f-f37afd0e315a" class="">答：使用 <code>@GetMapping</code>, <code>@PostMapping</code> 等组合注解更语义化。</p><hr id="2078d968-54a6-800c-ada5-c2eb002de29c"/><h3 id="2078d968-54a6-80ad-98a1-fbe35adcc4dc" class="">16. <code>@GetMapping</code>, <code>@PostMapping</code> 等</h3><h3 id="2078d968-54a6-8031-86dd-e8930fc879cb" class="">✅ 定义</h3><p id="2078d968-54a6-80de-8d0e-fad2526a21df" class="">是 <code>@RequestMapping</code> 的快捷注解，专用于具体 HTTP 方法。</p><h3 id="2078d968-54a6-8055-9364-e1df33175dd2" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8034-be54-f360af1e7670" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@GetMapping(&quot;/users&quot;)
+public List&lt;User&gt; getAll() { ... }
+
+@PostMapping(&quot;/users&quot;)
+public void createUser(@RequestBody User user) { ... }</code></pre><hr id="2078d968-54a6-801d-8de7-cefa6d98a399"/><h3 id="2078d968-54a6-8041-9a46-d51708f9e780" class="">17. <code>@PathVariable</code></h3><h3 id="2078d968-54a6-8009-bef6-d551e3a214c0" class="">✅ 定义</h3><p id="2078d968-54a6-80c1-a2c6-fae32256c2ef" class="">用于从 URI 路径中提取参数。</p><h3 id="2078d968-54a6-8002-9f24-d5be9f4dc1f5" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8014-998b-d1d9209c639f" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@GetMapping(&quot;/user/{id}&quot;)
+public User getById(@PathVariable(&quot;id&quot;) Long id) { ... }</code></pre><hr id="2078d968-54a6-8017-a0e4-c21ca6639c83"/><h3 id="2078d968-54a6-80e3-9788-dfffa28685ce" class="">18. <code>@RequestParam</code></h3><h3 id="2078d968-54a6-80e8-9f98-e1ea9790823c" class="">✅ 定义</h3><p id="2078d968-54a6-804b-91d7-ce0c5b0cb725" class="">获取 URL 查询参数，或表单参数。</p><h3 id="2078d968-54a6-8047-8216-ea26c63a5a2a" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80c3-8cd4-d2de8397802a" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@GetMapping(&quot;/search&quot;)
+public List&lt;User&gt; search(@RequestParam String keyword) { ... }</code></pre><hr id="2078d968-54a6-8069-9407-e7f23d1fd51d"/><h3 id="2078d968-54a6-806e-9bcd-f41f9c1493f7" class="">19. <code>@RequestBody</code></h3><h3 id="2078d968-54a6-80b4-886c-e7b3ba84ac09" class="">✅ 定义</h3><p id="2078d968-54a6-8012-a755-e646f8dd94a3" class="">将请求体（JSON）自动绑定到对象。</p><h3 id="2078d968-54a6-8059-a056-cfcf1a63edd7" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8025-a7e9-d3e40f34380f" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@PostMapping(&quot;/add&quot;)
+public void add(@RequestBody User user) { ... }</code></pre><h3 id="2078d968-54a6-8044-af7a-f7fbbf1cd283" class="">✅ 注意事项</h3><p id="2078d968-54a6-8064-91a6-e3ca7d118fe1" class="">只适用于 POST、PUT 等包含请求体的方法。</p><hr id="2078d968-54a6-806a-ab31-ed98fd220715"/><h3 id="2078d968-54a6-80f4-8732-eed14b49dc5e" class="">20. <code>@ResponseBody</code></h3><h3 id="2078d968-54a6-80e4-adc7-d709a07d4eea" class="">✅ 定义</h3><p id="2078d968-54a6-8005-bbfc-fa52b657e4b1" class="">返回值将直接作为 HTTP 响应体内容（通常为 JSON）。</p><h3 id="2078d968-54a6-8092-9c34-eb4f4a95c19b" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8080-938c-f1576b581973" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@ResponseBody
+@GetMapping(&quot;/time&quot;)
+public LocalDateTime getTime() {
+    return LocalDateTime.now();
+}</code></pre><hr id="2078d968-54a6-80c2-b773-fdb535c8d366"/><h3 id="2078d968-54a6-80ff-a653-f3d26acdcf1a" class="">21. <code>@CrossOrigin</code></h3><h3 id="2078d968-54a6-80b5-92a4-f45666fd52b1" class="">✅ 定义</h3><p id="2078d968-54a6-804e-b228-cdfe48fbaef6" class="">用于解决跨域请求问题。</p><h3 id="2078d968-54a6-80a4-a924-c025af80e5e1" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80a5-a4a8-efbb65df7f4c" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@CrossOrigin(origins = &quot;http://localhost:3000&quot;)
+@GetMapping(&quot;/data&quot;)
+public Data getData() { ... }</code></pre><hr id="2078d968-54a6-8012-bec9-eb46ca3f0314"/><h2 id="2078d968-54a6-800c-ba87-f83d6d5db16a" class="">🧩 第六类：生命周期注解</h2><h3 id="2078d968-54a6-80f0-8f95-c4df711b32d9" class="">22. <code>@PostConstruct</code></h3><h3 id="2078d968-54a6-806d-8fa7-d14141d99135" class="">✅ 定义</h3><p id="2078d968-54a6-805d-93f1-c91126f59367" class="">在 Bean 初始化完成后自动调用的方法。</p><h3 id="2078d968-54a6-8099-bda3-ee4771925fb9" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8067-b07a-dd7247791dcc" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@Component
+public class InitExample {
+    @PostConstruct
+    public void init() {
+        System.out.println(&quot;Bean 初始化完成后执行&quot;);
+    }
+}</code></pre><h3 id="2078d968-54a6-80a1-b432-f8a1ae8c6e6b" class="">✅ 使用场景</h3><ul id="2078d968-54a6-806e-998e-ed67aedff784" class="bulleted-list"><li style="list-style-type:disc">用于初始化数据、加载缓存、检查配置等。</li></ul><hr id="2078d968-54a6-8027-82a6-c0949ea0d24d"/><h3 id="2078d968-54a6-8035-b7a0-d88ca908a3b8" class="">23. <code>@PreDestroy</code></h3><h3 id="2078d968-54a6-80c0-b0ba-e06b41cf9be6" class="">✅ 定义</h3><p id="2078d968-54a6-80d9-9139-c04c8f5f85fd" class="">在 Spring 容器销毁前自动调用的方法。</p><h3 id="2078d968-54a6-803f-97cd-fff31280799c" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8001-9c75-c1b7c3911c36" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@PreDestroy
+public void destroy() {
+    System.out.println(&quot;容器销毁前执行清理操作&quot;);
+}</code></pre><h3 id="2078d968-54a6-808a-bb45-cbdea063cddb" class="">✅ 使用场景</h3><ul id="2078d968-54a6-8047-9d1a-ee57c5615911" class="bulleted-list"><li style="list-style-type:disc">资源清理、关闭连接池、释放线程等。</li></ul><hr id="2078d968-54a6-80f4-8e22-c3525337af9a"/><h2 id="2078d968-54a6-80ba-b481-c77f8eb729ba" class="">🧩 第七类：测试注解</h2><h3 id="2078d968-54a6-80ce-811e-d2125923d7f9" class="">24. <code>@SpringBootTest</code></h3><h3 id="2078d968-54a6-8065-a1dd-cd3a36517857" class="">✅ 定义</h3><p id="2078d968-54a6-8067-96b5-ce4974ffd424" class="">用于测试类上，启动完整 Spring Boot 上下文环境。</p><h3 id="2078d968-54a6-8029-9350-d4a63d9fc42f" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8034-9a73-e0a61bc8d43e" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@SpringBootTest
+public class MyAppTest {
+    @Autowired
+    private MyService service;
+}</code></pre><h3 id="2078d968-54a6-8025-b1f1-d6bc1ae5cd87" class="">🎓 面试拓展</h3><blockquote id="2078d968-54a6-80c3-8e10-c0c59886f6cc" class="">Q：它和 @WebMvcTest 的区别？</blockquote><p id="2078d968-54a6-80c2-9b8b-c5110c2086b7" class="">答：<code>@SpringBootTest</code> 加载整个应用，适合集成测试；<code>@WebMvcTest</code> 只加载 Controller。</p><hr id="2078d968-54a6-80b2-97c2-dbe78d2081a8"/><h3 id="2078d968-54a6-803e-87c8-dad5cf9eaf92" class="">25. <code>@WebMvcTest</code></h3><h3 id="2078d968-54a6-80c4-90f9-d034b13964ee" class="">✅ 定义</h3><p id="2078d968-54a6-8052-9930-f1cead29c7eb" class="">仅用于 Web 层测试（Controller），不加载 Service 和 Repository。</p><h3 id="2078d968-54a6-8058-bf82-f82243196198" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80ff-bf9e-db2ffb0e82e4" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@WebMvcTest(MyController.class)
+public class ControllerTest {
+    @Autowired
+    private MockMvc mockMvc;
+}</code></pre><hr id="2078d968-54a6-808d-8757-fd6f3dbc6c0d"/><h3 id="2078d968-54a6-800c-8d53-c9c515082368" class="">26. <code>@DataJpaTest</code></h3><h3 id="2078d968-54a6-809a-a95e-d86e9024940d" class="">✅ 定义</h3><p id="2078d968-54a6-80e0-8c14-cc6976e856e7" class="">仅加载 JPA 相关组件（Entity、Repository），用于测试持久层。</p><h3 id="2078d968-54a6-8043-b578-d3d03b0dadff" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8054-89da-eddb57951b45" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@DataJpaTest
+public class UserRepositoryTest {
+    @Autowired
+    private UserRepository repo;
+}</code></pre><hr id="2078d968-54a6-80c4-b25c-d6493bdbd22e"/><h2 id="2078d968-54a6-80d6-b082-f2aaad45cefe" class="">🧩 第八类：数据库相关注解</h2><h3 id="2078d968-54a6-805c-af3f-fd6a1ed81df3" class="">27. <code>@Mapper</code></h3><h3 id="2078d968-54a6-8096-b4c3-c99dc6397b67" class="">✅ 定义</h3><p id="2078d968-54a6-805a-a60a-d6d36a7d2652" class="">MyBatis 提供，表示该接口是 Mapper，供 MyBatis 自动实现。</p><h3 id="2078d968-54a6-8087-add8-e1b18cd19d91" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80d1-9f00-c6b2eb113059" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@Mapper
+public interface UserMapper {
+    @Select(&quot;SELECT * FROM users&quot;)
+    List&lt;User&gt; findAll();
+}</code></pre><hr id="2078d968-54a6-8016-942f-d9e6dcf7ee4e"/><h3 id="2078d968-54a6-8010-859f-fb762af72b5f" class="">28. <code>@Select</code>, <code>@Insert</code>, <code>@Update</code>, <code>@Delete</code></h3><h3 id="2078d968-54a6-80d2-8866-d07d0abc0b1a" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-801f-99a4-ccaed04e40cd" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@Select(&quot;SELECT * FROM users WHERE id = #{id}&quot;)
+User findById(int id);</code></pre><h3 id="2078d968-54a6-809a-8966-d03602aaadfa" class="">✅ 注意事项</h3><ul id="2078d968-54a6-80cd-bf24-c5ad0f4d0d6c" class="bulleted-list"><li style="list-style-type:disc">适合小型项目；</li></ul><ul id="2078d968-54a6-80c2-8775-ec50cd0446fc" class="bulleted-list"><li style="list-style-type:disc">大型系统推荐使用 XML 管理 SQL。</li></ul><hr id="2078d968-54a6-8065-b75c-c7663c8f4607"/><h3 id="2078d968-54a6-8024-bfc0-ea157c366ffe" class="">29. <code>@Entity</code></h3><h3 id="2078d968-54a6-809c-b98f-c3b369d6fbd3" class="">✅ 定义</h3><p id="2078d968-54a6-801d-aa40-dac2416710ef" class="">JPA 注解，标识该类为实体类。</p><h3 id="2078d968-54a6-802a-b282-e3372aafc701" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-801f-8519-c6222316d901" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@Entity
+public class User {
+    @Id
+    private Long id;
+    private String name;
+}</code></pre><hr id="2078d968-54a6-8057-9dcf-f4b1c35f9468"/><h3 id="2078d968-54a6-8069-99a3-cbe7ba55855a" class="">30. <code>@Table(name = &quot;user&quot;)</code></h3><h3 id="2078d968-54a6-8069-9761-d9485c62c9fe" class="">✅ 定义</h3><p id="2078d968-54a6-8056-8dd1-f985f9f34f2b" class="">设置实体对应的表名，若不设置默认类名小写。</p><hr id="2078d968-54a6-8005-8e63-d306a8ad9a87"/><h3 id="2078d968-54a6-8065-8952-fffbc4c3822d" class="">31. <code>@Id</code></h3><h3 id="2078d968-54a6-8079-810f-e37e703d49a9" class="">✅ 定义</h3><p id="2078d968-54a6-80e5-8188-e623c6d48d9d" class="">主键注解，用于标识主键字段。</p><hr id="2078d968-54a6-80c1-8307-c7d26cb4381b"/><h3 id="2078d968-54a6-8085-b9d0-f6b125bdf42e" class="">32. <code>@GeneratedValue</code></h3><h3 id="2078d968-54a6-80fe-98fc-e900b06c1d91" class="">✅ 定义</h3><p id="2078d968-54a6-808e-a2dc-d20679e91c8e" class="">主键生成策略，可选值：AUTO、IDENTITY、SEQUENCE、TABLE。</p><hr id="2078d968-54a6-8092-8cc9-f215dd132367"/><h2 id="2078d968-54a6-80ea-9fd9-d2cc42bf7a25" class="">🧩 第九类：AOP 注解</h2><h3 id="2078d968-54a6-8050-8a86-f568dee4830d" class="">33. <code>@Aspect</code></h3><h3 id="2078d968-54a6-80d3-80a9-e7ff95c66051" class="">✅ 定义</h3><p id="2078d968-54a6-80b3-81f3-e96b53e15493" class="">用于定义一个切面类，结合 <code>@Component</code> 使用。</p><h3 id="2078d968-54a6-803f-86cf-d0c35f09b717" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80ad-846c-ef7b04d93265" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@Aspect
+@Component
+public class LogAspect {
+    @Before(&quot;execution(* com.example..*Service.*(..))&quot;)
+    public void logBefore() {
+        System.out.println(&quot;执行前&quot;);
+    }
+}</code></pre><hr id="2078d968-54a6-804e-a18d-d9f77f771e27"/><h3 id="2078d968-54a6-8060-92b1-e2458caf7606" class="">34. <code>@Before</code>, <code>@After</code>, <code>@Around</code>, <code>@AfterReturning</code>, <code>@AfterThrowing</code></h3><h3 id="2078d968-54a6-80e8-b1c2-ebbe7152cf70" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8067-82d6-f6b36b3c3ccf" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@Before(&quot;execution(* com.example..*Service.*(..))&quot;)
+public void beforeAdvice() {}
+
+@Around(&quot;execution(* com.example..*Controller.*(..))&quot;)
+public Object aroundAdvice(ProceedingJoinPoint pjp) throws Throwable {
+    System.out.println(&quot;环绕前&quot;);
+    Object result = pjp.proceed();
+    System.out.println(&quot;环绕后&quot;);
+    return result;
+}</code></pre><hr id="2078d968-54a6-8093-a4f2-ddb66124651d"/><h2 id="2078d968-54a6-8088-8fc0-d37854593710" class="">🧩 第十类：条件配置注解</h2><h3 id="2078d968-54a6-8079-89f4-da5f53b6990f" class="">35. <code>@Conditional</code></h3><h3 id="2078d968-54a6-806b-b114-f0a7fe731445" class="">✅ 定义</h3><p id="2078d968-54a6-80fd-a2ae-cd2a01fb4899" class="">在特定条件下注册 Bean，通常与自定义条件类配合使用。</p><hr id="2078d968-54a6-8077-9b4c-ff71971c8598"/><h3 id="2078d968-54a6-80d1-856d-fcb4350d1642" class="">36. <code>@Profile</code></h3><h3 id="2078d968-54a6-8037-a1dc-e52f5a67201e" class="">✅ 定义</h3><p id="2078d968-54a6-8057-9eef-f3d94b8d7677" class="">根据环境变量激活指定配置。</p><h3 id="2078d968-54a6-80b3-89da-df5d4ad18534" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8004-bb70-c5b4e6458978" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@Profile(&quot;dev&quot;)
+@Bean
+public DataSource devDataSource() {
+    return new HikariDataSource();
+}</code></pre><hr id="2078d968-54a6-80d2-ad29-d62705e2adde"/><h2 id="2078d968-54a6-808a-90a2-e0394109cc5d" class="">🧩 第十一类：异步与定时注解</h2><h3 id="2078d968-54a6-802e-bb10-e9eb398225f6" class="">37. <code>@Async</code></h3><h3 id="2078d968-54a6-80ed-bfae-cc4d786550c9" class="">✅ 定义</h3><p id="2078d968-54a6-804c-a573-ce8db906fc88" class="">启用异步执行方法，需搭配 <code>@EnableAsync</code>。</p><hr id="2078d968-54a6-808c-a530-fee7f47c1213"/><h3 id="2078d968-54a6-80e4-a317-fe5492f97d3e" class="">38. <code>@Scheduled</code></h3><h3 id="2078d968-54a6-807f-8995-e79b59763948" class="">✅ 定义</h3><p id="2078d968-54a6-80ef-985a-cad0072389c9" class="">用于定时任务，支持 cron 表达式、fixedRate、fixedDelay。</p><h3 id="2078d968-54a6-8075-9e4c-f1bf89e4f57c" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-800d-8cf9-df1cd2c39208" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@Scheduled(cron = &quot;0 0 * * * ?&quot;) // 每小时执行一次
+public void task() {}</code></pre><hr id="2078d968-54a6-80b7-956f-f32731efb78c"/><h2 id="2078d968-54a6-80d8-89f7-ec6e91e8527a" class="">🧩 第十二类：Spring Security 注解</h2><h3 id="2078d968-54a6-80a1-a696-f9dcdf9d615f" class="">39. <code>@EnableWebSecurity</code></h3><h3 id="2078d968-54a6-80ce-a704-c7ce0545dea7" class="">✅ 定义</h3><p id="2078d968-54a6-80f1-b99a-f189f7e89c4f" class="">开启 Web 安全配置。</p><hr id="2078d968-54a6-80fe-b06f-ee177ade9930"/><h3 id="2078d968-54a6-80bb-ad32-eb4e2666363a" class="">40. <code>@PreAuthorize</code></h3><h3 id="2078d968-54a6-8044-8102-c374a9854185" class="">✅ 定义</h3><p id="2078d968-54a6-8028-add2-c0f1a93a731e" class="">方法执行前进行权限检查，基于表达式。</p><h3 id="2078d968-54a6-8064-872d-ddbb3263e7a6" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-80e3-b0bc-cf4fa1749bd1" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@PreAuthorize(&quot;hasRole(&#x27;ADMIN&#x27;)&quot;)
+public void deleteUser() {}</code></pre><hr id="2078d968-54a6-80b1-ab0f-e907d75f346a"/><h3 id="2078d968-54a6-806e-abf4-c3c229f3cd5b" class="">41. <code>@Secured</code></h3><h3 id="2078d968-54a6-8082-ad85-d03054ccb0d7" class="">✅ 定义</h3><p id="2078d968-54a6-8086-bcca-caf8c5292d99" class="">指定方法只允许某些角色访问。</p><h3 id="2078d968-54a6-80fc-92c9-d218bca34902" class="">✅ 示例</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8064-8cb1-c48fffd3c3f2" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@Secured(&quot;ROLE_USER&quot;)
+public void view() {}</code></pre><hr id="2078d968-54a6-8010-a726-d915e3b27ced"/><h2 id="2078d968-54a6-800b-a893-eb0fcf9b9b56" class="">🧩 第十三类：自定义注解（进阶）</h2><h3 id="2078d968-54a6-8022-8529-faacca936c66" class="">✅ 定义方式</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-801b-8b8b-e612f7cf2190" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface LogExecution {
+    String value() default &quot;&quot;;
+}</code></pre><h3 id="2078d968-54a6-8038-802e-cd68e637eb55" class="">✅ 配合切面使用</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2078d968-54a6-8070-be5a-dfbb8898cd6b" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">@Aspect
+@Component
+public class LogAspect {
+    @Before(&quot;@annotation(logExecution)&quot;)
+    public void before(LogExecution logExecution) {
+        System.out.println(&quot;日志注解内容：&quot; + logExecution.value());
+    }
+}</code></pre><hr id="2078d968-54a6-807f-8ea6-dd3521827b5c"/></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
