@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>前后端学习与开发资源导航</title>
+<style>
+    body {
+      font-family: "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fefefe;
+      color: #222;
+    }
+    header {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.6);
+      padding: 60px 20px 30px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      border-radius: 0 0 20px 20px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      color: #2f855a;
+      font-family: 'Georgia', 'Times New Roman', serif;
+      font-weight: normal;
+      letter-spacing: 2px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      border: 2px dashed #4caf50;
+      border-radius: 10px;
+      padding: 10px 20px;
+      background-color: rgba(255,255,255,0.6);
+      max-width: 85%;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+    nav {
+      background: #ffffff;
+      padding: 20px 10px;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+    nav ul {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    nav ul li a {
+      display: inline-block;
+      padding: 8px 16px;
+      border: 1px solid #ddd;
+      border-radius: 16px;
+      background-color: #fafafa;
+      color: #333;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+    }
+    nav ul li a:hover {
+      background-color: #4caf50;
+      color: #fff;
+      border-color: #4caf50;
+    }
+    main {
+      padding: 40px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    section {
+      background: #fff;
+      padding: 30px;
+      margin-bottom: 40px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    section h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+      border-left: 4px solid #4caf50;
+      padding-left: 10px;
+      color: #333;
+      max-width: 70%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    section ul {
+      padding-left: 1.2rem;
+      margin: 0;
+      max-width: 70%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    section li {
+      margin-bottom: 10px;
+      line-height: 1.8;
+    }
+    a {
+      color: #4caf50;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.8rem;
+      }
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+      }
+      nav ul li a {
+        width: 80%;
+        text-align: center;
+      }
+      main {
+        padding: 20px 15px;
+      }
+      section {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>前后端技术资源导航</h1>
+  </header>
+  <nav>
+    <ul>
+      <li><a href="#基础学习">基础学习</a></li>
+      <li><a href="#构建工具">构建工具</a></li>
+      <li><a href="#部署工具">部署工具</a></li>
+      <li><a href="#站点搭建工具">站点搭建工具</a></li>
+      <li><a href="#调试抓包工具">调试抓包工具</a></li>
+      <li><a href="#开发工具">开发工具</a></li>
+      <li><a href="#在线工具">在线工具</a></li>
+      <li><a href="#设计工具">设计工具</a></li>
+      <li><a href="#其他">其他</a></li>
+    </ul>
+  </nav>
+
+  <section id="基础学习">
+    <h2>基础学习</h2>
+    <ul>
+      <li><a href="http://www.w3school.com.cn/" target="_blank">W3School</a>：HTML、CSS、JavaScript、PHP、SQL 等主流技术。</li>
+      <li><a href="https://developer.mozilla.org/zh-CN/docs/Learn_web_development" target="_blank">MDN
+          Web开发学习</a>：HTML、CSS、JavaScript、API 等。</li>
+      <li><a href="https://www.runoob.com/" target="_blank">菜鸟教程</a>：编程语言、数据库、Web 开发等。</li>
+      <li><a href="https://www.codecademy.com/" target="_blank">Codecademy</a>：在线编程学习平台。</li>
+      <li><a href="https://lhammer.cn/You-need-to-know-css/#/zh-cn/" target="_blank">You Need to Know CSS</a>：CSS 的基本概念和动画技巧。</li>
+      <li><a href="https://github.com/chokcoco/CSS-Inspiration" target="_blank">CSS Inspiration</a>：CSS 设计灵感参考。</li>
+      <li><a href="https://wangdoc.com/javascript/" target="_blank">JavaScript 教程</a></li>
+      <li><a href="https://es6.ruanyifeng.com/#README" target="_blank">ES6 入门教程</a></li>
+      <li><a href="http://caibaojian.com/es6/" target="_blank">ES6 教程</a></li>
+      <li><a href="https://zh.javascript.info/" target="_blank">现代 JavaScript 教程</a></li>
+      <li><a href="https://nodejs.cn/#google_vignette" target="_blank">Node.js 中文网</a></li>
+      <li><a href="https://javascript.ruanyifeng.com/nodejs/basic.html" target="_blank">Node.js 教程</a></li>
+      <li><a href="https://cn.vuejs.org/" target="_blank">Vue.js 官方网站</a></li>
+      <li><a href="https://c.biancheng.net/mybatis/what-is-mybatis.html" target="_blank">MyBatis 教程</a></li>
+      <li><a
+          href="https://github.com/JERRY-Z-J-R/I-love-you-3-thousand/blob/master/%E6%88%91%E7%88%B1%E4%BD%A0%EF%BC%8C%E4%B8%8D%E6%AD%A2%E4%B8%89%E5%8D%83%E9%81%8D/JavaScript/09%E3%80%90%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E3%80%91/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md" target="_blank">javascript
+          教程-我爱你不止三千遍</a></li>
+      <li><a
+          href="https://javaguide.cn/system-design/framework/spring/spring-common-annotations.html" target="_blank">Spring&SpringBoot常用注解总结</a>
+      </li>
+      <li><a href="https://www.bootwiki.com/springboot/spring-boot-tomcat-deployment.html" target="_blank">SpringBoot 教程</a></li>
+      <li><a href="https://vue3.chengpeiquan.com/router.html" target="_blank">VUE 路由教程</a></li>
+      <li><a href="https://www.w3cschool.cn/pl_sql/pl_sql-53r23kdo.html" target="_blank">PL/SQL 教程</a></li>
+      <li><a href="https://www.w3cschool.cn/pl_sql/pl_sql-53r23kdo.html" target="_blank">GIT 教程</a></li>
+      <li><a href="https://www.runoob.com/linux/linux-tutorial.html" target="_blank">LINUXLINUX 教程</a></li>
+      <br>
+      <li><a href="https://www.csdn.net/" target="_blank">CSDN</a>：中文技术社区</li>
+      <li><a href="https://www.cnblogs.com/" target="_blank">博客园</a>：老牌技术社区</li>
+      <li><a href="https://juejin.cn/" target="_blank">掘金</a>：新兴技术社区</li>
+    </ul>
+  </section>
+
+  <section id="构建工具">
+    <h2>构建工具</h2>
+    <ul>
+      <li><a href="https://start.spring.io/" target="_blank">spring创建依赖 initiallizr</a></li>
+      <li><a href="https://vuetifyjs.com/zh-Hans/components/data-tables/basics/#section-4f7f7528" target="_blank">vuetify</a></li>
+      <li><a href="https://v5.bootcss.com/docs/getting-started/introduction/" target="_blank">Bootstrap</a></li>
+      <li><a href="https://www.npmjs.com/" target="_blank">NPM</a></li>
+      <li><a href="https://webpack.js.org/" target="_blank">Webpack</a></li>
+      <li><a href="https://www.gulpjs.com.cn/" target="_blank">Gulp</a></li>
+      <li><a href="https://babeljs.io/" target="_blank">Babel</a></li>
+      <li><a href="https://cn.eslint.org/" target="_blank">ESLint</a>：JavaScript 和 JSX 检查工具</li>
+      <li><a href="https://www.postcss.com.cn/" target="_blank">PostCSS</a>：转换 CSS 的工具</li>
+    </ul>
+  </section>
+
+  <section id="部署工具">
+    <h2>部署工具</h2>
+    <ul>
+      <li><a href="https://pages.github.com/" target="_blank">GitHub Pages</a>：GitHub 的免费静态网站托管服务</li>
+      <li><a href="https://www.netlify.com/" target="_blank">Netlify</a>：30 秒内部署你的网站</li>
+      <li><a href="https://vercel.com/" target="_blank">Vercel</a>：快速部署你的网站</li>
+      <li><a href="https://www.heroku.com/" target="_blank">Heroku</a>：云端构建、运行你的应用</li>
+    </ul>
+  </section>
+
+  <section id="站点搭建工具">
+    <h2>站点搭建工具</h2>
+    <ul>
+      <li><a href="https://hexo.io/zh-cn/" target="_blank">Hexo</a></li>
+      <li><a href="https://www.vuepress.cn/" target="_blank">VuePress</a></li>
+      <li><a href="https://www.gitbook.com/" target="_blank">GitBook</a></li>
+    </ul>
+  </section>
+
+  <section id="调试抓包工具">
+    <h2>调试抓包工具</h2>
+    <ul>
+      <li><a href="https://wproxy.org/whistle/" target="_blank">Whistle</a>：代理抓包工具</li>
+      <li><a href="https://www.telerik.com/fiddler" target="_blank">Fiddler</a>：代理抓包工具</li>
+    </ul>
+  </section>
+
+  <section id="开发工具">
+    <h2>开发工具</h2>
+    <ul>
+      <li><a href="https://code.visualstudio.com/" target="_blank">VS Code</a></li>
+      <li><a href="https://www.sublimetext.com/" target="_blank">Sublime Text</a></li>
+      <li><a href="https://www.jetbrains.com/webstorm/" target="_blank">WebStorm</a></li>
+      <li><a href="https://atom.io/" target="_blank">Atom</a></li>
+    </ul>
+  </section>
+
+  <section id="在线工具">
+    <h2>在线工具</h2>
+    <ul>
+      <li><a href="https://ibb.co/KJyS60M/" target="_blank">CodePen</a>：在线保存图片工具</li>
+      <li><a href="https://codepen.io/" target="_blank">CodePen</a>：在线代码测试工具</li>
+      <li><a href="https://caniuse.com/" target="_blank">Can I use</a>：Web 前端兼容性查询</li>
+      <li><a href="https://tinypng.com/" target="_blank">TinyPNG</a>：图片压缩工具</li>
+      <li><a href="https://www.umeng.com/" target="_blank">CNZZ站点统计</a></li>
+    </ul>
+  </section>
+
+  <section id="设计工具">
+    <h2>设计工具</h2>
+    <ul>
+      <li><a href="https://modao.cc/" target="_blank">墨刀</a>：原型设计工具</li>
+      <li><a href="https://lanhuapp.com" target="_blank">蓝湖</a>：产品文档与协作平台</li>
+    </ul>
+  </section>
+
+  <section id="其他">
+    <h2>其他</h2>
+    <ul>
+      <li><a href="https://github.com/goldbergyoni/javascript-testing-best-practices" target="_blank">JavaScript 单元测试最佳实践</a></li>
+    </ul>
+  </section>
+
+</body>
+
+</html>
