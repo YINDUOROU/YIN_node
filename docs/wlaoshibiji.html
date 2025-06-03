@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>王さん笔记在线预览</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      margin: 0;
+    }
+    h2 {
+      margin-bottom: 10px;
+      font-size: 24px;
+      text-align: center;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    button {
+      flex: 1 1 120px;
+      max-width: 200px;
+      min-width: 100px;
+      padding: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    button.active {
+      background-color: #2e7d32;
+    }
+    #viewer {
+      display: none;
+      margin-top: 30px;
+      overflow-x: auto; /* 横向滚动支持 */
+    }
+    iframe {
+      min-width: 1000px; /* 防止裁剪内容 */
+      width: 100%;
+      height: 90vh;
+      border: none;
+    }
+    @media (max-width: 600px) {
+      button {
+        font-size: 13px;
+        padding: 8px;
+      }
+      h2 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<h2>📚 王さんの Word 笔记一览</h2>
+
+<!-- 搜索框 -->
+<input type="text" id="searchBox" placeholder="🔍 输入关键字过滤文档按钮，如 'Vue'、'PLSQL'..." onkeyup="filterButtons()">
+
+<!-- 按钮容器 -->
+<div class="button-container" id="buttonContainer">
+  <!-- 自动生成按钮 -->
+</div>
+
+<!-- 预览区域 -->
+<div id="viewer">
+  <iframe id="docFrame"></iframe>
+</div>
+
+<script>
+  const fileList = [
+    "Linux教程.docx", "MyBatis.docx",
+    "PLSQL.docx", "PLSQL相关概念问题.docx", "Shell教程.docx", "Spring Boot 的整体结构.docx",
+    "Spring Boot依赖注入的三种方法.docx", "Springboot补充.docx", "TypeScript.docx",
+    "Vue Router.docx", "Vue.docx", "vue考题解析.docx", "核心注解.docx",
+    "使用 MyBatis 完成 用户管理系统 的基础功能.docx", "事件循环.docx",
+    "日志级别的使用建议.docx", "浏览器渲染原理.docx"
+  ];
+
+  const rawPrefix = "https://raw.githubusercontent.com/yinduorou/YIN_node/main/Wteachermemo/";
+
+  const buttonContainer = document.getElementById("buttonContainer");
+  const viewer = document.getElementById("viewer");
+  const iframe = document.getElementById("docFrame");
+
+  // 初始化按钮
+  fileList.forEach(fileName => {
+    const btn = document.createElement("button");
+    btn.textContent = fileName.replace(".docx", "");
+    btn.setAttribute("data-file", fileName);
+    btn.onclick = () => showDoc(btn, fileName);
+    buttonContainer.appendChild(btn);
+  });
+
+  // 显示文档
+  function showDoc(button, fileName) {
+    document.querySelectorAll(".button-container button").forEach(b => b.classList.remove("active"));
+    button.classList.add("active");
+
+    const fullLink = rawPrefix + encodeURIComponent(fileName);
+    const officeLink = "https://view.officeapps.live.com/op/view.aspx?src=" + encodeURIComponent(fullLink);
+    iframe.src = officeLink;
+    viewer.style.display = "block";
+    viewer.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // 搜索过滤按钮
+  function filterButtons() {
+    const keyword = document.getElementById("searchBox").value.toLowerCase();
+    document.querySelectorAll(".button-container button").forEach(button => {
+      const text = button.textContent.toLowerCase();
+      button.style.display = text.includes(keyword) ? "inline-block" : "none";
+    });
+  }
+</script>
+
+</body>
+</html>

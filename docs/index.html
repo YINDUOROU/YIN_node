@@ -176,7 +176,35 @@
       color: rgba(255, 255, 255, 0.7);
     }
 
+    /* 占据一整行（宽度等于5列按钮） */
+    .long-button {
+      grid-column: span 5;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.25);
+      /* 更亮透明 */
+      backdrop-filter: blur(10px);
+      /* 模糊强度提升 */
+      box-shadow: 0 0 16px rgba(255, 255, 255, 0.3);
+      /* 发光感增强 */
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      /* 淡边框，提升边缘感 */
+      transition: all 0.3s ease;
+    }
+
+    /* Hover 效果：更亮更浮起来 */
+    .long-button:hover {
+      background: rgba(255, 255, 255, 0.35);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+      transform: scale(1.02);
+    }
+
+    /* 小屏时自动换为整行显示 */
     @media (max-width: 600px) {
+      .long-button {
+        grid-column: span 1;
+        width: 100%;
+      }
+
       .site-name {
         font-size: 1.4rem;
       }
@@ -242,7 +270,8 @@
 
 
     .description {
-      margin: 0;  /* 移除 p 的默认间距 */
+      margin: 0;
+      /* 移除 p 的默认间距 */
       font-family: 'LXGW WenKai', serif;
       font-size: 1.15rem;
       color: #ffffff;
@@ -315,12 +344,15 @@
       <a href="index_java.html" class="card" target="_blank">📝 Java</a>
       <a href="indexjs.html" class="card" target="_blank">📝 JavaScript</a>
       <a href="https://juejin.cn/post/7188066859638816828" class="card" target="_blank">📝 TypeScript</a>
-      <a href="https://www.imyjs.cn/Doc/Java/Mybatis2/index.html#/?id=mybatis%e7%ae%80%e4%bb%8b" class="card" target="_blank">📝 MyBatis</a>
+      <a href="https://www.imyjs.cn/Doc/Java/Mybatis2/index.html#/?id=mybatis%e7%ae%80%e4%bb%8b" class="card"
+        target="_blank">📝 MyBatis</a>
       <a href="SpringBoot_index.html" class="card" target="_blank">📝 Spring Boot</a>
-      <a href="https://github.com/wjfstruggle/CSS3?tab=readme-ov-file#html%E5%9F%BA%E7%A1%80" class="card" target="_blank">📝 HTML+CSS</a>
+      <a href="https://github.com/wjfstruggle/CSS3?tab=readme-ov-file#html%E5%9F%BA%E7%A1%80" class="card"
+        target="_blank">📝 HTML+CSS</a>
       <a href="https://github.com/jtwang7/Vue-Note?tab=readme-ov-file" class="card" target="_blank">📝 Vue</a>
-      <a href="javascript:void(0)" class="card" onclick="showToast()">
-        IT日语词汇复习システム
+      <a href="wlaoshibiji.html" class="card" target="_blank">🔍王さん笔记</a>
+      <a href="javascript:void(0)" class="card long-button" style="display: inline-block;" onclick="showToast()">
+        <i class="fas fa-language" style="margin-right: 6px;"></i>IT日语词汇复习システム
       </a>
     </section>
 
