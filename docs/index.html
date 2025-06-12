@@ -351,7 +351,7 @@
         target="_blank">📝 HTML+CSS</a>
       <a href="https://github.com/jtwang7/Vue-Note?tab=readme-ov-file" class="card" target="_blank">📝 Vue</a>
       <a href="wlaoshibiji.html" class="card" target="_blank">🔍王さん笔记</a>
-      <a href="javascript:void(0)" class="card long-button" style="display: inline-block;" onclick="showToast()">
+      <a href="http://18.183.47.75:8080/" class="card long-button" style="display: inline-block;" target="_blank">
         <i class="fas fa-language" style="margin-right: 6px;"></i>IT日语词汇复习システム
       </a>
     </section>
@@ -378,16 +378,7 @@
     setInterval(updateTime, 1000);
     updateTime();
 
-    function showToast() {
-      const toast = document.getElementById("toast");
-      toast.classList.add("show");
-      setTimeout(() => {
-        toast.classList.remove("show");
-      }, 3000); // 显示 3 秒后自动隐藏
-    }
-
   </script>
-  <div id="toast">🚧 和小伙伴们正在使劲开发中！再等等...</div>
 </body>
 
 </html>
