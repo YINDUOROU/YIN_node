@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>前端面试 PDF 题库在线浏览</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h2 { margin-bottom: 10px; text-align: center; }
+        input[type="text"] { width: 100%; padding: 10px; margin-bottom: 20px; border-radius: 6px; border: 1px solid #ccc; }
+        .button-container { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+        button { min-width: 180px; padding: 10px; font-size: 14px; cursor: pointer; background: #1976d2; color: #fff; border: none; border-radius: 6px; }
+        button.active { background: #1565c0; }
+        #viewer { display: none; margin-top: 30px; }
+        iframe { width: 100%; height: 90vh; border: none; }
+    </style>
+</head>
+<body>
+    <h2>前端面试 PDF 题库在线浏览</h2>
+    <input type="text" id="searchBox" placeholder="输入关键字过滤文档..." onkeyup="filterButtons()">
+    <div class="button-container" id="buttonContainer"></div>
+    <div id="viewer">
+        <iframe id="pdfFrame"></iframe>
+    </div>
+    <script>
+        const fileList = [
+            "1.JavaScript面试真题-210页.pdf",
+            "2.ES6面试真题-84页.pdf",
+            "3.Vue面试真题-237页.pdf",
+            "4.React面试真题-156页.pdf",
+            "5.Node.js面试真题-71页.pdf",
+            "6.小程序面试真题-37页.pdf",
+            "7.HTTP面试真题-62页.pdf",
+            "8.Typescript面试真题-62页.pdf",
+            "9.Webpack面试真题-59页.pdf",
+            "10.算法面试真题-82页.pdf",
+            "11.设计模式面试真题-31页.pdf",
+            "12.CSS面试真题-127页.pdf"
+        ];
+
+        const rawPrefix = "https://raw.githubusercontent.com/yinduorou/YIN_node/main/Wteachermemo/";
+
+        const buttonContainer = document.getElementById("buttonContainer");
+        const viewer = document.getElementById("viewer");
+        const iframe = document.getElementById("pdfFrame");
+
+        // 生成按钮
+        fileList.forEach(fileName => {
+            const btn = document.createElement("button");
+            btn.textContent = fileName.replace(".pdf", "");
+            btn.setAttribute("data-file", fileName);
+            btn.onclick = () => showPDF(btn, fileName);
+            buttonContainer.appendChild(btn);
+        });
+
+        function showPDF(button, fileName) {
+            document.querySelectorAll(".button-container button").forEach(b => b.classList.remove("active"));
+            button.classList.add("active");
+            const fullLink = rawPrefix + encodeURIComponent(fileName);
+            iframe.src = fullLink;
+            // 如直接预览不行，可用 Google Docs Viewer 方式
+            // iframe.src = "https://docs.google.com/gview?url=" + encodeURIComponent(fullLink) + "&embedded=true";
+            viewer.style.display = "block";
+            viewer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function filterButtons() {
+            const keyword = document.getElementById("searchBox").value.toLowerCase();
+            document.querySelectorAll(".button-container button").forEach(button => {
+                const text = button.textContent.toLowerCase();
+                button.style.display = text.includes(keyword) ? "inline-block" : "none";
+            });
+        }
+    </script>
+</body>
+</html>
