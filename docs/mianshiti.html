@@ -9,10 +9,28 @@
         h2 { margin-bottom: 10px; text-align: center; }
         input[type="text"] { width: 100%; padding: 10px; margin-bottom: 20px; border-radius: 6px; border: 1px solid #ccc; }
         .button-container { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-        button { min-width: 180px; padding: 10px; font-size: 14px; cursor: pointer; background: #1976d2; color: #fff; border: none; border-radius: 6px; }
-        button.active { background: #1565c0; }
+        .btn-group { display: flex; margin-bottom: 10px; }
+        button {
+            min-width: 140px;
+            padding: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            border-radius: 6px;
+            box-sizing: border-box;
+            margin-right: 5px;
+            transition: background 0.2s;
+        }
+        .preview-btn { background: #1976d2; color: #fff; }
+        .preview-btn.active { background: #1565c0; }
+        .download-btn { background: #388e3c; color: #fff; }
         #viewer { display: none; margin-top: 30px; }
         iframe { width: 100%; height: 90vh; border: none; }
+        @media (max-width: 600px) {
+            button { min-width: 80px; font-size: 12px; padding: 8px; }
+            h2 { font-size: 20px; }
+            .btn-group { flex-direction: column; }
+        }
     </style>
 </head>
 <body>
@@ -44,31 +62,53 @@
         const viewer = document.getElementById("viewer");
         const iframe = document.getElementById("pdfFrame");
 
-        // 生成按钮
+        // 生成每组按钮（预览+下载）
         fileList.forEach(fileName => {
-            const btn = document.createElement("button");
-            btn.textContent = fileName.replace(".pdf", "");
-            btn.setAttribute("data-file", fileName);
-            btn.onclick = () => showPDF(btn, fileName);
-            buttonContainer.appendChild(btn);
+            const btnGroup = document.createElement("div");
+            btnGroup.className = "btn-group";
+
+            // 预览按钮
+            const previewBtn = document.createElement("button");
+            previewBtn.textContent = "预览：" + fileName.replace(".pdf", "");
+            previewBtn.className = "preview-btn";
+            previewBtn.onclick = () => showPDF(previewBtn, fileName);
+
+            // 下载按钮
+            const downloadBtn = document.createElement("button");
+            downloadBtn.textContent = "⬇️下载";
+            downloadBtn.className = "download-btn";
+            downloadBtn.onclick = () => {
+                const fullLink = rawPrefix + encodeURIComponent(fileName);
+                // 用a标签下载方式避免新窗口阻止，兼容性最佳
+                const a = document.createElement("a");
+                a.href = fullLink;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            };
+
+            btnGroup.appendChild(previewBtn);
+            btnGroup.appendChild(downloadBtn);
+            buttonContainer.appendChild(btnGroup);
         });
 
         function showPDF(button, fileName) {
-            document.querySelectorAll(".button-container button").forEach(b => b.classList.remove("active"));
+            // 移除所有激活态
+            document.querySelectorAll(".preview-btn").forEach(b => b.classList.remove("active"));
             button.classList.add("active");
             const fullLink = rawPrefix + encodeURIComponent(fileName);
-            iframe.src = fullLink;
-            // 如直接预览不行，可用 Google Docs Viewer 方式
-            // iframe.src = "https://docs.google.com/gview?url=" + encodeURIComponent(fullLink) + "&embedded=true";
+            // 用Google Docs Viewer预览
+            iframe.src = "https://docs.google.com/gview?url=" + encodeURIComponent(fullLink) + "&embedded=true";
             viewer.style.display = "block";
             viewer.scrollIntoView({ behavior: 'smooth' });
         }
 
         function filterButtons() {
             const keyword = document.getElementById("searchBox").value.toLowerCase();
-            document.querySelectorAll(".button-container button").forEach(button => {
-                const text = button.textContent.toLowerCase();
-                button.style.display = text.includes(keyword) ? "inline-block" : "none";
+            document.querySelectorAll(".btn-group").forEach(group => {
+                const text = group.firstChild.textContent.toLowerCase();
+                group.style.display = text.includes(keyword) ? "flex" : "none";
             });
         }
     </script>
